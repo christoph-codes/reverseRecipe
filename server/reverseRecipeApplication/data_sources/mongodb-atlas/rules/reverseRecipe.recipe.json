@@ -1,0 +1,61 @@
+{
+    "database": "reverseRecipeDB",
+    "collection": "reverseRecipeRecipe",
+    "roles": [
+        {
+            "name": "default",
+            "apply_when": {},
+            "write": true,
+            "insert": true,
+            "delete": true,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "title": "Recipe",
+        "bsonType": "object",
+        "required": [
+            "_id",
+            "name",
+            "description",
+            "ingredients",
+            "category"
+        ],
+        "properties": {
+            "_id": {"bsonType": "objectId"},
+            "name": {"bsonType": "string"},
+            "description": {
+                "bsonType": "string",
+                "maxLength": 1000
+            },
+            "cookTime": {"bsonType": "string"},
+            "ingredients": {
+                "bsonType": "array",
+                "items": {"bsonType": "Ingredient"}
+            },
+            "instructions": {"bsonType": "string"},
+            "measurements": {
+                "bsonType": "array",
+                "items": {"bsonType": "string"}
+            },
+            "category": {
+                "bsonType": "string",
+                "enum": [
+                    "American",
+                    "Chinese",
+                    "Spanish",
+                    "Italian",
+                    "Greek",
+                    "Italian",
+                    "Japanese",
+                    "French",
+                    "Thai",
+                    "Indian",
+                    "Mediterranean"
+                ]
+            },
+            "createdAt": {"bsonType": "string"},
+            "updatedAt": {"bsonType": "string"}
+        }
+    }
+}
