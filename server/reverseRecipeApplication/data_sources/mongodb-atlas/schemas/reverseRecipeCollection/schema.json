@@ -1,0 +1,64 @@
+{
+    "title": "Recipe",
+    "bsonType": "object",
+    "required": [
+        "_id",
+        "name",
+        "description",
+        "ingredients",
+        "category"
+    ],
+    "properties": {
+        "_id": {"bsonType": "objectId"},
+        "name": {"bsonType": "string"},
+        "description": {
+            "bsonType": "string",
+            "maxLength": 1000
+        },
+        "cookTime": {"bsonType": "string"},
+        "ingredients": {
+            "bsonType": "array",
+            "items": {"bsonType": "Ingredient"}
+        },
+        "instructions": {"bsonType": "string"},
+        "measurements": {
+            "bsonType": "array",
+            "items": {"bsonType": "string"}
+        },
+        "category": {
+            "bsonType": "string",
+            "enum": [
+                "American",
+                "Chinese",
+                "Spanish",
+                "Italian",
+                "Greek",
+                "Italian",
+                "Japanese",
+                "French",
+                "Thai",
+                "Indian",
+                "Mediterranean"
+            ]
+        }
+    }
+}
+{
+    "title": "Ingredient",
+    "bsonType": "object",
+    "required": [
+        "_id",
+        "name"
+    ],
+    "properties": {
+        "_id": {"bsonType": "objectId"},
+        "name": {
+            "bsonType": "string",
+            "validate": {
+                "%or": [
+                  { "%%prev": { "%exists": false } }
+                ]
+              }
+        }
+    }
+}
