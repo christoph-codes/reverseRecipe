@@ -1,0 +1,14 @@
+{
+    "title": "Ingredient",
+    "bsonType": "object",
+    "required": [
+        "_id",
+        "name"
+    ],
+    "properties": {
+        "_id": {"bsonType": "objectId"},
+        "name": {
+            "bsonType": "string"
+        }
+    }
+}

@@ -1,6 +1,6 @@
 {
     "database": "reverseRecipeDB",
-    "collection": "reverseRecipeCollection",
+    "collection": "reverseRecipeRecipe",
     "roles": [
         {
             "name": "default",
