@@ -1,32 +1,58 @@
 {
     "title": "Recipe",
     "bsonType": "object",
+    "description": "Object representing a Recipe.",
     "required": [
         "_id",
         "name",
-        "description",
+        "recipeDescription",
         "ingredients",
         "category"
     ],
     "properties": {
-        "_id": {"bsonType": "objectId"},
-        "name": {"bsonType": "string"},
-        "description": {
-            "bsonType": "string",
-            "maxLength": 1000
+        "_id": {
+            "bsonType": "objectId",
+            "description": "objectId - The Unique identifier for this recipe.",
+            "title": "Recipe ID."
         },
-        "cookTime": {"bsonType": "string"},
+        "name": {
+            "bsonType": "string",
+            "description": "string - The name/title of this recipe.",
+            "title": "Recipe name."
+        },
+        "recipeDescription": {
+            "bsonType": "string",
+            "maxLength": 1000,
+            "description": "string - A brief description of this recipe.",
+            "title": "Recipe description."
+        },
+        "cookTime": {
+            "bsonType": "int",
+            "description": "int - The approximate time for this recipe in 5 minute intervals.",
+            "title": "Recipe cook time."
+        },
         "ingredients": {
             "bsonType": "array",
-            "items": {"bsonType": "Ingredient"}
+            "uniqueItems": true,
+            "items": {"bsonType": "objectId"},
+            "description": "[objectId] - An array of ID's listing all ingredients in this recipe.",
+            "title": "Ingredient map for this recipe."
         },
-        "instructions": {"bsonType": "string"},
+        "instructions": {
+            "bsonType": "string",
+            "description": "string - The cooking instructions for this recipe.",
+            "title": "Recipe instructions."
+        },
         "measurements": {
             "bsonType": "array",
-            "items": {"bsonType": "string"}
+            "items": {"bsonType": "string"},
+            "description": "[string] - An array of measurements where each item corresponds to an ingredient.",
+            "title": "Ingredient measurements."
         },
         "category": {
-            "bsonType": "string"
+            "bsonType": "string",
+            "description": "string - The category of this recipe (i.e. American, Thai, French, etc).",
+            "title": "Recipe category."
         }
     }
 }
