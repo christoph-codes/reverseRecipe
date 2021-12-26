@@ -1,0 +1,26 @@
+{
+    "title": "ingredient",
+    "bsonType": "object",
+    "description": "Object representing an Ingredient.",
+    "required": [
+        "_id",
+        "name"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "title": "ingredient id"
+        },
+        "name": {
+            "bsonType": "string",
+            "title": "ingredient name"
+        },
+        "recipes": {
+            "bsonType": "array",
+            "uniqueItems": true,
+            "items": {"bsonType": "objectId"},
+            "description": "[objectId] - An array of ID's listing all recipes this ingredient belongs to.",
+            "title": "recipes"
+        }
+    }
+}

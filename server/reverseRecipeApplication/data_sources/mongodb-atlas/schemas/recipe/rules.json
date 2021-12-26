@@ -1,0 +1,12 @@
+{
+    "database": "reverseRecipeDB",
+    "collection": "reverseRecipeRecipe",
+    "roles": [
+        {
+            "name": "default",
+            "write": true,
+            "insert": true,
+            "delete": true
+        }
+    ]
+}
