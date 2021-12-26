@@ -1,0 +1,39 @@
+{
+    "title": "user",
+    "bsonType": "object",
+    "description": "Object representing a user.",
+    "required": [
+        "_id",
+        "first",
+        "last",
+        "email",
+        "role"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "title": "user id"
+        },
+        "first": {
+            "bsonType": "string",
+            "title": "user first name"
+        },
+        "last": {
+            "bsonType": "string",
+            "title": "user last name"
+        },
+        "email": {
+            "bsonType": "string",
+            "title": "user email"
+        },
+        "role": {
+            "bsonType": "string",
+            "description": "string - describes this users permissions by role.",
+            "title": "user role",
+            "enum": [
+                "USER",
+                "ADMIN"
+            ]
+        }
+    }
+}

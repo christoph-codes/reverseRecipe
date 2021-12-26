@@ -1,0 +1,103 @@
+{
+    "title": "audit",
+    "bsonType": "object",
+    "description": "object - Object representing a Audit Log.",
+    "required": [
+        "_id",
+        "objectType",
+        "referenceID",
+        "updates",
+        "createdAt"
+    ],
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "title": "audit id"
+        },
+        "objectType": {
+            "bsonType": "string",
+            "description": "string - The object type this audit is referencing.",
+            "title": "object type",
+            "enum": [
+                "INGREDIENT",
+                "RECIPE",
+                "USER",
+                "AUDIT"
+            ]
+        },
+        "referenceID": {
+            "bsonType": "objectId",
+            "description": "objectId - ID reference to object for this audit.",
+            "title": "reference id"
+        },
+        "updates": {
+            "bsonType": "object",
+            "additionalProperties": {
+                "bsonType": "object",
+                "title": "updates",
+                "properties": {
+                    "date": {
+                        "bsonType": "string",
+                        "title": "date"
+                    },
+                    "updateInfo": {
+                        "bsonType": "string",
+                        "description": "string - JSON string representing updates.",
+                        "title": "update description"
+                    }
+                }
+            },
+            "description": "Dictionary - Dictionary of embedded error objects.",
+            "title": "audit errors"
+        },
+        "createdAt": {
+            "bsonType": "string",
+            "description": "string - The date when this audit was created.",
+            "title": "creation date"
+        },
+        "createdBy": {
+            "bsonType": "string",
+            "description": "string - An optional created by field. Some audits may be created or edited by the system and this field will be null.",
+            "title": "creation author"
+        },
+        "errors": {
+            "bsonType": "object",
+            "additionalProperties": {
+                "bsonType": "object",
+                "title": "errors",
+                "properties": {
+                    "date": {
+                        "bsonType": "string",
+                        "title": "date"
+                    },
+                    "errorDescription": {
+                        "bsonType": "string",
+                        "description": "string - Description of the error.",
+                        "title": "error description"
+                    }
+                }
+            },
+            "description": "Dictionary - Dictionary of embedded error objects.",
+            "title": "audit errors"
+        },
+        "additionalInfo": {
+            "bsonType": "object",
+            "additionalProperties": {
+                "bsonType": "object",
+                "title": "information",
+                "properties": {
+                    "date": {
+                        "bsonType": "string",
+                        "title": "date"
+                    },
+                    "info": {
+                        "bsonType": "string",
+                        "title": "information"
+                    }
+                }
+            },
+            "description": "Dictionary - Dictionary of embedded additional information objects.",
+            "title": "audit additional information"
+        }
+    }
+}
