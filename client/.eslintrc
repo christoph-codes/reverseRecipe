@@ -1,5 +1,9 @@
 {
-	"extends": ["next/core-web-vitals", "plugin:jsx-a11y/recommended"],
+	"extends": [
+		"next/core-web-vitals",
+		"plugin:jsx-a11y/recommended",
+		"next/babel"
+	],
 	"plugins": ["jsx-a11y", "react", "react-hooks", "jsx-a11y", "prettier"],
 	"rules": {
 		"react/jsx-filename-extension": [
