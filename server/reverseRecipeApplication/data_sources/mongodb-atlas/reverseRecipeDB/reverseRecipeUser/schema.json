@@ -1,14 +1,6 @@
 {
-    "title": "user",
     "bsonType": "object",
     "description": "Object representing a user.",
-    "required": [
-        "_id",
-        "first",
-        "last",
-        "email",
-        "role"
-    ],
     "properties": {
         "_id": {
             "bsonType": "objectId",
@@ -22,18 +14,29 @@
             "bsonType": "string",
             "title": "user last name"
         },
-        "email": {
-            "bsonType": "string",
-            "title": "user email"
+        "savedRecipes": {
+            "bsonType": "array",
+            "items": {"bsonType": "objectId"},
+            "description": "[objectId] - An array of reference id's for this users saved recipes.",
+            "title": "user saved recipes"
         },
         "role": {
             "bsonType": "string",
             "description": "string - describes this users permissions by role.",
-            "title": "user role",
             "enum": [
                 "USER",
                 "ADMIN"
-            ]
+            ],
+            "title": "user role"
         }
-    }
+    },
+    "required": [
+        "_id",
+        "first",
+        "last",
+        "email",
+        "role"
+    ],
+    "title": "user"
 }
+

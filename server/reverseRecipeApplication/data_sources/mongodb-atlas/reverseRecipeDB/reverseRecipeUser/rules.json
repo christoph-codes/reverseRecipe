@@ -1,0 +1,28 @@
+{
+    "collection": "reverseRecipeUser",
+    "database": "reverseRecipeDB",
+    "roles": [
+        {
+            "name": "Admin",
+            "apply_when": { "%%user.custom_data.role": "ADMIN" },
+            "insert": true,
+            "delete": true,
+            "read": true,
+            "write": true,
+            "search": true,
+            "fields": {},
+            "additional_fields": {}
+        },
+        {
+            "name": "Default",
+            "apply_when": {},
+            "insert": false,
+            "delete": false,
+            "read": false,
+            "write": false,
+            "search": false,
+            "fields": {},
+            "additional_fields": {}
+        }
+    ]
+}

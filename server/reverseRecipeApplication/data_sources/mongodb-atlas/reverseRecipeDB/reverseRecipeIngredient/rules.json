@@ -1,0 +1,31 @@
+{
+    "collection": "reverseRecipeIngredient",
+    "database": "reverseRecipeDB",
+    "roles": [
+        {
+            "name": "Admin",
+            "apply_when": { "%%user.custom_data.role": "ADMIN" },
+            "insert": true,
+            "delete": true,
+            "read": true,
+            "write": true,
+            "search": true,
+            "fields": {},
+            "additional_fields": {}
+        },
+        {
+            "name": "User",
+            "apply_when": { 
+                "%%user.custom_data.role": "User",
+                "%%user": { "%exists": false }
+            },
+            "insert": false,
+            "delete": false,
+            "read": true,
+            "write": false,
+            "search": true,
+            "fields": {},
+            "additional_fields": {}
+        }
+    ]
+}
