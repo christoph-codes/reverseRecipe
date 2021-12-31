@@ -1,6 +1,9 @@
 /**
- * Returns a list of audits if the user has ADMIN permissions.
- * @returns list of audits or error
+ * Returns a list of audits.
+ * Must have ADMIN permissions.
+ * 
+ * @returns List of audits.
+ * @returns Permissions error.
  */
 exports = async function() {
     const cluster = context.services.get("mongodb-atlas");
