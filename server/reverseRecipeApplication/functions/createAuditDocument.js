@@ -1,12 +1,9 @@
 /**
  * Creates an audit document.
- * If no additionalInfo field is passed then null is set.
- * If no createdAt field is passed then Date.now() is set.
- * If no createdBy field is passed then null is set.
- * If no updatedAt field is passed then Date.now() is set.
+ * Must have ADMIN permissions.
  * 
- * @param audit - audit object that must contain object, objectType, and referenceID fields
- * @returns audit document that was inserted or error
+ * @param audit - Audit object to be inserted.
+ * @returns Audit document that was inserted or permissions error.
  */
 exports = async function({audit}) {
     const cluster = context.services.get('mongodb-atlas');
@@ -21,13 +18,13 @@ exports = async function({audit}) {
 
     return audits.insertOne({
         'additionalInfo': audit.additionalInfo || null,
-        'createdAt': Date.now(),
+        'createdAt': audit.createdAt || Date.now(),
         'createdBy': audit.createdBy || null,
         'errors': audit.errors || null,
-        'object': audit.object,
-        'objectType': audit.objectType,
-        'referenceID': audit.referenceID,
-        'updatedAt': Date.now()
+        'object': audit.object || null,
+        'objectType': audit.objectType || null,
+        'referenceID': audit.referenceID || null,
+        'updatedAt': audit.updatedAt || Date.now()
     });
 };
 

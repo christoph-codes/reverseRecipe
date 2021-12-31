@@ -1,10 +1,12 @@
 /**
  * Creates a new user document.
- * If no savedRecipes field is passed then an empty array is set.
- * If no role field is passed then null is set.
+ * This document represents the custom_data attached to a user from the 
+ * perspective of the authorization provider.
+ * Must have ADMIN permissions.
  * 
- * @param user - user object that must contain first and last fields
- * @returns user object that was inserted or error message
+ * @param user - User object to be inserted.
+ * @returns The inserted user and its audit.
+ * @returns If there is an error the returned object(s) will only have an error field.
  */
 exports = async function({user}) {
     const cluster = context.services.get('mongodb-atlas');
@@ -13,16 +15,29 @@ exports = async function({user}) {
     const caller = context.user;
     const {role} = caller.custom_data;
 
-    if (!role || role === 'USER') {
-        return {'error': 'You do not have permission to create a user document.'};
+    if (!caller || role !== 'ADMIN') {
+        return {'error': 'You do not have the correct permissions.'};
     }
 
-    return users.insertOne({
+    const inserted = await users.insertOne({
         'first': user.first,
         'last': user.last,
         'savedRecipes': user.savedRecipes || [],
         'role': user.role || null
     });
+
+    const audit = await context.functions.createAuditDocument({
+        'additionalInfo': null,
+        'createdAt': Date.now(),
+        'createdBy': caller.id || 'SYSTEM',
+        'errors': inserted.error || null,
+        'object': inserted || null,
+        'objectType': 'USER',
+        'referenceID': inserted._id || null,
+        'updatedAt': Date.now()
+    });
+
+    return {'user': inserted, 'audit': audit};
 };
 
 if (typeof module === 'object') {
