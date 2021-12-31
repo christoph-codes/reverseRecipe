@@ -1,11 +1,10 @@
 /**
  * Creates a new recipe document.
- * If no cookTime field is passed then null is set.
- * If no instructions field is passed then null is set.
- * If no measurements field is passed then null is set.
+ * Must have ADMIN permissions.
  * 
- * @param recipe - recipe object that must include category, ingredients, name, and recipeDescription
- * @returns recipe document that was inserted or error message
+ * @param recipe - Recipe object to be inserted.
+ * @returns The inserted Recipe and its audit.
+ * @returns If there is an error the returned object(s) will only have an error field.
  */
 exports = async function({recipe}) {
     const cluster = context.services.get('mongodb-atlas');
@@ -18,7 +17,7 @@ exports = async function({recipe}) {
         return {'error': 'You must have ADMIN permissions to create a recipe.'};
     }
 
-    return recipes.insertOne({
+    const inserted = await recipes.insertOne({
         'category': recipe.category,
         'cookTime': recipe.cookTime || null,
         'ingredients': recipe.ingredients,
@@ -27,6 +26,19 @@ exports = async function({recipe}) {
         'name': recipe.name,
         'recipeDescription': recipe.recipeDescription
     });
+
+    const audit = await context.functions.createAuditDocument({
+        'additionalInfo': null,
+        'createdAt': Date.now(),
+        'createdBy': context.user.id || 'SYSTEM',
+        'errors': inserted.error || null,
+        'object': inserted || null,
+        'objectType': 'RECIPE',
+        'referenceID': inserted._id || null,
+        'updatedAt': Date.now()
+    });
+
+    return {'recipe': inserted, 'audit': audit};
 };
 
 if (typeof module === 'object') {
