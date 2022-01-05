@@ -17,5 +17,7 @@
     "url": "https://github.com/DebitTwo/reverseRecipe/issues"
   },
   "homepage": "https://github.com/DebitTwo/reverseRecipe#readme",
-  "dependencies": {}
+  "dependencies": {
+    "graphql-tag": "^2.12.6"
+  }
 }
