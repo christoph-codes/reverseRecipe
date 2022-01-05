@@ -2,15 +2,16 @@ import React from 'react';
 import { useServerApp } from './serverApp';
 import {
   ApolloClient,
+  ApolloProvider,
   HttpLink,
   InMemoryCache,
-  ApolloProvider,
 } from '@apollo/client';
 
 const createServerClient = (app: any) => {
   const link = new HttpLink({
     uri: `https://realm.mongodb.com/api/client/v2.0/app/${app.id}/graphql`,
     fetch: async (uri: any, options: any) => {
+      // We want guests to be able to use certain parts of the app so this might need to change.
       if (!app.currentUser) {
         throw new Error(`No user logged in...`);
       }
@@ -25,15 +26,15 @@ const createServerClient = (app: any) => {
   return new ApolloClient({ link, cache });
 };
 
-export default function serverProvider({children}) {
-    const app = useServerApp();
-    const [client, setClient] = React.useState(createServerClient(app));
-    React.useEffect(() => {
-        setClient(createServerClient(app));
-    }, [app]);
-    return (
-        <ApolloProvider client={client}>
-            {children}
-        </ApolloClient>
-    );
+export default function serverProvider({children}: {children: any}) {
+  const app = useServerApp();
+  const [client, setClient] = React.useState(createServerClient(app));
+  React.useEffect(() => {
+      setClient(createServerClient(app));
+  }, [app]);
+  return (
+    <ApolloProvider client={client}>
+      {children}
+    </ApolloProvider>
+  );
 }
