@@ -4,15 +4,15 @@ import * as Realm from 'realm-web';
 // create context
 // this allows us to pass shit throughout all components without
 // passing to each child
-const AppContext: any = React.createContext();
+const AppContext: any = React.createContext(null);
 
 interface providerProps {
     appId: any,
     children: any
 };
 
-// function to protext the context from being used anywhere else
-export const useApp = () => {
+// function to set and protect the context from being used elsewhere
+export const useServerApp = () => {
     const app: any = React.useContext(AppContext);
 
     if (!app) {
