@@ -1,0 +1,27 @@
+@import './styles/variables';
+@import './styles/utilities';
+.Row {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1 0;
+	.Col {
+		flex: 1 0;
+		box-sizing: border-box;
+		&[class*='COL-'] {
+			flex: 0 0 auto;
+		}
+
+		@include generateColumnClasses(
+			$columns,
+			$breakpoints,
+			$gutterWidthCols,
+			$extraGutters
+		);
+	}
+	@include generateRowClasses(
+		$columns,
+		$breakpoints,
+		$gutterWidthCols,
+		$extraGutters
+	);
+}

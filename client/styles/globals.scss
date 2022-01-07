@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import './typography';
+@import './colors';
+@import './utilities';
+@import './variables';
+@import './spacing';
+@import './layout';
 html,
 body {
 	padding: 0;
@@ -6,7 +11,7 @@ body {
 	font-family: Roboto, sans-serif;
 }
 a {
-	color: inherit;
+	color: $primary;
 	text-decoration: none;
 }
 * {
