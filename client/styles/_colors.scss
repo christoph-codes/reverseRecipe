@@ -1,0 +1,63 @@
+@import './utilities';
+@import './variables';
+$primary: #7C183E;
+$primary-light: #A55674;
+$primary-bright: #FCF2F2;
+$default: #6E3F51;
+$darkup: #261D1D;
+$dark: #191212;
+
+$blue: #3E6DBA;
+$blue-bright: #F8FBFF;
+$green: #42CB77;
+$green-bright: #F4FDF7;
+$red: #D64545;
+$red-bright: #FdF5F5;
+$yellow: #EDAE4A;
+$yellow-bright: #FFFBF4;
+
+$gray: #DEDEDE;
+$gray-light: #EFEFEF;
+$gray-bright: #F7F7F7;
+
+$white: #FFFFFF;
+$black: #000000;
+
+$colors: (
+    primary: $primary,
+    primary-light: $primary-light,
+    primary-bright: $primary-bright,
+    default: $default,
+    darkup: $darkup,
+    dark: $dark,
+    blue: $blue,
+    blue-bright: $blue-bright,
+    green: $green,
+    green-bright: $green-bright,
+    red: $red,
+    red-bright: $red-bright,
+    yellow: $yellow,
+    yellow-bright: $yellow-bright,
+    gray: $gray,
+    gray-light: $gray-light,
+    gray-bright: $gray-bright,
+    white: $white,
+    black: $black,
+);
+
+$colorAttributes: (
+    'bg': background-color,
+    'text': color,
+    'border': border-color,
+);
+
+@mixin color-modifiers($colors, $colorAttributes) {
+    @each $attributeLabel, $property in $colorAttributes {
+        @each $colorLabel, $hex in $colors {
+            .#{$attributeLabel}-#{"" + $colorLabel} {
+                #{$property}: $hex;
+              }
+        }
+    }
+}
+@include color-modifiers($colors, $colorAttributes);
