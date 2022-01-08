@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Row from '../../components/Row';
 import Col from '../../components/Col';
+import Button from '../../components/Button';
 import Container from '../../components/Container/Container';
 import styles from './Playground.module.scss';
 import Section from '../../components/Section';
@@ -18,26 +19,39 @@ const Playground = () => {
 				/>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-
+			<h2>Navbar</h2>
 			<Navbar />
 			<Section className="bg-primary-bright">
 				<Container>
-					<h1>
-						<Image
-							src="/rr-logo-light.svg"
-							width="100%"
-							height="100%"
-							layout="intrinsic"
-							alt="Reverse Recipe Logo"
-						/>
-					</h1>
+					<h2>Logos</h2>
+					<Image
+						src="/rr-logo-dark.svg"
+						width="100%"
+						height="100%"
+						layout="intrinsic"
+						alt="Reverse Recipe Logo"
+					/>
+					<Image
+						src="/rr-logo-light.svg"
+						width="100%"
+						height="100%"
+						layout="intrinsic"
+						alt="Reverse Recipe Logo"
+					/>
+					<h2>Rows & Columns</h2>
 					<Row>
-						<Col xs={6} className="text-white">
-							Hello
+						<Col xs={4} className="text-white">
+							Column 1
 						</Col>
-						<Col xs={6}>Hello2</Col>
-						<Col xs={6}>Hello3</Col>
+						<Col xs={4}>Column 2</Col>
+						<Col xs={4}>Column 3</Col>
 					</Row>
+					<h2>Buttons</h2>
+					<Button>Find Recipe</Button>
+					<hr />
+					<Button variant="secondary">Find Recipe</Button>
+					<hr />
+					<Button variant="tertiary">Find Recipe</Button>
 				</Container>
 			</Section>
 			<Image

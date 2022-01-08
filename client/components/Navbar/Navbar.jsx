@@ -7,7 +7,7 @@ import Container from '../Container';
 import NavLink from '../NavLink';
 import styles from './Navbar.module.scss';
 
-const Navbar = ({ props }) => {
+const Navbar = ({ ...rest }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const navLinks = [
 		{
@@ -36,7 +36,7 @@ const Navbar = ({ props }) => {
 		setSidebarOpen(!sidebarOpen);
 	};
 	return (
-		<div className={`${styles.Navbar} bg-primary text-white`}>
+		<div className={`${styles.Navbar} bg-primary text-white`} {...rest}>
 			<Container as={Row}>
 				<Col xs="auto" className={styles.NavbarLogo}>
 					<Link href="/">
