@@ -27,6 +27,7 @@ const Navbar = ({ props }) => {
 			link: '/signup',
 		},
 		{
+			// Remove playground from navbar
 			label: 'Playground',
 			link: '/playground',
 		},
