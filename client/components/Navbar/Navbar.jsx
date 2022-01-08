@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { string } from 'prop-types';
 import Image from 'next/image';
 import Link from 'next/link';
 import Col from '../Col';
@@ -7,7 +8,7 @@ import Container from '../Container';
 import NavLink from '../NavLink';
 import styles from './Navbar.module.scss';
 
-const Navbar = ({ ...rest }) => {
+const Navbar = ({ className, ...rest }) => {
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const navLinks = [
 		{
@@ -111,3 +112,11 @@ const Navbar = ({ ...rest }) => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+	className: string,
+};
+
+Navbar.defaultProps = {
+	className: '',
+};
