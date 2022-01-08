@@ -5,6 +5,7 @@ import Col from '../../components/Col';
 import Container from '../../components/Container/Container';
 import styles from './Playground.module.scss';
 import Section from '../../components/Section';
+import Navbar from '../../components/Navbar';
 
 const Playground = () => {
 	return (
@@ -18,7 +19,8 @@ const Playground = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<Section className="bg-primary">
+			<Navbar />
+			<Section className="bg-primary-bright">
 				<Container>
 					<h1>
 						<Image

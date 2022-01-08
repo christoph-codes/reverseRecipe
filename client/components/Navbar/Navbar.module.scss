@@ -1,0 +1,91 @@
+@import '../../styles/colors';
+.Navbar {
+	align-items: center;
+	padding: 0.5rem 0;
+	&Logo {
+		img {
+			@media (max-width: 48rem) {
+				width: 100%;
+			}
+		}
+	}
+	&Navigation {
+		text-align: right;
+		margin: 0;
+		@media (max-width: 48rem) {
+			display: none;
+		}
+		&Link {
+			display: inline-flex;
+			margin-left: 2rem;
+			margin-bottom: 0;
+			&Active {
+				color: $primary-bright !important;
+			}
+			a {
+				color: $primary-light;
+				line-height: 3rem;
+				transition: 0.15s;
+				&:hover {
+					color: $primary-bright;
+				}
+			}
+		}
+	}
+	&Hamburger {
+		display: none;
+		@media (max-width: 48rem) {
+			display: block;
+			text-align: right;
+		}
+		button {
+			border: none;
+			background-color: transparent;
+			padding: 1rem;
+			cursor: pointer;
+			margin-right: -1.75rem;
+		}
+	}
+	&Sidebar {
+		width: 20rem;
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 100%;
+		background: $primary;
+		box-shadow: none;
+		transform: translateX(100%);
+		transition: transform 0.15s ease-in-out;
+		z-index: 10;
+		&Open {
+			transform: translateX(0);
+			box-shadow: 0 0 1.5rem 0rem black;
+		}
+		button {
+			background: transparent;
+			border: none;
+			padding: 1rem;
+			cursor: pointer;
+			margin-left: auto;
+			display: block;
+		}
+		&Navigation {
+			list-style: none;
+			padding: 0 2rem;
+			&Link {
+				text-align: right;
+				&Active {
+					color: $primary-bright !important;
+				}
+				a {
+					color: $primary-light;
+					line-height: 4rem;
+					transition: 0.15s;
+					&:hover {
+						color: $primary-bright;
+					}
+				}
+			}
+		}
+	}
+}
