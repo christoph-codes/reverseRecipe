@@ -7,6 +7,7 @@ import Container from '../../components/Container/Container';
 import styles from './Playground.module.scss';
 import Section from '../../components/Section';
 import Navbar from '../../components/Navbar';
+import SubtractTag from '../../components/SubtractTag';
 
 const Playground = () => {
 	return (
@@ -38,7 +39,7 @@ const Playground = () => {
 						layout="intrinsic"
 						alt="Reverse Recipe Logo"
 					/>
-					<h2>Rows & Columns</h2>
+					<h2 className="MT-1">Rows & Columns</h2>
 					<Row>
 						<Col xs={4} className="text-white">
 							Column 1
@@ -46,12 +47,14 @@ const Playground = () => {
 						<Col xs={4}>Column 2</Col>
 						<Col xs={4}>Column 3</Col>
 					</Row>
-					<h2>Buttons</h2>
+					<h2 className="MT-1">Buttons</h2>
 					<Button>Find Recipe</Button>
 					<hr />
 					<Button variant="secondary">Find Recipe</Button>
 					<hr />
 					<Button variant="tertiary">Find Recipe</Button>
+					<h2 className="MT-1">Subtract Tag</h2>
+					<SubtractTag>Broccoli</SubtractTag>
 				</Container>
 			</Section>
 			<Image
