@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Row from '../../components/Row';
@@ -8,11 +9,19 @@ import Section from '../../components/Section';
 import Navbar from '../../components/Navbar';
 import SubtractTag from '../../components/SubtractTag';
 import Tag from '../../components/Tag';
+import SaveStar from '../../components/SaveStar/SaveStar';
+import Checkbox from '../../components/Checkbox';
 
 import styles from './Playground.module.scss';
-import SaveStar from '../../components/SaveStar/SaveStar';
 
 const Playground = () => {
+	const [checklist, setChecklist] = useState({
+		'4 skinless, boneless chicken breasts halves': false,
+		'1/2 cup of chicken broth': false,
+		'1/2 cup of water': false,
+		'1/2 cup of cornstarch': false,
+		'1/2 cup of flour': false,
+	});
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -65,6 +74,22 @@ const Playground = () => {
 					<h2 className="MT-1">Save Star</h2>
 					<SaveStar />
 					<SaveStar />
+					<h2 className="MT-1">Checkbox</h2>
+					{Object.entries(checklist).map(([line, value]) => {
+						return (
+							<Checkbox
+								value={value}
+								setValue={() =>
+									setChecklist({
+										...checklist,
+										[line]: !value,
+									})
+								}
+								name={line}
+								label={line}
+							/>
+						);
+					})}
 				</Container>
 			</Section>
 			<Image
