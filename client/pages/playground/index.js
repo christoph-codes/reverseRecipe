@@ -4,10 +4,12 @@ import Row from '../../components/Row';
 import Col from '../../components/Col';
 import Button from '../../components/Button';
 import Container from '../../components/Container/Container';
-import styles from './Playground.module.scss';
 import Section from '../../components/Section';
 import Navbar from '../../components/Navbar';
 import SubtractTag from '../../components/SubtractTag';
+import Tag from '../../components/Tag';
+
+import styles from './Playground.module.scss';
 
 const Playground = () => {
 	return (
@@ -49,12 +51,16 @@ const Playground = () => {
 					</Row>
 					<h2 className="MT-1">Buttons</h2>
 					<Button>Find Recipe</Button>
+					<Button>Find Recipe</Button>
 					<hr />
 					<Button variant="secondary">Find Recipe</Button>
 					<hr />
 					<Button variant="tertiary">Find Recipe</Button>
 					<h2 className="MT-1">Subtract Tag</h2>
 					<SubtractTag>Broccoli</SubtractTag>
+					<h2 className="MT-1">Tag</h2>
+					<Tag>Italian</Tag>
+					<Tag>American</Tag>
 				</Container>
 			</Section>
 			<Image
