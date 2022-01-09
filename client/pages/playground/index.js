@@ -10,6 +10,7 @@ import SubtractTag from '../../components/SubtractTag';
 import Tag from '../../components/Tag';
 
 import styles from './Playground.module.scss';
+import SaveStar from '../../components/SaveStar/SaveStar';
 
 const Playground = () => {
 	return (
@@ -61,6 +62,9 @@ const Playground = () => {
 					<h2 className="MT-1">Tag</h2>
 					<Tag>Italian</Tag>
 					<Tag>American</Tag>
+					<h2 className="MT-1">Save Star</h2>
+					<SaveStar />
+					<SaveStar />
 				</Container>
 			</Section>
 			<Image
