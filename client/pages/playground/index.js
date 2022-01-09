@@ -13,6 +13,7 @@ import SaveStar from '../../components/SaveStar/SaveStar';
 import Checkbox from '../../components/Checkbox';
 
 import styles from './Playground.module.scss';
+import Footer from '../../components/Footer';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -92,6 +93,8 @@ const Playground = () => {
 					})}
 				</Container>
 			</Section>
+			<h2 className="MT-1">Footer</h2>
+			<Footer />
 			<Image
 				src="/rr-logo-dark.svg"
 				width="100%"
