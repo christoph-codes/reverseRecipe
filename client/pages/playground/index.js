@@ -16,6 +16,10 @@ import styles from './Playground.module.scss';
 import Footer from '../../components/Footer';
 import Dropdown from '../../components/Dropdown';
 import AddInput from '../../components/AddInput';
+import Recipe from '../../components/Recipe';
+import RecipeList from '../../components/RecipeList/RecipeList';
+
+import recipes from '../../data/recipes';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -46,7 +50,7 @@ const Playground = () => {
 			</Head>
 			<h2>Navbar</h2>
 			<Navbar />
-			<Section className="bg-primary-bright">
+			<Section>
 				<Container>
 					<h2>Logos</h2>
 					<Image
@@ -65,7 +69,7 @@ const Playground = () => {
 					/>
 					<h2 className="MT-1">Rows & Columns</h2>
 					<Row>
-						<Col xs={4} className="text-white">
+						<Col xs={4} className="bg-primary-bright">
 							Column 1
 						</Col>
 						<Col xs={4}>Column 2</Col>
@@ -135,6 +139,10 @@ const Playground = () => {
 								</SubtractTag>
 							);
 						})}
+					<h2 className="MT-1">Recipe</h2>
+					<Recipe data={recipes[0]} />
+					<h2 className="MT-1">Recipe List</h2>
+					<RecipeList recipes={recipes} />
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>

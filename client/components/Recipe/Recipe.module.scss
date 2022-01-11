@@ -1,0 +1,24 @@
+.Recipe {
+	margin-bottom: 1.5rem;
+	align-items: center;
+	&Image {
+		width: 100%;
+		@media (max-width: 48rem) {
+			margin-bottom: 1rem;
+		}
+	}
+	&Icons {
+		display: flex;
+		img {
+			margin-right: 0.5rem;
+		}
+	}
+	&Button {
+		margin-left: auto;
+		display: block;
+		@media (max-width: 48rem) {
+			width: 100%;
+			margin-top: 1rem;
+		}
+	}
+}
