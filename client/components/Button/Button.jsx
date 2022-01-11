@@ -1,7 +1,7 @@
 import { string, bool, oneOf } from 'prop-types';
 import styles from './Button.module.scss';
 
-const Button = ({ variant, children, ...rest }) => {
+const Button = ({ variant, children, className, ...rest }) => {
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':
@@ -15,7 +15,10 @@ const Button = ({ variant, children, ...rest }) => {
 		}
 	};
 	return (
-		<button className={`${styles.Button} ${getVariant()}`} {...rest}>
+		<button
+			className={`${styles.Button} ${getVariant()} ${className}`}
+			{...rest}
+		>
 			{children}
 		</button>
 	);
@@ -26,9 +29,11 @@ export default Button;
 Button.propTypes = {
 	variant: oneOf(['primary', 'secondary', 'tertiary']),
 	children: string,
+	className: string,
 };
 
 Button.defaultProps = {
 	variant: 'primary',
 	children: '',
+	className: '',
 };
