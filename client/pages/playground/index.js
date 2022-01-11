@@ -14,6 +14,7 @@ import Checkbox from '../../components/Checkbox';
 
 import styles from './Playground.module.scss';
 import Footer from '../../components/Footer';
+import Dropdown from '../../components/Dropdown';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -23,6 +24,7 @@ const Playground = () => {
 		'1/2 cup of cornstarch': false,
 		'1/2 cup of flour': false,
 	});
+	const [category, setCategory] = useState('');
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -91,6 +93,18 @@ const Playground = () => {
 							/>
 						);
 					})}
+					<h2 className="MT-1">Dropdown</h2>
+					<Dropdown
+						label="Dropdown"
+						value={category}
+						setValue={setCategory}
+						options={[
+							'option 1',
+							'option 2',
+							'option 3',
+							'option 4',
+						]}
+					/>
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>

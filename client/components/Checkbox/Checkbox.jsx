@@ -11,7 +11,7 @@ const Checkbox = ({ className, label, name, value, setValue, ...rest }) => {
 			<input
 				className={styles.CheckboxBox}
 				name={name}
-				checked={value}
+				defaultChecked={value}
 				type="checkbox"
 				{...rest}
 			/>
