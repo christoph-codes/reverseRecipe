@@ -17,6 +17,9 @@ import Footer from '../../components/Footer';
 import Dropdown from '../../components/Dropdown';
 import AddInput from '../../components/AddInput';
 import Recipe from '../../components/Recipe';
+import RecipeList from '../../components/RecipeList/RecipeList';
+
+import recipes from '../../data/recipes';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -34,16 +37,6 @@ const Playground = () => {
 			(ingredient) => ingredient !== value
 		);
 		setIngredients(newIngredients);
-	};
-	const customIng = {
-		name: 'Hot Dogs',
-		category: 'Italian',
-		imgSrc: '/recipes/hotdog.png',
-		description:
-			'Recipe description goes here and it should describe the deliciousness of what can be created.',
-		ingredients: ['hot dog', 'bun', 'ketchup', 'mustard'],
-		cookTime: '10',
-		url: '/recipe/hot-dogs',
 	};
 	return (
 		<div className={styles.container}>
@@ -147,7 +140,9 @@ const Playground = () => {
 							);
 						})}
 					<h2 className="MT-1">Recipe</h2>
-					<Recipe data={customIng} />
+					<Recipe data={recipes[0]} />
+					<h2 className="MT-1">Recipe List</h2>
+					<RecipeList recipes={recipes} />
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>
