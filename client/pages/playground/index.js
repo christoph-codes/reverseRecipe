@@ -16,6 +16,7 @@ import styles from './Playground.module.scss';
 import Footer from '../../components/Footer';
 import Dropdown from '../../components/Dropdown';
 import AddInput from '../../components/AddInput';
+import Recipe from '../../components/Recipe';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -34,6 +35,16 @@ const Playground = () => {
 		);
 		setIngredients(newIngredients);
 	};
+	const customIng = {
+		name: 'Hot Dogs',
+		category: 'Italian',
+		imgSrc: '/recipes/hotdog.png',
+		description:
+			'Recipe description goes here and it should describe the deliciousness of what can be created.',
+		ingredients: ['hot dog', 'bun', 'ketchup', 'mustard'],
+		cookTime: '10',
+		url: '/recipe/hot-dogs',
+	};
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -46,7 +57,7 @@ const Playground = () => {
 			</Head>
 			<h2>Navbar</h2>
 			<Navbar />
-			<Section className="bg-primary-bright">
+			<Section>
 				<Container>
 					<h2>Logos</h2>
 					<Image
@@ -65,7 +76,7 @@ const Playground = () => {
 					/>
 					<h2 className="MT-1">Rows & Columns</h2>
 					<Row>
-						<Col xs={4} className="text-white">
+						<Col xs={4} className="bg-primary-bright">
 							Column 1
 						</Col>
 						<Col xs={4}>Column 2</Col>
@@ -135,6 +146,8 @@ const Playground = () => {
 								</SubtractTag>
 							);
 						})}
+					<h2 className="MT-1">Recipe</h2>
+					<Recipe data={customIng} />
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>
