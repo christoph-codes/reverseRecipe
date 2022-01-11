@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "name": "getAuditLogs",
+        "private": false
+    },
+    {
+        "name": "checkRole",
+        "private": false
+    },
+    {
+        "name": "createAuditDocument",
+        "private": false
+    },
+    {
+        "name": "createIngredientDocument",
+        "private": false
+    },
+    {
+        "name": "createRecipeDocument",
+        "private": false
+    },
+    {
+        "name": "createUserDocument",
+        "private": false
+    }
+]

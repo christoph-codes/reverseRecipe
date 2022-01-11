@@ -1,6 +1,6 @@
 /**
  * Checks the permissions of the logged in user.
- * @returns - ADMIN: if admin permissions, USER: if user permissions, GUEST: if no permissions or not logged in
+ * @returns - ADMIN: if admin permissions, USER: if user permissions
  */
 exports = async function() {
     const cluster = context.services.get('mongodb-atlas');
@@ -16,8 +16,6 @@ exports = async function() {
         return user.role;
     } catch (error) {
         console.error('error retrieving userId from context or something else.', error);
-        console.log('Granting GUEST access only.');
-        return 'GUEST';
     }
 };
 
