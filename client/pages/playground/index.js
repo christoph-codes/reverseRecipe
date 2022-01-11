@@ -15,6 +15,7 @@ import Checkbox from '../../components/Checkbox';
 import styles from './Playground.module.scss';
 import Footer from '../../components/Footer';
 import Dropdown from '../../components/Dropdown';
+import AddInput from '../../components/AddInput';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -25,6 +26,14 @@ const Playground = () => {
 		'1/2 cup of flour': false,
 	});
 	const [category, setCategory] = useState('');
+	const [ingredient, setIngredient] = useState('');
+	const [ingredients, setIngredients] = useState([]);
+	const removeIngredient = (value) => {
+		const newIngredients = ingredients.filter(
+			(ingredient) => ingredient !== value
+		);
+		setIngredients(newIngredients);
+	};
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -105,6 +114,27 @@ const Playground = () => {
 							'option 4',
 						]}
 					/>
+					<h2 className="MT-1">Add Input</h2>
+					<AddInput
+						name="ingredient-adder"
+						label="Enter Ingredient"
+						value={ingredient}
+						setValue={setIngredient}
+						addCallback={() =>
+							setIngredients([...ingredients, ingredient])
+						}
+					/>
+					{ingredients.length > 0 &&
+						ingredients.map((ingredient, index) => {
+							return (
+								<SubtractTag
+									key={index}
+									onClick={() => removeIngredient(ingredient)}
+								>
+									{ingredient}
+								</SubtractTag>
+							);
+						})}
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>
