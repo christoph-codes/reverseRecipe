@@ -1,0 +1,47 @@
+[
+    {
+        "category": "american", 
+        "cookTime": 10, 
+        "ingredients": [], 
+        "instructions": "Cook the hot dog to perfection - about 4-8 minutes. If you prefer cooked onions you can saute them while the dog is cookin'. Now, while the weiner is cooking, prepare the bun. Open the bun and add relish. Place the cooked weiner in the bun, place onions on top, add ketchup and mustard. Done.", 
+        "measurements": [],
+        "name": "hot dogs",
+        "recipeDescription": "Tasty finger food commonly enjoyed at ballparks and bbq's."
+    },
+    {
+        "category": "chinese", 
+        "cookTime": 14, 
+        "ingredients": [], 
+        "instructions": "Boil water in a pan. Add the spices and noodles. Cook until noodles are done.",
+        "measurements": [],
+        "name": "ramen",
+        "recipeDescription": "Tasty staple food of college students."
+    },
+    {
+        "category": "american", 
+        "cookTime": 15, 
+        "ingredients": [], 
+        "instructions": "Recipe description goes here and it should describe the deliciousness of what can be created.",
+        "measurements": [],
+        "name": "sloppy joes",
+        "recipeDescription": "This is a recipe description."
+    },
+    {
+        "category": "american", 
+        "cookTime": 30, 
+        "ingredients": [], 
+        "instructions": "Recipe description goes here and it should describe the deliciousness of what can be created.",
+        "measurements": [],
+        "name": "popcorn shrimp",
+        "recipeDescription": "This is a recipe description."
+    },
+    {
+        "category": "italian", 
+        "cookTime": 60, 
+        "ingredients": [], 
+        "instructions": "Recipe description goes here and it should describe the deliciousness of what can be created.",
+        "measurements": [],
+        "name": "beef stew",
+        "recipeDescription": "This is a recipe description."
+    }
+]

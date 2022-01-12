@@ -1,55 +1,74 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import { FULL_INGREDIENT_QUERY } from './fragments';
 
-// queryAll is defined custom resolver
+const queryAll = gql`
+    ${FULL_INGREDIENT_QUERY}
+    query queryAllIngredients {
+        ...fullIngredientQuery
+    }
+`;
 
 const queryByName = gql`
+    ${FULL_INGREDIENT_QUERY}
     query queryIngredientByName($name: string!) {
         ingredient(name: $name) {
-            _id,
-            name,
-            recipes
+            ...fullIngredientQuery
         }
     }
 `;
 
 const queryById = gql`
+    ${FULL_INGREDIENT_QUERY}
     query queryIngredientById($id: ID!) {
         ingredient(_id: $id) {
-            _id,
-            imgSrc,
-            name,
-            recipes
+            ...fullIngredientQuery
         }
     }
 `;
 
 const queryFromNameList = gql`
+    ${FULL_INGREDIENT_QUERY}
     query queryIngredientsFromNameList($nameList: [string!]) {
         queryIngredientsFromNameList(
             input: $nameList
         ) {
-            _id,
-            imgSrc,
-            name,
-            recipes
+            ...fullIngredientQuery
         }
     }
 `;
 
 const queryFromIdList = gql`
+    ${FULL_INGREDIENT_QUERY}
     query queryIngredientsFromNameList($idList: [ID!]) {
         queryIngredientsFromIdList(
             input: $idList
         ) {
-            _id,
-            imgSrc,
-            name,
-            recipes
+            ...fullIngredientQuery
         }
     }
 `;
+
+export function queryAllIngredients() {
+    const { data, loading, error, startPolling, stopPolling } = useQuery(
+        queryAll
+    );
+    React.useEffect(() => {
+        startPolling(1000);
+        return () => stopPolling();
+    }, [startPolling, stopPolling]);
+
+    if (error) {
+        throw new Error(`Failed to fetch all ingredients: ${error.message}`);
+    }
+
+    const ingredients = data?.queryAllIngredients ?? ['no ingredients found'];
+    return {
+        ingredients,
+        loading,
+    };
+};
 
 export function queryIngredientByName(name: string) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
