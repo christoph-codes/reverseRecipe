@@ -10,6 +10,7 @@ exports = async function({ingredient}) {
 
     const inserted = await request.insertOne({
         'name': ingredient.name,
+        'imgSrc': ingredient.imgSrc || null,
         'recipes': ingredient.recipes || []
     });
 

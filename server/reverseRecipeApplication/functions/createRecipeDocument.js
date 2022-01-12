@@ -11,6 +11,7 @@ exports = async function({recipe}) {
     const inserted = await request.insertOne({
         'category': recipe.category,
         'cookTime': recipe.cookTime || null,
+        'imgSrc': recipe.imgSrc || null,
         'ingredients': recipe.ingredients,
         'instructions': recipe.instructions || null,
         'measurements': recipe.measurements || null,
