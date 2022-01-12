@@ -32,7 +32,10 @@ const Home = () => {
 					value={ingredient}
 					setValue={setIngredient}
 					addCallback={() =>
-						setIngredients([...ingredients, ingredient])
+						setIngredients([
+							...ingredients,
+							ingredient.toLowerCase(),
+						])
 					}
 				/>
 				<div className={styles.HomeIngredientsList}>
