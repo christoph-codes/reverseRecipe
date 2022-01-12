@@ -2,6 +2,9 @@
 .Navbar {
 	align-items: center;
 	padding: 0.5rem 0;
+	&Container {
+		justify-content: space-between;
+	}
 	&Logo {
 		img {
 			@media (max-width: 48rem) {
