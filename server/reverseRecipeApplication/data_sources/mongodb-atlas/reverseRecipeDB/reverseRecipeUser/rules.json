@@ -4,24 +4,36 @@
     "roles": [
         {
             "name": "Admin",
-            "apply_when": { "%%user.custom_data.role": "ADMIN" },
-            "insert": true,
-            "delete": true,
+            "apply_when": {
+                "%%user.custom_data.role": "ADMIN"
+            },
             "read": true,
             "write": true,
+            "insert": true,
+            "delete": true,
             "search": true,
-            "fields": {},
+            "additional_fields": {}
+        },
+        {
+            "name": "User",
+            "apply_when": {
+                "%%user.custom_data.role": "User"
+            },
+            "read": false,
+            "write": false,
+            "insert": false,
+            "delete": false,
+            "search": false,
             "additional_fields": {}
         },
         {
             "name": "Default",
             "apply_when": {},
-            "insert": false,
-            "delete": false,
             "read": false,
             "write": false,
+            "insert": false,
+            "delete": false,
             "search": false,
-            "fields": {},
             "additional_fields": {}
         }
     ]

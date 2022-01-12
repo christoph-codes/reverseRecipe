@@ -1,1 +1,54 @@
-[]
+[
+    {
+        "name": "checkRole",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "createAuditDocument",
+        "private": false
+    },
+    {
+        "name": "createIngredientDocument",
+        "private": false
+    },
+    {
+        "name": "createRecipeDocument",
+        "private": false
+    },
+    {
+        "name": "createUserDocument",
+        "private": false
+    },
+    {
+        "name": "getAuditLogs",
+        "private": false
+    },
+    {
+        "name": "queryAllIngredients",
+        "private": false
+    },
+    {
+        "name": "queryAllRecipes",
+        "private": false
+    },
+    {
+        "name": "queryIngredientsFromNameList",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "queryIngredientsFromIdList",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "queryRecipesFromNameList",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "queryRecipesFromIdList",
+        "private": false
+    }
+]

@@ -1,16 +1,5 @@
-/**
- * Creates a new user document.
- * This document represents the custom_data attached to a user from the 
- * perspective of the authorization provider.
- * Must have ADMIN permissions.
- * 
- * @param user - User object to be inserted.
- * @returns The inserted user and its audit.
- * @returns If there is an error the returned object(s) will only have an error field.
- */
 exports = async function({user}) {
-    const cluster = context.services.get('mongodb-atlas');
-    const users = cluster.db('reverseRecipeDB').collection('reverseRecipeUser');
+    const request = context.services.get('mongodb-atlas').db('reverseRecipeDB').collection('reverseRecipeUser');
 
     const caller = context.user;
     const {role} = caller.custom_data;
@@ -19,7 +8,7 @@ exports = async function({user}) {
         return {'error': 'You do not have the correct permissions.'};
     }
 
-    const inserted = await users.insertOne({
+    const inserted = await request.insertOne({
         'first': user.first,
         'last': user.last,
         'savedRecipes': user.savedRecipes || [],
@@ -40,6 +29,7 @@ exports = async function({user}) {
     return {'user': inserted, 'audit': audit};
 };
 
+// Export as module to make function testable.
 if (typeof module === 'object') {
     module.exports = exports;
 }

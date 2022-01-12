@@ -1,13 +1,5 @@
-/**
- * Creates an audit document.
- * Must have ADMIN permissions.
- * 
- * @param audit - Audit object to be inserted.
- * @returns Audit document that was inserted or permissions error.
- */
 exports = async function({audit}) {
-    const cluster = context.services.get('mongodb-atlas');
-    const audits = cluster.db('reverseRecipeDB').collection('reverseRecipeAudit');
+    const request = context.services.get('mongodb-atlas').db('reverseRecipeDB').collection('reverseRecipeAudit');
 
     const caller = context.user;
     const {role} = caller.custom_data;
@@ -16,7 +8,7 @@ exports = async function({audit}) {
         return {'error': 'You must have ADMIN permissions to create an audit.'};
     }
 
-    return audits.insertOne({
+    return request.insertOne({
         'additionalInfo': audit.additionalInfo || null,
         'createdAt': audit.createdAt || Date.now(),
         'createdBy': audit.createdBy || null,
@@ -28,6 +20,7 @@ exports = async function({audit}) {
     });
 };
 
+// Export as module to make function testable.
 if (typeof module === 'object') {
     module.exports = exports;
 }
