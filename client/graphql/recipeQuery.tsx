@@ -8,8 +8,13 @@ const queryByName = gql`
     query queryRecipeByName($name: string!) {
         recipe(name: $name) {
             _id,
+            category,
+            cookTime,
+            ingredients,
+            instructions,
+            measurements,
             name,
-            recipes
+            recipeDescription
         }
     }
 `;
@@ -18,8 +23,13 @@ const queryById = gql`
     query queryRecipeById($id: ID!) {
         recipe(_id: $id) {
             _id,
+            category,
+            cookTime,
+            ingredients,
+            instructions,
+            measurements,
             name,
-            recipes
+            recipeDescription
         }
     }
 `;
@@ -30,8 +40,13 @@ const queryFromNameList = gql`
             input: $nameList
         ) {
             _id,
+            category,
+            cookTime,
+            ingredients,
+            instructions,
+            measurements,
             name,
-            recipes
+            recipeDescription
         }
     }
 `;
@@ -42,8 +57,13 @@ const queryFromIdList = gql`
             input: $idList
         ) {
             _id,
+            category,
+            cookTime,
+            ingredients,
+            instructions,
+            measurements,
             name,
-            recipes
+            recipeDescription
         }
     }
 `;
