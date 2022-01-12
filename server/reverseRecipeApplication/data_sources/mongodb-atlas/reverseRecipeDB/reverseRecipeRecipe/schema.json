@@ -9,18 +9,6 @@
         "category": {
             "bsonType": "string",
             "description": "string - The category of this recipe (i.e. American, Thai, French, etc).",
-            "enum": [
-                "american",
-                "french",
-                "italian",
-                "thai",
-                "spanish",
-                "mediterranean",
-                "greek",
-                "indian",
-                "other",
-                null
-            ],
             "title": "recipe category"
         },
         "cookTime": {

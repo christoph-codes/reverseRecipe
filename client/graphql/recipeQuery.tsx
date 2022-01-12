@@ -1,76 +1,74 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import { FULL_RECIPE_QUERY } from './fragments';
 
-// queryAll is defined custom resolver
+const queryAll = gql`
+    ${FULL_RECIPE_QUERY}
+    query queryAllRecipes {
+        ...fullRecipeQuery
+    }
+`
 
 const queryByName = gql`
+    ${FULL_RECIPE_QUERY}
     query queryRecipeByName($name: string!) {
         recipe(name: $name) {
-            _id,
-            category,
-            cookTime,
-            imgSrc,
-            ingredients,
-            instructions,
-            measurements,
-            name,
-            recipeDescription
+            ...fullRecipeQuery
         }
     }
 `;
 
 const queryById = gql`
+    ${FULL_RECIPE_QUERY}
     query queryRecipeById($id: ID!) {
         recipe(_id: $id) {
-            _id,
-            category,
-            cookTime,
-            imgSrc,
-            ingredients,
-            instructions,
-            measurements,
-            name,
-            recipeDescription
+            ...fullRecipeQuery
         }
     }
 `;
 
 const queryFromNameList = gql`
+    ${FULL_RECIPE_QUERY}
     query queryRecipesFromNameList($nameList: [string!]) {
         queryIRecipesFromNameList(
             input: $nameList
         ) {
-            _id,
-            category,
-            cookTime,
-            imgSrc,
-            ingredients,
-            instructions,
-            measurements,
-            name,
-            recipeDescription
+            ...fullRecipeQuery
         }
     }
 `;
 
 const queryFromIdList = gql`
+    ${FULL_RECIPE_QUERY}
     query queryRecipesFromNameList($idList: [ID!]) {
         queryRecipesFromIdList(
             input: $idList
         ) {
-            _id,
-            category,
-            cookTime,
-            imgSrc,
-            ingredients,
-            instructions,
-            measurements,
-            name,
-            recipeDescription
+            ...fullRecipeQuery
         }
     }
 `;
+
+export function queryAllRecipes() {
+    const { data, loading, error, startPolling, stopPolling } = useQuery(
+        queryAll
+    );
+    React.useEffect(() => {
+        startPolling(1000);
+        return () => stopPolling();
+    }, [startPolling, stopPolling]);
+
+    if (error) {
+        throw new Error(`Failed to fetch all recipes: ${error.message}`);
+    }
+    
+    const recipes = data?.queryAllRecipes ?? ['no recipe found'];
+    return {
+        recipes,
+        loading,
+    };
+}
 
 export function queryRecipeByName(name: string) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
