@@ -95,6 +95,7 @@ const Playground = () => {
 					{Object.entries(checklist).map(([line, value]) => {
 						return (
 							<Checkbox
+								key={line}
 								value={value}
 								setValue={() =>
 									setChecklist({
