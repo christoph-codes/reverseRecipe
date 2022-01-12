@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Home.module.scss';
+import styles from '../styles/Splash.module.scss';
 
-const Home = () => {
+const Splash = () => {
 	return (
-		<div className={styles.Home}>
+		<div className={styles.Splash}>
 			<Head>
 				<title>Reverse Recipe</title>
 				<meta
@@ -24,4 +24,4 @@ const Home = () => {
 	);
 };
 
-export default Home;
+export default Splash;

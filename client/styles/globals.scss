@@ -13,8 +13,18 @@ body {
 }
 a {
 	color: $primary;
+	font-weight: bold;
 	text-decoration: none;
+	transition: color ease-in-out 0.15s;
+	&:hover {
+		color: $primary-light;
+	}
 }
 * {
 	box-sizing: border-box;
+}
+hr {
+	border: $primary-bright solid 0.0125rem;
+	border-style: solid;
+	margin: 2.5rem 0 1rem;
 }

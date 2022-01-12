@@ -27,11 +27,6 @@ const Navbar = ({ className, ...rest }) => {
 			label: 'Sign Up',
 			link: '/signup',
 		},
-		{
-			// Remove playground from navbar
-			label: 'Playground',
-			link: '/playground',
-		},
 	];
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);
