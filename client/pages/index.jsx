@@ -12,6 +12,7 @@ const Home = () => {
 	const [ingredients, setIngredients] = useState([]);
 	const findRecipe = () => {
 		console.log('Ingredients:', ingredients);
+		// TODO: Make query to call to find recipes based on ingredients
 	};
 	const removeIngredient = (value) => {
 		const newIngredients = ingredients.filter(
