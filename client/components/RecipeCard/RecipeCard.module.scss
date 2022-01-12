@@ -1,0 +1,46 @@
+@import '../../styles/colors';
+.RecipeCard {
+	align-items: center;
+	margin-bottom: 1.5rem;
+	&Image {
+		max-height: 20rem;
+		height: auto;
+		overflow: hidden;
+		border-radius: 1rem 0 0 1rem;
+		img {
+			width: 100%;
+			height: 100%;
+		}
+		&FeaturedTag {
+			position: absolute;
+			margin-left: 1rem;
+			margin-top: 1rem;
+		}
+	}
+	&Icon {
+		display: flex;
+		img {
+			margin-right: 0.5rem;
+		}
+	}
+	&.featured {
+		.RecipeCardContent {
+			background: $blue-bright;
+		}
+	}
+	&Content {
+		background-color: $white;
+		margin-left: -3rem;
+		padding: 3rem;
+		box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+		border-radius: 0 1rem 1rem 0;
+		@media (max-width: 48rem) {
+			margin-left: 0;
+			padding: 1.5rem;
+			border-radius: 0 0 1rem 1rem;
+		}
+	}
+	&Button {
+		margin-top: 1rem;
+	}
+}

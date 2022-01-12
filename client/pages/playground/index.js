@@ -20,6 +20,7 @@ import Recipe from '../../components/Recipe';
 import RecipeList from '../../components/RecipeList/RecipeList';
 
 import recipes from '../../data/recipes';
+import RecipeCard from '../../components/RecipeCard';
 
 const Playground = () => {
 	const [checklist, setChecklist] = useState({
@@ -143,6 +144,9 @@ const Playground = () => {
 					<Recipe data={recipes[0]} />
 					<h2 className="MT-1">Recipe List</h2>
 					<RecipeList recipes={recipes} />
+					<h2 className="MT-1">Recipe Card</h2>
+					<RecipeCard recipe={recipes[1]} featured />
+					<RecipeCard recipe={recipes[3]} />
 				</Container>
 			</Section>
 			<h2 className="MT-1">Footer</h2>
