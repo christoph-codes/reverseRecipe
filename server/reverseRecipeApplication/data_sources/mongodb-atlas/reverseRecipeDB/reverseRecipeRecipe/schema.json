@@ -27,6 +27,10 @@
             "bsonType": "int",
             "title": "recipe cook time"
         },
+        "imgSrc": {
+            "bsonType": "string",
+            "title": "image source path"
+        },
         "ingredients": {
             "bsonType": "array",
             "description": "[objectId] - An array of ID's listing all ingredients in this recipe.",
