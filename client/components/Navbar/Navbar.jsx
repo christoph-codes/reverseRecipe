@@ -38,7 +38,7 @@ const Navbar = ({ className, ...rest }) => {
 	};
 	return (
 		<div className={`${styles.Navbar} bg-primary text-white`} {...rest}>
-			<Container as={Row}>
+			<Container as={Row} className={styles.NavbarContainer}>
 				<Col xs="auto" className={styles.NavbarLogo}>
 					<Link href="/">
 						<a>
