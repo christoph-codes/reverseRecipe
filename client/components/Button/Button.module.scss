@@ -1,0 +1,54 @@
+@import '../../styles/colors';
+.Button {
+	border-radius: 0.5rem;
+	font-weight: lighter;
+	font-size: 1rem;
+	line-height: 1rem;
+	border-radius: 0.5rem;
+	transition: 0.15s ease-in-out;
+	padding: 1rem 1.5rem;
+	border: none;
+	cursor: pointer;
+	margin-bottom: 1rem;
+	&Primary {
+		background-color: $primary;
+		color: $white;
+		&:hover {
+			background-color: $darkup;
+			color: $primary-bright;
+		}
+	}
+	&Primary {
+		background-color: $primary;
+		color: $white;
+		&:hover {
+			background-color: $darkup;
+			color: $primary-bright;
+		}
+	}
+	&Secondary {
+		background-color: $gray-light;
+		color: $primary;
+		&:hover {
+			background-color: $gray;
+			color: $primary;
+		}
+	}
+	&Tertiary {
+		background-color: $green;
+		color: $white;
+		&:hover {
+			background-color: $green-bright;
+			color: $green;
+		}
+	}
+	& + .Button {
+		margin-left: 1rem;
+		background: transparent;
+		color: $primary;
+		&:hover {
+			background: transparent;
+			color: $darkup;
+		}
+	}
+}

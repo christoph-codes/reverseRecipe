@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+@import './colors';
+body, h1, h2, h3, h4, h5, h6, p, li, a, button {
+    font-family: 'Roboto', sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: $primary;
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+}
+p,li,a {
+    color: $default;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0 0 0.5rem;
+}
+h1 {font-size: 2rem}
+h2 {font-size: 1.75rem}
+h3 {font-size: 1.5rem}
+h4 {font-size: 1.25rem}
+h5 {font-size: 1.125rem}
+h6 {font-size: 1rem}

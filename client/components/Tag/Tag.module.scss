@@ -1,0 +1,38 @@
+@import '../../styles/colors';
+.Tag {
+	border: none;
+	padding: 0.5rem 1.5rem;
+	border-radius: 0.5rem;
+	color: $primary;
+	display: inline-flex;
+	font-size: 0.875rem;
+	margin-bottom: 0.5rem;
+	background: $gray-light;
+	&.primary {
+		background: $primary;
+		color: $white;
+	}
+	&.secondary {
+		background: $gray-light;
+		color: $primary;
+	}
+	&.blue {
+		background: $blue;
+		color: $white;
+	}
+	&.green {
+		background: $green;
+		color: $white;
+	}
+	&.red {
+		background: $red;
+		color: $white;
+	}
+	&.yellow {
+		background: $yellow;
+		color: $white;
+	}
+	& + .Tag {
+		margin-left: 0.5rem;
+	}
+}
