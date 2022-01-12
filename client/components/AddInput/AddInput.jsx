@@ -15,7 +15,7 @@ const AddInput = ({ name, className, value, setValue, addCallback }) => {
 				className={styles.AddInputTextField}
 				value={value}
 				name={name}
-				onChange={(e) => setValue(e.target.value.trim())}
+				onChange={(e) => setValue(e.target.value)}
 				onKeyPress={(e) => e.key === 'Enter' && callback(e)}
 			/>
 			<button
