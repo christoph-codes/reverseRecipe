@@ -18,6 +18,7 @@ const queryById = gql`
     query queryIngredientById($id: ID!) {
         ingredient(_id: $id) {
             _id,
+            imgSrc,
             name,
             recipes
         }
@@ -30,6 +31,7 @@ const queryFromNameList = gql`
             input: $nameList
         ) {
             _id,
+            imgSrc,
             name,
             recipes
         }
@@ -42,6 +44,7 @@ const queryFromIdList = gql`
             input: $idList
         ) {
             _id,
+            imgSrc,
             name,
             recipes
         }
