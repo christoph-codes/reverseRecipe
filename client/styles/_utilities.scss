@@ -1,0 +1,282 @@
+@use 'sass:math';
+@function remove-minus($string) {
+	@if type-of($string) == 'number' {
+		@return abs($string);
+	}
+	@return $string;
+}
+
+@mixin add-break-point($breakpoints, $breakpoint) {
+	$minWidth: map-get($breakpoints, $breakpoint);
+	@if $minWidth != 0 {
+		@media (min-width: $minWidth) {
+			@content;
+		}
+	} @else {
+		@content;
+	}
+}
+
+@function get-no-of-columns($columns, $breakpoints, $breakpoint) {
+	$noOfColumns: map-get($columns, nth($breakpoint, 1));
+	@if $noOfColumns == null {
+		$previousBreakPoint: nth(
+			$breakpoints,
+			index($breakpoints, $breakpoint) - 1
+		);
+		@if $previousBreakPoint {
+			@return get-no-of-columns(
+				$columns,
+				$breakpoints,
+				$previousBreakPoint
+			);
+		} @else {
+			@return 6;
+		}
+	}
+	@return $noOfColumns;
+}
+
+@function get-gutter-width($gutterWidth, $breakpoints, $breakpoint) {
+	$gutter: map-get($gutterWidth, nth($breakpoint, 1));
+	@if $gutter == null {
+		$previousBreakPoint: nth(
+			$breakpoints,
+			index($breakpoints, $breakpoint) - 1
+		);
+		@if $previousBreakPoint {
+			@return get-gutter-width(
+				$gutterWidth,
+				$breakpoints,
+				$previousBreakPoint
+			);
+		} @else {
+			@return 0.75rem;
+		}
+	}
+	@return $gutter;
+}
+
+@function generate-class-names($breakpoints, $breakpoint, $propName, $spacer) {
+	$minWidth: map-get($breakpoints, $breakpoint);
+	@if $minWidth != 0 {
+		@return to-upper-case(
+			$propName + '-' + $breakpoint + '-' + remove-minus($spacer)
+		);
+	} @else {
+		@return to-upper-case($propName + '-' + remove-minus($spacer));
+	}
+}
+
+@mixin generateGutters(
+	$isColumComponent,
+	$extraGutters,
+	$breakpoints,
+	$breakpoint,
+	$gutter
+) {
+	@if $isColumComponent {
+		//adding gutters
+		padding: 0 math.div($gutter, 2);
+	} @else {
+		$extraGutter: get-gutter-width(
+			$extraGutters,
+			$breakpoints,
+			$breakpoint
+		);
+		//add
+		@if $extraGutter and length($extraGutter) == 2 {
+			margin: 0
+				math.div(-$gutter, 2) +
+				nth($extraGutter, 2)
+				0
+				math.div(-$gutter, 2) +
+				nth($extraGutter, 1);
+		} @else if $extraGutter and length($extraGutter) == 1 {
+			margin: 0
+				math.div(-$gutter, 2) +
+				nth($extraGutter, 1)
+				0
+				math.div(-$gutter, 2) +
+				nth($extraGutter, 1);
+		} @else {
+			margin: 0 math.div(-$gutter, 2) 0 math.div(-$gutter, 2);
+		}
+	}
+}
+
+@mixin generateUtility($utility, $breakpoints) {
+	$breakpointsList: map-get($utility, breakpoints);
+	$spacersList: map-get($utility, spacers);
+	$propertiesList: map-get($utility, properties);
+	@each $breakpoint in $breakpoints {
+		@if index($breakpointsList, nth($breakpoint, 1)) {
+			@include add-break-point($breakpoints, nth($breakpoint, 1)) {
+				@each $spacer in $spacersList {
+					@each $propName, $propList in $propertiesList {
+						.#{generate-class-names($breakpoints, nth($breakpoint, 1), $propName, $spacer)} {
+							@each $prop in $propList {
+								#{$prop}: map-get($spacers, $spacer) !important;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin generateRowClasses($columns, $breakpoints, $gutterWidth, $extraGutters) {
+	$maxColumns: max(map-values($columns)...);
+	@each $breakpoint in $breakpoints {
+		$noOfColumns: get-no-of-columns($columns, $breakpoints, $breakpoint);
+		$gutter: get-gutter-width($gutterWidth, $breakpoints, $breakpoint);
+		@include add-break-point($breakpoints, nth($breakpoint, 1)) {
+			@include generateGutters(
+				false,
+				$extraGutters,
+				$breakpoints,
+				$breakpoint,
+				$gutter
+			);
+			@for $i from 1 through $maxColumns {
+				&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ROW-COLS', $i)}
+					> .Col {
+					flex: 0 0 auto;
+					@if $i <= $noOfColumns {
+						width: calc(100% / $i) !important;
+					} @else {
+						width: 100% !important;
+					}
+				}
+			}
+		}
+		@each $columnBreakpoint in $breakpoints {
+			@if index($breakpoints, $columnBreakpoint) >
+				index($breakpoints, $breakpoint)
+			{
+				$colNo: get-no-of-columns(
+					$columns,
+					$breakpoints,
+					$columnBreakpoint
+				);
+				@include add-break-point(
+					$breakpoints,
+					nth($columnBreakpoint, 1)
+				) {
+					@for $j from 1 through $maxColumns {
+						&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ROW-COLS', $j)}
+							> .Col {
+							flex: 0 0 auto;
+							@if $j <= $colNo {
+								width: calc(100% / $j) !important;
+							} @else {
+								width: 100% !important;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@mixin generateColumnClasses(
+	$columns,
+	$breakpoints,
+	$gutterWidth,
+	$extraGutters
+) {
+	$maxColumns: max(map-values($columns)...);
+	@each $breakpoint in $breakpoints {
+		$noOfColumns: get-no-of-columns($columns, $breakpoints, $breakpoint);
+		$gutter: get-gutter-width($gutterWidth, $breakpoints, $breakpoint);
+		@include add-break-point($breakpoints, nth($breakpoint, 1)) {
+			@include generateGutters(
+				true,
+				$extraGutters,
+				$breakpoints,
+				$breakpoint,
+				$gutter
+			);
+			&.COL-#{to-upper-case(nth($breakpoint, 1))} {
+				flex: 1 0;
+			}
+			@for $i from 1 through $maxColumns {
+				&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'COL', $i)} {
+					@if $i <= $noOfColumns {
+						width: calc(((100%) * $i) / $noOfColumns) !important;
+					} @else {
+						width: 100% !important;
+					}
+				}
+				&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ORDER', $i)} {
+					@if $i <= $noOfColumns {
+						order: $i !important;
+					} @else {
+						order: $noOfColumns + 1;
+					}
+				}
+				&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'OFFSET', $i)} {
+					@if $i <= $noOfColumns {
+						margin-left: calc(
+							((100%) * $i) / $noOfColumns
+						) !important;
+					} @else {
+						margin-left: 100% !important;
+					}
+				}
+			}
+			&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ORDER', 'LAST')} {
+				order: $noOfColumns + 1 !important;
+			}
+			&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ORDER', 'FIRST')} {
+				order: -1 !important;
+			}
+		}
+		@each $columnBreakpoint in $breakpoints {
+			@if index($breakpoints, $columnBreakpoint) >
+				index($breakpoints, $breakpoint)
+			{
+				$colNo: get-no-of-columns(
+					$columns,
+					$breakpoints,
+					$columnBreakpoint
+				);
+				@include add-break-point(
+					$breakpoints,
+					nth($columnBreakpoint, 1)
+				) {
+					@for $j from 1 through $maxColumns {
+						&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'COL', $j)} {
+							@if $j <= $colNo {
+								width: calc(((100%) * $j) / $colNo) !important;
+							} @else {
+								width: 100% !important;
+							}
+						}
+						&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ORDER', $j)} {
+							@if $j <= $colNo {
+								order: $j !important;
+							} @else {
+								order: $colNo + 1;
+							}
+						}
+						&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'OFFSET', $j)} {
+							@if $j <= $colNo {
+								margin-left: calc(
+									((100%) * $j) / $colNo
+								) !important;
+							} @else {
+								margin-left: 100% !important;
+							}
+						}
+					}
+					&.#{generate-class-names($breakpoints, nth($breakpoint, 1), 'ORDER', 'LAST')} {
+						order: $colNo + 1 !important;
+					}
+				}
+			}
+		}
+	}
+}

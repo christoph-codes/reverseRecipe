@@ -1,14 +1,5 @@
-/**
- * Creates a new recipe document.
- * Must have ADMIN permissions.
- * 
- * @param recipe - Recipe object to be inserted.
- * @returns The inserted Recipe and its audit.
- * @returns If there is an error the returned object(s) will only have an error field.
- */
 exports = async function({recipe}) {
-    const cluster = context.services.get('mongodb-atlas');
-    const recipes = cluster.db('reverseRecipeDB').collection('reverseRecipeRecipe');
+    const request = context.services.get('mongodb-atlas').db('reverseRecipeDB').collection('reverseRecipeRecipe');
 
     const caller = context.user;
     const {role} = caller.custom_data;
@@ -17,9 +8,10 @@ exports = async function({recipe}) {
         return {'error': 'You must have ADMIN permissions to create a recipe.'};
     }
 
-    const inserted = await recipes.insertOne({
+    const inserted = await request.insertOne({
         'category': recipe.category,
         'cookTime': recipe.cookTime || null,
+        'imgSrc': recipe.imgSrc || null,
         'ingredients': recipe.ingredients,
         'instructions': recipe.instructions || null,
         'measurements': recipe.measurements || null,
@@ -41,6 +33,7 @@ exports = async function({recipe}) {
     return {'recipe': inserted, 'audit': audit};
 };
 
+// Export as module to make function testable.
 if (typeof module === 'object') {
     module.exports = exports;
 }

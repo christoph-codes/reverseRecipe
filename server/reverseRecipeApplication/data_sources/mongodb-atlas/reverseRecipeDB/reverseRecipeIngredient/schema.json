@@ -6,6 +6,10 @@
             "bsonType": "objectId",
             "title": "ingredient id"
         },
+        "imgSrc": {
+            "bsonType": "string",
+            "title": "image source path"
+        },
         "name": {
             "bsonType": "string",
             "title": "ingredient name"

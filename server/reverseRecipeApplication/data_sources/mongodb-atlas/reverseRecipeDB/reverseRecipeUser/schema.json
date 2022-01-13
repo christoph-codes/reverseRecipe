@@ -14,12 +14,6 @@
             "bsonType": "string",
             "title": "user last name"
         },
-        "savedRecipes": {
-            "bsonType": "array",
-            "items": {"bsonType": "objectId"},
-            "description": "[objectId] - An array of reference id's for this users saved recipes.",
-            "title": "user saved recipes"
-        },
         "role": {
             "bsonType": "string",
             "description": "string - describes this users permissions by role.",
@@ -28,6 +22,14 @@
                 "ADMIN"
             ],
             "title": "user role"
+        },
+        "savedRecipes": {
+            "bsonType": "array",
+            "description": "[objectId] - An array of reference id's for this users saved recipes.",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "title": "user saved recipes"
         }
     },
     "required": [
@@ -39,4 +41,3 @@
     ],
     "title": "user"
 }
-

@@ -1,0 +1,47 @@
+@import '../../styles/colors';
+.SaveStar {
+	color: $gray;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	border: none;
+	background: transparent;
+	border-radius: 0.5rem;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1rem;
+	cursor: pointer;
+	transition: 0.15s ease-in-out;
+	&Icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		background-image: url('/star_default.svg');
+		background-size: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		display: inline-block;
+		margin-left: 0.5rem;
+		transition: 0.15s ease-in-out;
+	}
+	&Active {
+		color: $yellow;
+		&Icon {
+			background-image: url('/star_active.svg');
+			width: 1.5rem;
+			height: 1.5rem;
+			background-size: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			display: inline-block;
+			margin-left: 0.5rem;
+			transition: 0.15s ease-in-out;
+		}
+	}
+	&:hover {
+		.SaveStarIcon,
+		.SaveStarActiveIcon {
+			background-image: url('/star_hover.svg');
+			color: $yellow;
+		}
+	}
+}
