@@ -63,14 +63,14 @@ export function queryAllIngredients() {
         throw new Error(`Failed to fetch all ingredients: ${error.message}`);
     }
 
-    const ingredients = data?.queryAllIngredients ?? ['no ingredients found'];
+    const ingredients = data ? data : ['no ingredients found'];
     return {
         ingredients,
         loading,
     };
 };
 
-export function queryIngredientByName(name: string) {
+export function queryIngredientByName(name) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryByName,
         {
@@ -88,14 +88,14 @@ export function queryIngredientByName(name: string) {
         throw new Error(`Failed to fetch ${name} ingredient: ${error.message}`);
     }
 
-    const ingredient = data?.ingredient ?? 'no ingredient found';
+    const ingredient = data ? data : 'no ingredient found';
     return {
         ingredient,
         loading,
     };
 }
 
-export function queryIngredientsFromNameList(nameList: [string]) {
+export function queryIngredientsFromNameList(nameList) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryFromNameList,
         {
@@ -113,7 +113,7 @@ export function queryIngredientsFromNameList(nameList: [string]) {
         throw new Error(`Failed to fetch ingredient names ${nameList.join(', ')}: ${error.message}`);
     }
 
-    const ingredients = data?.queryIngredientsFromNameList ?? ['no ingredient found'];
+    const ingredients = data ? data : ['no ingredient found'];
     return {
         ingredients,
         loading,
@@ -121,9 +121,9 @@ export function queryIngredientsFromNameList(nameList: [string]) {
 };
 
 // type should be ID. idk how that is supposed to work...
-export function queryIngredientById(id: string) {
+export function queryIngredientById(id) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
-        queryByName,
+        queryById,
         {
             variables: {
                 id: id
@@ -139,14 +139,14 @@ export function queryIngredientById(id: string) {
         throw new Error(`Failed to fetch ingredient id ${id}: ${error.message}`);
     }
 
-    const ingredient = data?.ingredient ?? 'no ingredient found';
+    const ingredient = data ? data : 'no ingredient found';
     return {
         ingredient,
         loading,
     };
 };
 
-export function queryIngredientsFromIdList(idList: [string]) {
+export function queryIngredientsFromIdList(idList) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryFromIdList,
         {
@@ -164,7 +164,7 @@ export function queryIngredientsFromIdList(idList: [string]) {
         throw new Error(`Failed to fetch ingredient id's ${idList.join(', ')}: ${error.message}`);
     }
 
-    const ingredients = data?.queryIngredientsFromIdList ?? ['no ingredients found'];
+    const ingredients = data ? data : ['no ingredients found'];
     return {
         ingredients,
         loading,

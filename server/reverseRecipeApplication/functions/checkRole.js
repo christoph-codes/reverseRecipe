@@ -3,9 +3,10 @@ exports = async function() {
 
     try {
         const currUser = await request.findOne({ _id: context.user.id });
+        const {role} = currUser.custom_data;
         
         // return value should be ADMIN, USER, or DEFAULT if neither.
-        return currUser.custom_data.role ?? 'DEFAULT';
+        return role ? role : 'DEFAULT';
     } catch (error) {
         return 'DEFAULT';
     }

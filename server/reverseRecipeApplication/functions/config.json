@@ -1,8 +1,7 @@
 [
     {
         "name": "queryIngredientsFromIdList",
-        "private": false,
-        "run_as_system": true
+        "private": false
     },
     {
         "name": "queryRecipesFromIdList",
@@ -18,8 +17,7 @@
     },
     {
         "name": "checkRole",
-        "private": false,
-        "run_as_system": true
+        "private": false
     },
     {
         "name": "getAuditLogs",
@@ -35,13 +33,11 @@
     },
     {
         "name": "queryIngredientsFromNameList",
-        "private": false,
-        "run_as_system": true
+        "private": false
     },
     {
         "name": "queryRecipesFromNameList",
-        "private": false,
-        "run_as_system": true
+        "private": false
     },
     {
         "name": "createIngredientDocument",
@@ -53,7 +49,6 @@
     },
     {
         "name": "queryRecipesFromIngredients",
-        "private": false,
-        "run_as_system": true
+        "private": false
     }
 ]

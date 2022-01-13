@@ -2,7 +2,7 @@ import React from 'react';
 import * as Realm from 'realm-web';
 
 // create context to pass global props
-const ReverseRecipeContext = React.createContext(null);
+const ReverseRecipeContext = React.createContext();
 
 // function to set and protect the context from being used elsewhere
 export const useAppContext = () => {
@@ -13,32 +13,43 @@ export const useAppContext = () => {
     return app;
 };
 
-export const AppProvider = (args: any) => {
+export const AppProvider = ({appID, children}) => {
     // wrap realm app in react state.
-    const [app, setApp] = React.useState(new Realm.App(args.appId));
+    const [app, setApp] = React.useState(new Realm.App(appID));
     React.useEffect(() => {
-        setApp(new Realm.App(args.appId));
-    }, [args.appId]);
+        setApp(new Realm.App(appID));
+    }, [appID]);
 
     // wrap current user in react state
     const [currentUser, setCurrentUser] = React.useState(app.currentUser);
 
     // use realm web sdk to login user
-    async function logIn(credentials: any) {
-        await app.logIn(credentials);
-        setCurrentUser(app.currentUser);
+    async function logInAnon() {
+        const creds = Realm.Credentials.anonymous();
+
+        try {
+            const user = app.logIn(creds);
+            assert(user.id === app.currentUser.id)
+            setCurrentUser(app.currentUser);
+        } catch (e) {
+            throw new Error("Unable to log in anon.");
+        }
     }
 
     async function logOut() {
-        await app.currentUser?.logOut();
-        setCurrentUser(app.currentUser);
+        try {
+            await app.currentUser.logOut();
+            setCurrentUser(app.currentUser);
+        } catch (e) {
+            throw new error("Unable to log out.");
+        }
     }
 
     // wrap the realm client context to the react context
-    const wrapped: any = { ...app, currentUser, logIn, logOut };
+    const wrapped = { ...app, currentUser, logInAnon, logOut };
     return (
         <ReverseRecipeContext.Provider value={wrapped}>
-            {args.children}
+            {children}
         </ReverseRecipeContext.Provider>
     );
 };

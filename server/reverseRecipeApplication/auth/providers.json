@@ -2,7 +2,7 @@
     "anon-user": {
         "name": "anon-user",
         "type": "anon-user",
-        "disabled": true
+        "disabled": false
     },
     "api-key": {
         "name": "api-key",
@@ -18,6 +18,6 @@
             "resetPasswordUrl": "https://www.reverse-recipe.com/resetPassword",
             "runConfirmationFunction": false
         },
-        "disabled": false
+        "disabled": true
     }
 }

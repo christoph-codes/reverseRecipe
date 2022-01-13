@@ -8,25 +8,22 @@ import {
 } from '@apollo/client';
 
 // Create a connection to our mongodb realm backend
-const serverClientConnection = (app: any) => {
+const serverClientConnection = (app) => {
     const link = new HttpLink({
         uri: `https://realm.mongodb.com/api/client/v2.0/app/${app.id}/graphql`,
         // Custom fetch function that intercepts all requests.
         // Refreshes the current users data and add auth token to header.
-        fetch: async (uri: any, options: any) => {
-            // only add header when authentication is required.
-            const bodyObj = JSON.parse(options.body);
-            if (!JSON.parse(options.body).match(/ingredient+s|recipe+s/gi)) {
-                if (!app.currentUser) {
-                    throw new Error(`Must be logged in to use this functionality...`);
-                }
-                // grab the latest version of the users custom data.
-                // so every query we refresh the users custom data.
-                await app.currentUser.refreshCustomData();
-
-                // add auth header to fetch
-                options.headers.Authorization = `Bearer ${app.currentUser.accessToken}`;
+        fetch: async (uri, options) => {
+            if (!app.currentUser) {
+                throw new Error(`Must be logged in to use this functionality...`);
             }
+            // grab the latest version of the users custom data.
+            // so every query we refresh the users custom data.
+            await app.currentUser.refreshCustomData();
+
+            // add auth header to fetch
+            options.headers.Authorization = `Bearer ${app.currentUser.accessToken}`;
+
             return fetch(uri, options);
         },
     });
@@ -40,7 +37,7 @@ const serverClientConnection = (app: any) => {
 // similar to react context. wraps application and provides client as
 // context to the app. context includes the cache which holds results of
 // our querys, etc...
-export default function serverProvider({children}: {children: any}) {
+export default function ServerProvider({children}) {
   const app = useAppContext();
   const [client, setClient] = React.useState(serverClientConnection(app));
   React.useEffect(() => {
