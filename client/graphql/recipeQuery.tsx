@@ -50,6 +50,37 @@ const queryFromIdList = gql`
     }
 `;
 
+const queryFromIngredients = gql`
+    ${FULL_RECIPE_QUERY}
+    query queryRecipesFromIngredients($ingredientList: [ID!]) {
+        queryRecipesFromIngredients(
+            input: $ingredientList
+        ) {
+            ...fullRecipeQuery
+        }
+    }
+`;
+
+export function queryRecipesFromIngredients(ingredientList: [string]) {
+    const { data, loading, error, startPolling, stopPolling } = useQuery(
+        queryFromIngredients
+    );
+    React.useEffect(() => {
+        startPolling(1000);
+        return () => stopPolling();
+    }, [startPolling, stopPolling]);
+
+    if (error) {
+        throw new Error(`Failed to fetch recipes: ${error.message}`);
+    }
+    
+    const recipes = data?.queryFromIngredients ?? ['no recipes found'];
+    return {
+        recipes,
+        loading,
+    };
+}
+
 export function queryAllRecipes() {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryAll
