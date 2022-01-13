@@ -34,21 +34,21 @@ const serverClientConnection = (app: any) => {
     // query results are stored in this cache after they are called
     const cache = new InMemoryCache();
 
-    return new ApolloClient({link, cache});
+    return new ApolloClient({ link, cache });
 };
 
 // similar to react context. wraps application and provides client as
 // context to the app. context includes the cache which holds results of
 // our querys, etc...
-export default function serverProvider({children}: {children: any}) {
-  const app = useAppContext();
-  const [client, setClient] = React.useState(serverClientConnection(app));
-  React.useEffect(() => {
-      setClient(serverClientConnection(app));
-  }, [app]);
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  );
+export default function serverProvider({ children }: { children: any }) {
+    const app = useAppContext();
+    const [client, setClient] = React.useState(serverClientConnection(app));
+    React.useEffect(() => {
+        setClient(serverClientConnection(app));
+    }, [app]);
+    return (
+        <ApolloProvider client={client}>
+            {children}
+        </ApolloProvider>
+    );
 }

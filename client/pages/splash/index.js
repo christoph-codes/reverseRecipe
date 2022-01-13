@@ -1,8 +1,22 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Splash.module.scss';
+import { useEffect } from 'react/cjs/react.production.min';
+import { useAppContext } from '../../providers/AppProvider';
+import {
+	queryRecipesFromNameList,
+	testQuery,
+	queryAllRecipes,
+} from '../../graphql/recipeQuery';
+import styles from './Splash.module.scss';
 
 const Splash = () => {
+	// const app = useAppContext();
+	// console.log('app: ', app);
+
+	// console.log('recipes:', queryRecipesFromNameList(['hot dog', 'beef stew']));
+	const recipes = queryAllRecipes();
+	console.log('recipes:', recipes);
+
 	return (
 		<div className={styles.Splash}>
 			<Head>

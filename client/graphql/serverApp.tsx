@@ -13,12 +13,12 @@ export const useAppContext = () => {
     return app;
 };
 
-export const AppProvider = (args: any) => {
+export const AppProvider = (appId: string, children: any) => {
     // wrap realm app in react state.
-    const [app, setApp] = React.useState(new Realm.App(args.appId));
+    const [app, setApp] = React.useState(new Realm.App(appId));
     React.useEffect(() => {
-        setApp(new Realm.App(args.appId));
-    }, [args.appId]);
+        setApp(new Realm.App(appId));
+    }, [appId]);
 
     // wrap current user in react state
     const [currentUser, setCurrentUser] = React.useState(app.currentUser);
@@ -38,7 +38,7 @@ export const AppProvider = (args: any) => {
     const wrapped: any = { ...app, currentUser, logIn, logOut };
     return (
         <ReverseRecipeContext.Provider value={wrapped}>
-            {args.children}
+            {children}
         </ReverseRecipeContext.Provider>
     );
 };
