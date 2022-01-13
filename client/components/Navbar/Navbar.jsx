@@ -19,14 +19,14 @@ const Navbar = ({ className, ...rest }) => {
 			label: 'Support',
 			link: '/support',
 		},
-		{
-			label: 'Login',
-			link: '/login',
-		},
-		{
-			label: 'Sign Up',
-			link: '/signup',
-		},
+		// {
+		// 	label: 'Login',
+		// 	link: '/login',
+		// },
+		// {
+		// 	label: 'Sign Up',
+		// 	link: '/signup',
+		// },
 	];
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);

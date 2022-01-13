@@ -11,7 +11,10 @@ const Results = () => {
 	const [recipeResults, setRecipeResults] = useState(recipes);
 	// TODO: Make query to call to find recipes based on ingredients
 	return (
-		<PageTemplate className={styles.Results}>
+		<PageTemplate
+			title="Recipe Results | Reverse Recipe"
+			className={styles.Results}
+		>
 			<Section>
 				<h1 className="text-center">Recipe's For Your Ingredients</h1>
 				<p className="text-center">
