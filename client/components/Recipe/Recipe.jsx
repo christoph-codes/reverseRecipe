@@ -24,14 +24,15 @@ const Recipe = ({ data, className, ...rest }) => {
 					<Col xs={12} md={6}>
 						<p className={styles.RecipeIcons}>
 							<img src="/icon-carrot.svg" alt="carrot" />
-							Ingredients:{' '}
+							Ingredients: &nbsp;
 							<strong>{data.ingredients.length}</strong>
 						</p>
 					</Col>
 					<Col xs={12} md={6}>
 						<p className={styles.RecipeIcons}>
 							<img src="/icon-clock.svg" alt="carrot" />
-							Cook Time: <strong>~{data.cookTime}min.</strong>
+							Cook Time:&nbsp;
+							<strong>~{data.cookTime}min.</strong>
 						</p>
 					</Col>
 				</Row>

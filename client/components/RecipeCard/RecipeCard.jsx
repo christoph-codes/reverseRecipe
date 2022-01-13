@@ -29,12 +29,12 @@ const RecipeCard = ({ recipe, className, featured, ...rest }) => {
 					<p>{recipe.description}</p>
 					<p className={styles.RecipeCardIcon}>
 						<img src="/icon-carrot.svg" alt="carrot" />
-						Ingredients:{' '}
+						Ingredients:&nbsp;
 						<strong>{recipe.ingredients.length}</strong>
 					</p>
 					<p className={styles.RecipeCardIcon}>
 						<img src="/icon-clock.svg" alt="carrot" />
-						Cook Time: <strong>~{recipe.cookTime}min.</strong>
+						Cook Time:&nbsp;<strong>~{recipe.cookTime}min.</strong>
 					</p>
 					<Button
 						className={styles.RecipeCardButton}
