@@ -38,14 +38,21 @@ const serverClientConnection = (app) => {
 // context to the app. context includes the cache which holds results of
 // our querys, etc...
 export default function ServerProvider({children}) {
-  const app = useAppContext();
-  const [client, setClient] = React.useState(serverClientConnection(app));
-  React.useEffect(() => {
-      setClient(serverClientConnection(app));
-  }, [app]);
-  return (
-    <ApolloProvider client={client}>
-      {children}
-    </ApolloProvider>
-  );
+    const app = useAppContext();
+    const [client, setClient] = React.useState(serverClientConnection(app));
+    React.useEffect(() => {
+        try {
+            app.logInAnon();
+        } catch (e) {
+            console.log(e);
+        }
+        console.log(app);
+        setClient(serverClientConnection(app));
+    }, [app]);
+
+    return (
+        <ApolloProvider client={client}>
+        {children}
+        </ApolloProvider>
+    );
 }

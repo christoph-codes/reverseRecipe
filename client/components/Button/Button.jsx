@@ -1,7 +1,11 @@
 import { string, bool, oneOf } from 'prop-types';
 import styles from './Button.module.scss';
+import { queryAllIngredients } from '../../graphql/ingredientQuery';
 
 const Button = ({ variant, children, className, ...rest }) => {
+    const test = queryAllIngredients();
+    console.log(test);
+
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':

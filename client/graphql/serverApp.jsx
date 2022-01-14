@@ -27,22 +27,31 @@ export const AppProvider = ({appID, children}) => {
     async function logInAnon() {
         const creds = Realm.Credentials.anonymous();
 
-        try {
-            const user = app.logIn(creds);
-            assert(user.id === app.currentUser.id)
-            setCurrentUser(app.currentUser);
-        } catch (e) {
-            throw new Error("Unable to log in anon.");
+        console.log(app.currentUser);
+        if (!app.currentUser) {
+            try {
+                await app.logIn(creds);
+                setCurrentUser(app.currentUser);
+            } catch (e) {
+                throw new Error("Unable to log in anon.");
+            }
+        } else {
+            console.log("A user is already logged in: " + app.currentUser);
         }
     }
 
     async function logOut() {
-        try {
-            await app.currentUser.logOut();
-            setCurrentUser(app.currentUser);
-        } catch (e) {
-            throw new error("Unable to log out.");
+        if (app.currentUser) {
+            try {
+                await app.currentUser.logOut();
+                setCurrentUser(app.currentUser);
+            } catch (e) {
+                throw new error("Unable to log out.");
+            }
+        } else {
+            console.log("There is no user logged in.");
         }
+        
     }
 
     // wrap the realm client context to the react context
