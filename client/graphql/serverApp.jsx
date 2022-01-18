@@ -16,8 +16,12 @@ export const useAppContext = () => {
 export const AppProvider = ({appID, children}) => {
     // wrap realm app in react state.
     const [app, setApp] = React.useState(new Realm.App(appID));
+    console.log("app init")
     React.useEffect(() => {
-        setApp(new Realm.App(appID));
+        if (!app) {
+            setApp(new Realm.App(appID));
+            console.log("app on load")
+        }
     }, [appID]);
 
     // wrap current user in react state

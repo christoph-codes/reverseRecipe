@@ -40,14 +40,12 @@ const serverClientConnection = (app) => {
 export default function ServerProvider({children}) {
     const app = useAppContext();
     const [client, setClient] = React.useState(serverClientConnection(app));
+    console.log("initial");
     React.useEffect(() => {
-        try {
-            app.logInAnon();
-        } catch (e) {
-            console.log(e);
+        if (!app) {
+            setClient(serverClientConnection(app));
+            console.log("onload");
         }
-        console.log(app);
-        setClient(serverClientConnection(app));
     }, [app]);
 
     return (

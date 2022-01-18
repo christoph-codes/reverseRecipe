@@ -6,7 +6,7 @@ import AddInput from '../components/AddInput';
 import Button from '../components/Button';
 import styles from '../styles/Home.module.scss';
 import Link from 'next/link';
-import { AppProvider, useAppContext } from '../graphql/serverApp';
+import { AppProvider } from '../graphql/serverApp';
 import ServerProvider from '../graphql/serverProvider';
 
 const Home = () => {
