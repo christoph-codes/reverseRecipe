@@ -19,22 +19,9 @@ const Button = ({ variant, children, className, ...rest }) => {
 	const app = useAppContext();
 
 	const test = () => {
-		if (app.currentUser) {
-			console.log("TEST LOGOUT");
-			try {
-				app.logOut();
-				console.log("TEST LOGGED OUT USER", app.currentUser);
-			} catch {
-				console.log("TEST LOGOUT ERROR", e);
-			}
-		} else {
-			console.log("TEST LOGIN");
-			try {
-				app.logInAnon();
-			} catch (e) {
-				console.log("TEST LOGIN ERROR", e);
-			}
-		}
+		fetch('https://us-west-2.aws.data.mongodb-api.com/app/reverserecipeapplication-aogyb/endpoint/getIngredients')
+		.then(res => console.log(res))
+		.catch(e => console.log(e));
 	}
 	return (
 		<button
