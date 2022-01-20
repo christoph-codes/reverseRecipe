@@ -1,6 +1,6 @@
 import { string, bool, oneOf } from 'prop-types';
+import { useAppContext } from '../../graphql/serverApp';
 import styles from './Button.module.scss';
-import { queryAllIngredients } from '../../graphql/ingredientQuery';
 
 const Button = ({ variant, children, className, ...rest }) => {
 	const getVariant = () => {
@@ -15,10 +15,32 @@ const Button = ({ variant, children, className, ...rest }) => {
 				throw new Error(`Invalid variant: ${variant}`);
 		}
 	};
+
+	const app = useAppContext();
+
+	const test = () => {
+		if (app.currentUser) {
+			console.log("TEST LOGOUT");
+			try {
+				app.logOut();
+				console.log("TEST LOGGED OUT USER", app.currentUser);
+			} catch {
+				console.log("TEST LOGOUT ERROR", e);
+			}
+		} else {
+			console.log("TEST LOGIN");
+			try {
+				app.logInAnon();
+			} catch (e) {
+				console.log("TEST LOGIN ERROR", e);
+			}
+		}
+	}
 	return (
 		<button
 			className={`${styles.Button} ${getVariant()} ${className}`}
 			{...rest}
+			onClick={test}
 		>
 			{children}
 		</button>

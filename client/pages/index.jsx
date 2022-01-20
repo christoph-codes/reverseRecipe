@@ -22,6 +22,7 @@ const Home = () => {
 		);
 		setIngredients(newIngredients);
 	};
+
 	return (
         <AppProvider appID={"reverserecipeapplication-aogyb"}>
             <ServerProvider>
@@ -57,7 +58,7 @@ const Home = () => {
                                 })}
                         </div>
                         <Button
-                            onClick={(e) => findRecipe(e)}
+                            // onClick={(e) => findRecipe(e)}
                             className={styles.HomeRecipeButton}
                         >
                             Find Recipe

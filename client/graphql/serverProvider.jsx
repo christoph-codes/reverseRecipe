@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useCallback } from 'react';
 import { useAppContext } from './serverApp';
 import {
     ApolloClient,
@@ -39,12 +39,12 @@ const serverClientConnection = (app) => {
 // our querys, etc...
 export default function ServerProvider({children}) {
     const app = useAppContext();
-    const [client, setClient] = React.useState(serverClientConnection(app));
-    console.log("initial");
-    React.useEffect(() => {
+    const [client, setClient] = useState(serverClientConnection(app));
+
+    // connect to server if app changes and is null.
+    useCallback(() => {
         if (!app) {
             setClient(serverClientConnection(app));
-            console.log("onload");
         }
     }, [app]);
 

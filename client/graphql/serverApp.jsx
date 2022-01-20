@@ -1,12 +1,12 @@
-import React from 'react';
+import { useContext, useState, useCallback, createContext } from 'react';
 import * as Realm from 'realm-web';
 
 // create context to pass global props
-const ReverseRecipeContext = React.createContext();
+const ReverseRecipeContext = createContext();
 
 // function to set and protect the context from being used elsewhere
 export const useAppContext = () => {
-    const app = React.useContext(ReverseRecipeContext);
+    const app = useContext(ReverseRecipeContext);
     if (!app) {
         throw new Error('useAppContext() can only be called inside <ServerProvider />');
     }
@@ -15,45 +15,46 @@ export const useAppContext = () => {
 
 export const AppProvider = ({appID, children}) => {
     // wrap realm app in react state.
-    const [app, setApp] = React.useState(new Realm.App(appID));
-    console.log("app init")
-    React.useEffect(() => {
+    const [app, setApp] = useState(new Realm.App(appID));
+
+    // create Realm.App if appID state change and app is null
+    useCallback(() => {
         if (!app) {
             setApp(new Realm.App(appID));
-            console.log("app on load")
         }
     }, [appID]);
 
     // wrap current user in react state
-    const [currentUser, setCurrentUser] = React.useState(app.currentUser);
+    const [currentUser, setCurrentUser] = useState(app.currentUser);
 
     // use realm web sdk to login user
     async function logInAnon() {
-        const creds = Realm.Credentials.anonymous();
-
-        console.log(app.currentUser);
-        if (!app.currentUser) {
+        if (app.currentUser) {
+            logOut();
+        } else {
+            const creds = Realm.Credentials.anonymous();
             try {
                 await app.logIn(creds);
+                console.log("TEST PROVIDER LOGIN", app.currentUser);
                 setCurrentUser(app.currentUser);
             } catch (e) {
-                throw new Error("Unable to log in anon.");
+                throw new Error("Unable to log in anon user.");
             }
-        } else {
-            console.log("A user is already logged in: " + app.currentUser);
         }
     }
 
     async function logOut() {
         if (app.currentUser) {
             try {
+                console.log("TEST PROVIDER LOGOUT", app.currentUser);
                 await app.currentUser.logOut();
+                console.log("TEST USER LOGGED OUT");
                 setCurrentUser(app.currentUser);
             } catch (e) {
                 throw new error("Unable to log out.");
             }
         } else {
-            console.log("There is no user logged in.");
+            console.log("Logged in user does not exist.");
         }
         
     }
