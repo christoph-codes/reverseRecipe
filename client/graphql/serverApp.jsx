@@ -27,36 +27,29 @@ export const AppProvider = ({appID, children}) => {
     // wrap current user in react state
     const [currentUser, setCurrentUser] = useState(app.currentUser);
 
-    // use realm web sdk to login user
-    async function logInAnon() {
-        if (app.currentUser) {
-            logOut();
-        } else {
-            const creds = Realm.Credentials.anonymous();
-            try {
-                await app.logIn(creds);
-                console.log("TEST PROVIDER LOGIN", app.currentUser);
-                setCurrentUser(app.currentUser);
-            } catch (e) {
-                throw new Error("Unable to log in anon user.");
+    async function logIn(credentials) {
+        try {
+            if (app.currentUser) {
+                await app.currentUser.logOut();
             }
+
+            await app.logIn(credentials);
+            setCurrentUser(app.currentUser);
+        } catch {
+            throw new Error("Unable to login user.");
         }
     }
 
     async function logOut() {
-        if (app.currentUser) {
-            try {
-                console.log("TEST PROVIDER LOGOUT", app.currentUser);
+        try {
+            if (app.currentUser) {
                 await app.currentUser.logOut();
-                console.log("TEST USER LOGGED OUT");
+                // should be null
                 setCurrentUser(app.currentUser);
-            } catch (e) {
-                throw new error("Unable to log out.");
             }
-        } else {
-            console.log("Logged in user does not exist.");
+        } catch {
+            throw new Error("Unable to logout user.")
         }
-        
     }
 
     // wrap the realm client context to the react context

@@ -16,18 +16,10 @@ const Button = ({ variant, children, className, ...rest }) => {
 		}
 	};
 
-	const app = useAppContext();
-
-	const test = () => {
-		fetch('https://us-west-2.aws.data.mongodb-api.com/app/reverserecipeapplication-aogyb/endpoint/getIngredients')
-		.then(res => console.log(res))
-		.catch(e => console.log(e));
-	}
 	return (
 		<button
 			className={`${styles.Button} ${getVariant()} ${className}`}
 			{...rest}
-			onClick={test}
 		>
 			{children}
 		</button>

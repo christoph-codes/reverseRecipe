@@ -58,7 +58,7 @@ const Home = () => {
                                 })}
                         </div>
                         <Button
-                            // onClick={(e) => findRecipe(e)}
+                            onClick={(e) => findRecipe(e)}
                             className={styles.HomeRecipeButton}
                         >
                             Find Recipe

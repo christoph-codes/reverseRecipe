@@ -1,54 +1,69 @@
 [
     {
-        "name": "queryIngredientsFromIdList",
+        "name": "query/getIngredientsFromIdList",
         "private": false
     },
     {
-        "name": "queryRecipesFromIdList",
+        "name": "query/getRecipesFromIdList",
         "private": false
     },
     {
-        "name": "createAuditDocument",
+        "name": "mutations/createAuditDocument",
         "private": false
     },
     {
-        "name": "createUserDocument",
+        "name": "mutations/createUserDocument",
         "private": false
     },
     {
-        "name": "checkRole",
+        "name": "utils/checkUserRole",
         "private": false
     },
     {
-        "name": "getAuditLogs",
+        "name": "query/getAuditLogs",
         "private": false
     },
     {
-        "name": "queryAllIngredients",
+        "name": "query/getIngredients",
         "private": false
     },
     {
-        "name": "queryAllRecipes",
+        "name": "query/getRecipes",
         "private": false
     },
     {
-        "name": "queryIngredientsFromNameList",
+        "name": "query/getIngredientsFromNameList",
         "private": false
     },
     {
-        "name": "queryRecipesFromNameList",
+        "name": "query/getRecipesFromNameList",
         "private": false
     },
     {
-        "name": "createIngredientDocument",
+        "name": "mutations/createIngredientDocument",
         "private": false
     },
     {
-        "name": "createRecipeDocument",
+        "name": "mutations/createRecipeDocument",
         "private": false
     },
     {
-        "name": "queryRecipesFromIngredients",
+        "name": "query/getRecipesFromIngredients",
         "private": false
+    },
+    {
+        "name": "http/getAllIngredients",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "http/getAllRecipes",
+        "private": false,
+        "run_as_system": true
+    },
+    {
+        "name": "http/getRecipeFromIngredients",
+        "private": false,
+        "run_as_system": true
     }
 ]
