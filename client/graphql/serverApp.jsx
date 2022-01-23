@@ -53,7 +53,7 @@ export const AppProvider = ({appID, children}) => {
     }
 
     // wrap the realm client context to the react context
-    const wrapped = { ...app, currentUser, logInAnon, logOut };
+    const wrapped = { ...app, currentUser, logIn, logOut };
     return (
         <ReverseRecipeContext.Provider value={wrapped}>
             {children}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PageTemplate from '../templates/PageTemplate';
 import Section from '../components/Section';
 import SubtractTag from '../components/SubtractTag';
@@ -12,16 +12,54 @@ import ServerProvider from '../graphql/serverProvider';
 const Home = () => {
 	const [ingredient, setIngredient] = useState('');
 	const [ingredients, setIngredients] = useState([]);
+    // key: name (lower case), value: _id
+    const [ingredientMap, setIngredientMap] = useState(null);
+
 	const findRecipe = () => {
-		console.log('Ingredients:', ingredients);
-		// TODO: Make query to call to find recipes based on ingredients
+		const ids = ingredients.map(i => ingredientMap.get(i.toLowerCase()));
+        const queryParam = ids.join(',');
+        console.log(queryParam);
+
+        if (queryParam) {
+            fetch(`https://us-west-2.aws.data.mongodb-api.com/app/reverserecipeapplication-aogyb/endpoint/getRecipesFromIngredients?ingredients=${queryParam}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then((data) => {
+                // do something with the retrieved recipies
+                console.log(data);
+            })
+        }
 	};
+
 	const removeIngredient = (value) => {
 		const newIngredients = ingredients.filter(
 			(ingredient) => ingredient !== value
 		);
 		setIngredients(newIngredients);
 	};
+
+    useEffect(() => {
+        if (!ingredientMap) {
+            fetch('https://us-west-2.aws.data.mongodb-api.com/app/reverserecipeapplication-aogyb/endpoint/getIngredients',
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then((data) => {
+                const dataMap = new Map();
+                data.forEach(d => dataMap.set(d.name, d._id));
+                setIngredientMap(dataMap);
+            });
+        }
+    }, [ingredientMap])
 
 	return (
         <AppProvider appID={"reverserecipeapplication-aogyb"}>
@@ -58,7 +96,7 @@ const Home = () => {
                                 })}
                         </div>
                         <Button
-                            onClick={(e) => findRecipe(e)}
+                            onClick={() => findRecipe()}
                             className={styles.HomeRecipeButton}
                         >
                             Find Recipe
