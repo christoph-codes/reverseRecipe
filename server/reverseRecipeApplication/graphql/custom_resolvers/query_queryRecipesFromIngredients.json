@@ -1,6 +1,6 @@
 {
     "field_name": "queryRecipesFromIngredients",
-    "function_name": "queryRecipesFromIngredients",
+    "function_name": "query/getRecipesFromIngredients",
     "input_type": "objectId",
     "input_type_format": "scalar-list",
     "on_type": "Query",

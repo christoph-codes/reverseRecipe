@@ -61,7 +61,7 @@ const queryFromIngredients = gql`
     }
 `;
 
-export function queryRecipesFromIngredients(ingredientList: [string]) {
+export function queryRecipesFromIngredients(ingredientList) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryFromIngredients
     );
@@ -74,7 +74,7 @@ export function queryRecipesFromIngredients(ingredientList: [string]) {
         throw new Error(`Failed to fetch recipes: ${error.message}`);
     }
     
-    const recipes = data?.queryFromIngredients ?? ['no recipes found'];
+    const recipes = data ? data : ['no recipes found'];
     return {
         recipes,
         loading,
@@ -94,14 +94,14 @@ export function queryAllRecipes() {
         throw new Error(`Failed to fetch all recipes: ${error.message}`);
     }
     
-    const recipes = data?.queryAllRecipes ?? ['no recipe found'];
+    const recipes = data ? data : ['no recipe found'];
     return {
         recipes,
         loading,
     };
 }
 
-export function queryRecipeByName(name: string) {
+export function queryRecipeByName(name) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryByName,
         {
@@ -119,14 +119,14 @@ export function queryRecipeByName(name: string) {
         throw new Error(`Failed to fetch ${name} recipe: ${error.message}`);
     }
     
-    const recipe = data?.recipe ?? 'no recipe found';
+    const recipe = data ? data : 'no recipe found';
     return {
         recipe,
         loading,
     };
 }
 
-export function queryRecipesFromNameList(nameList: [string]) {
+export function queryRecipesFromNameList(nameList) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryFromNameList,
         {
@@ -144,7 +144,7 @@ export function queryRecipesFromNameList(nameList: [string]) {
         throw new Error(`Failed to fetch recipe names ${nameList.join(', ')}: ${error.message}`);
     }
 
-    const recipes = data?.queryRecipesFromNameList ?? ['no recipes found'];
+    const recipes = data ? data : ['no recipes found'];
     return {
         recipes,
         loading,
@@ -152,9 +152,9 @@ export function queryRecipesFromNameList(nameList: [string]) {
 };
 
 // type should be ID. idk how that is supposed to work...
-export function queryRecipeById(id: string) {
+export function queryRecipeById(id) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
-        queryByName,
+        queryById,
         {
             variables: {
                 id: id
@@ -170,14 +170,14 @@ export function queryRecipeById(id: string) {
         throw new Error(`Failed to fetch recipe id ${id}: ${error.message}`);
     }
 
-    const recipe = data?.recipe ?? 'no recipe found';
+    const recipe = data ? data : 'no recipe found';
     return {
         recipe,
         loading,
     };
 };
 
-export function queryRecipesFromIdList(idList: [string]) {
+export function queryRecipesFromIdList(idList) {
     const { data, loading, error, startPolling, stopPolling } = useQuery(
         queryFromIdList,
         {
@@ -195,7 +195,7 @@ export function queryRecipesFromIdList(idList: [string]) {
         throw new Error(`Failed to fetch recipe id's ${idList.join(', ')}: ${error.message}`);
     }
 
-    const recipes = data?.queryRecipesFromIdList ?? ['no recipes found'];
+    const recipes = data ? data : ['no recipes found'];
     return {
         recipes,
         loading,

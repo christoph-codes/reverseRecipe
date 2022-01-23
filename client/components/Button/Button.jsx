@@ -1,4 +1,5 @@
 import { string, bool, oneOf } from 'prop-types';
+import { useAppContext } from '../../graphql/serverApp';
 import styles from './Button.module.scss';
 
 const Button = ({ variant, children, className, ...rest }) => {
@@ -14,6 +15,7 @@ const Button = ({ variant, children, className, ...rest }) => {
 				throw new Error(`Invalid variant: ${variant}`);
 		}
 	};
+
 	return (
 		<button
 			className={`${styles.Button} ${getVariant()} ${className}`}

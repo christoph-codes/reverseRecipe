@@ -1,6 +1,6 @@
 {
     "field_name": "queryIngredientsFromNameList",
-    "function_name": "queryIngredientsFromNameList",
+    "function_name": "query/getIngredientsFromNameList",
     "input_type": "string",
     "input_type_format": "scalar-list",
     "on_type": "Query",

@@ -3,33 +3,8 @@
     "database": "reverseRecipeDB",
     "roles": [
         {
-            "name": "Admin",
-            "apply_when": {
-                "%%user.custom_data.role": "ADMIN"
-            },
-            "read": true,
-            "write": true,
-            "insert": true,
-            "delete": true,
-            "search": true,
-            "additional_fields": {}
-        },
-        {
-            "name": "User",
-            "apply_when": {
-                "%%user.custom_data.role": "User"
-            },
-            "read": false,
-            "write": false,
-            "insert": false,
-            "delete": false,
-            "search": false,
-            "additional_fields": {}
-        },
-        {
             "name": "Default",
             "apply_when": {},
-            "read": false,
             "write": false,
             "insert": false,
             "delete": false,

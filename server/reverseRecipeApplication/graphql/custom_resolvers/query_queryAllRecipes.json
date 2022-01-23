@@ -1,6 +1,6 @@
 {
     "field_name": "queryAllRecipes",
-    "function_name": "queryAllRecipes",
+    "function_name": "query/getRecipes",
     "input_type_format": "",
     "on_type": "Query",
     "payload_type": "Recipe",
