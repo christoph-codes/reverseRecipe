@@ -1,0 +1,15 @@
+{
+    "collection": "reverseRecipeIngredient",
+    "database": "reverseRecipeDB",
+    "roles": [
+        {
+            "name": "Default",
+            "apply_when": {},
+            "read": true,
+            "insert": false,
+            "delete": false,
+            "search": true,
+            "additional_fields": {}
+        }
+    ]
+}
