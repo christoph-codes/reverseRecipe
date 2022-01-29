@@ -1,5 +1,6 @@
 const recipes = [
 	{
+		id: 1,
 		name: 'Hot Dogs',
 		category: 'Italian',
 		imgSrc: '/recipes/hotdog.png',
@@ -10,6 +11,7 @@ const recipes = [
 		url: '/recipe/hot-dogs',
 	},
 	{
+		id: 2,
 		name: 'Ramen',
 		category: 'Chinese',
 		imgSrc: '/recipes/ramen.png',
@@ -20,6 +22,7 @@ const recipes = [
 		url: '/recipe/ramen',
 	},
 	{
+		id: 3,
 		name: 'Sloppy Joes',
 		category: 'American',
 		imgSrc: '/recipes/sloppyjoes.png',
@@ -30,6 +33,7 @@ const recipes = [
 		url: '/recipe/sloppy-joes',
 	},
 	{
+		id: 4,
 		name: 'Popcorn Shrimp',
 		category: 'Seafood',
 		imgSrc: '/recipes/popcornshrimp.png',
@@ -40,6 +44,7 @@ const recipes = [
 		url: '/recipe/popcorn-shrimp',
 	},
 	{
+		id: 5,
 		name: 'Beef Stew',
 		category: 'Italian',
 		imgSrc: '/recipes/beefstew.png',
