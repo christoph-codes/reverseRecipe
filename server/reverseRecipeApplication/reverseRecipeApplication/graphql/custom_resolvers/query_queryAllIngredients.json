@@ -1,0 +1,8 @@
+{
+    "field_name": "queryAllIngredients",
+    "function_name": "query/getIngredients",
+    "input_type_format": "",
+    "on_type": "Query",
+    "payload_type": "Ingredient",
+    "payload_type_format": "generated-list"
+}
