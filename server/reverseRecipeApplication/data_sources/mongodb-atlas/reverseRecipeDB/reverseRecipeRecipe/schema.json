@@ -1,0 +1,65 @@
+{
+    "bsonType": "object",
+    "description": "Object representing a recipe.",
+    "properties": {
+        "_id": {
+            "bsonType": "objectId",
+            "title": "recipe id"
+        },
+        "category": {
+            "bsonType": "string",
+            "description": "string - The category of this recipe (i.e. American, Thai, French, etc).",
+            "title": "recipe category"
+        },
+        "cookTime": {
+            "bsonType": "int",
+            "title": "recipe cook time"
+        },
+        "description": {
+            "bsonType": "string",
+            "maxLength": 1000,
+            "title": "recipe description"
+        },
+        "imgSrc": {
+            "bsonType": "string",
+            "title": "recipe image"
+        },
+        "ingredients": {
+            "bsonType": "array",
+            "description": "[objectId] - An array of ID's listing all ingredients in this recipe.",
+            "items": {
+                "bsonType": "objectId"
+            },
+            "title": "recipe ingredients",
+            "uniqueItems": true
+        },
+        "instructions": {
+            "bsonType": "array",
+            "description": "[string] - An array of instructions for this recipe.",
+            "items": {
+                "bsonType": "string"
+            },
+            "title": "recipe instructions"
+        },
+        "measurements": {
+            "bsonType": "array",
+            "description": "[string] - An array of measurements where each item corresponds to an ingredient.",
+            "items": {
+                "bsonType": "string"
+            },
+            "title": "ingredient measurements"
+        },
+        "name": {
+            "bsonType": "string",
+            "title": "recipe name"
+        }
+    },
+    "required": [
+        "_id",
+        "name",
+        "recipeDescription",
+        "ingredients",
+        "category"
+    ],
+    "title": "recipe"
+}
