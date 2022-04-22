@@ -11,7 +11,7 @@ const RecipeCard = ({ recipe, className, featured, ...rest }) => {
 				featured ? styles.featured : ''
 			} ${className}`}
 		>
-			<Col xs={12} md={5} className={styles.RecipeCardImage}>
+			<Col xs={12} md="" className={styles.RecipeCardImage}>
 				{featured && (
 					<Tag
 						variant="green"
@@ -20,13 +20,18 @@ const RecipeCard = ({ recipe, className, featured, ...rest }) => {
 						Featured
 					</Tag>
 				)}
-				<img src={recipe.imgSrc} alt={recipe.name} />
+				<img
+					src={recipe.imgSrc || '/empty-recipe-image.png'}
+					alt={recipe.name}
+				/>
 			</Col>
-			<Col>
+			<Col md="">
 				<div className={styles.RecipeCardContent}>
 					<Tag>{recipe.category}</Tag>
 					<h3>{recipe.name}</h3>
-					<p>{recipe.description}</p>
+					{recipe.recipeDescription && (
+						<p>{recipe.recipeDescription}</p>
+					)}
 					<p className={styles.RecipeCardIcon}>
 						<img src="/icon-carrot.svg" alt="carrot" />
 						Ingredients:&nbsp;

@@ -11,7 +11,7 @@ const Recipe = ({ data, className, ...rest }) => {
 			<Col sm={2} xs={12}>
 				<img
 					className={styles.RecipeImage}
-					src={data.imgSrc}
+					src={data.imgSrc || '/empty-recipe-image.png'}
 					alt={data.name}
 				/>
 			</Col>
@@ -19,7 +19,7 @@ const Recipe = ({ data, className, ...rest }) => {
 				<h3>
 					{data.name} <Tag className="MB-0 ML-H">{data.category}</Tag>
 				</h3>
-				<p>{data.description}</p>
+				{data.recipeDescription && <p>{data.recipeDescription}</p>}
 				<Row>
 					<Col xs={12} md={6}>
 						<p className={styles.RecipeIcons}>

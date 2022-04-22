@@ -2,10 +2,18 @@ import PageTemplate from '../../templates/PageTemplate';
 import Section from '../../components/Section';
 import RecipeList from '../../components/RecipeList';
 import RecipeCard from '../../components/RecipeCard';
+import { useRecipes } from '../../providers/recipes';
 import styles from './Explore.module.scss';
-import recipes from '../../data/recipes';
 
 const Explore = () => {
+	const { recipes, loading } = useRecipes();
+	if (loading) {
+		return 'Loading...';
+	}
+	if (recipes.length === 0) {
+		return 'No Recipes Found';
+	}
+	console.log('recipes:', recipes);
 	return (
 		<PageTemplate
 			title="Explore Recipes with Reverse Recipe"

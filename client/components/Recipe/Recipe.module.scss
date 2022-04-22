@@ -3,9 +3,13 @@
 	align-items: center;
 	&Image {
 		width: 100%;
+		border-radius: 1rem;
 		@media (max-width: 48rem) {
 			margin-bottom: 1rem;
 		}
+	}
+	h3 {
+		text-transform: capitalize;
 	}
 	&Icons {
 		display: flex;
