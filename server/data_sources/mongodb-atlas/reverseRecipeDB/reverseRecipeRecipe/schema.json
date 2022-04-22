@@ -15,9 +15,14 @@
             "bsonType": "int",
             "title": "recipe cook time"
         },
+        "description": {
+            "bsonType": "string",
+            "maxLength": 1000,
+            "title": "recipe description"
+        },
         "imgSrc": {
             "bsonType": "string",
-            "title": "image source path"
+            "title": "recipe image"
         },
         "ingredients": {
             "bsonType": "array",
@@ -25,11 +30,15 @@
             "items": {
                 "bsonType": "objectId"
             },
-            "title": "ingredients",
+            "title": "recipe ingredients",
             "uniqueItems": true
         },
         "instructions": {
-            "bsonType": "string",
+            "bsonType": "array",
+            "description": "[string] - An array of instructions for this recipe.",
+            "items": {
+                "bsonType": "string"
+            },
             "title": "recipe instructions"
         },
         "measurements": {
@@ -38,16 +47,11 @@
             "items": {
                 "bsonType": "string"
             },
-            "title": "recipe ingredient measurements"
+            "title": "ingredient measurements"
         },
         "name": {
             "bsonType": "string",
             "title": "recipe name"
-        },
-        "recipeDescription": {
-            "bsonType": "string",
-            "maxLength": 1000,
-            "title": "recipe description"
         }
     },
     "required": [
