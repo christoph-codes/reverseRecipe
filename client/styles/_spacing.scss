@@ -1,5 +1,0 @@
-@import './utilities';
-@import './variables';
-@each $utilityName, $utility in $utilities {
-	@include generateUtility(map-get($utilities, $utilityName), $breakpoints);
-}
