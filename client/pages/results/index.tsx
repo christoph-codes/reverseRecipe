@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Section from '../../components/Section';
 import RecipeList from '../../components/RecipeList';
 import RecipeCard from '../../components/RecipeCard';
 import PageTemplate from '../../templates/PageTemplate';
-
-import recipes from '../../data/recipes';
 import styles from './Results.module.scss';
 
-const Results = () => {
-	const [recipeResults, setRecipeResults] = useState(recipes);
-	// TODO: Make query to call to find recipes based on ingredients
+export default function Results() {
+	const [recipeResults, setRecipeResults] = useState([]);
+
 	return (
 		<PageTemplate
 			title="Recipe Results | Reverse Recipe"
@@ -25,6 +23,4 @@ const Results = () => {
 			</Section>
 		</PageTemplate>
 	);
-};
-
-export default Results;
+}

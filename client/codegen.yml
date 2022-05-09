@@ -1,0 +1,18 @@
+hooks:
+  afterAllFileWrite: 
+    - prettier --write
+generates:
+  ./generated/ingredientsGenerated.ts:
+    schema: "../server/ReverseRecipe-Production/data_source/mongodb-atlast/ReverseRecipeDB/rrIngredients/schema.json"
+    documents: "./graphql/query/ingredientQuery.ts"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./generated/recipiesGenerated.ts:
+    schema: "../server/ReverseRecipe-Production/data_source/mongodb-atlast/ReverseRecipeDB/rrRecipes/schema.json"
+    documents: "./graphql/query/recipeQuery.ts"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"

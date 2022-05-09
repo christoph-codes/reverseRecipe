@@ -4,7 +4,21 @@ import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import styles from './PageTemplate.module.scss';
 
-const PageTemplate = ({ className, title, children, ...rest }) => {
+interface IChildren {
+	children?: React.ReactNode;
+}
+
+interface IPageTemplate extends IChildren {
+	className?: string;
+	title: string;
+}
+
+export default function PageTemplate({ 
+	className, 
+	title, 
+	children, 
+	...rest 
+}: IPageTemplate) {
 	return (
 		<>
 			<Head>
@@ -17,18 +31,4 @@ const PageTemplate = ({ className, title, children, ...rest }) => {
 			</div>
 		</>
 	);
-};
-
-export default PageTemplate;
-
-PageTemplate.propTypes = {
-	className: string,
-	title: string,
-	children: node,
-};
-
-PageTemplate.defaultProps = {
-	className: '',
-	title: 'Reverse Recipe',
-	children: null,
-};
+}

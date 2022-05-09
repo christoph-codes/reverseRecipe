@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../styles/Splash.module.scss';
+import styles from './styles/Splash.module.scss';
 
-const Splash = () => {
+export default function Splash() {
 	return (
 		<div className={styles.Splash}>
 			<Head>
@@ -22,6 +22,4 @@ const Splash = () => {
 			/>
 		</div>
 	);
-};
-
-export default Splash;
+}

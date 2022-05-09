@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import PageTemplate from '../../templates/PageTemplate';
 import Section from '../../components/Section';
 import RecipeList from '../../components/RecipeList';
 import RecipeCard from '../../components/RecipeCard';
 import styles from './Explore.module.scss';
-import recipes from '../../data/recipes';
 
-const Explore = () => {
+export default function Explore() {
+	const [recipes, setRecipes] = useState([]);
+
 	return (
 		<PageTemplate
 			title="Explore Recipes with Reverse Recipe"
@@ -22,6 +24,4 @@ const Explore = () => {
 			</Section>
 		</PageTemplate>
 	);
-};
-
-export default Explore;
+}
