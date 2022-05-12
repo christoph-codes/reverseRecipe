@@ -1,17 +1,16 @@
 import React from 'react';
 import styles from './SaveStar.module.scss';
 
-interface ISaveStar {
+interface ISaveStar extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	className?: string;
 	onClick?: (a: any) => void;
-	rest?: React.HTMLProps<HTMLButtonElement>;
 }
 
 export default function SaveStar({ 
 	className, 
 	onClick, 
 	...rest 
-}: ISaveStar): React.ReactNode {
+}: ISaveStar): JSX.Element {
 	const [toggleActive, setToggleActive] = React.useState(false);
 
 	return (

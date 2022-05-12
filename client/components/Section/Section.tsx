@@ -1,15 +1,11 @@
 import React from 'react';
-import { string, bool } from 'prop-types';
 import Container from '../Container';
 import Row from '../Row';
 import styles from './Section.module.scss';
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface ISection extends IChildren {
+interface ISection extends React.AllHTMLAttributes<HTMLElement> {
 	className?: string;
+	children?: JSX.Element;
 	bgImg?: string;
 	title?: string;
 	titleClass?: string;
@@ -17,7 +13,6 @@ interface ISection extends IChildren {
 	fullWidth?: boolean;
 	containerClass?: string;
 	description?: string;
-	rest?: React.HTMLProps<HTMLElement>
 }
 
 export default function Section({
@@ -31,9 +26,9 @@ export default function Section({
 	containerClass,
 	description,
 	...rest
-}: ISection): React.ReactNode {
+}: ISection): JSX.Element {
 	return (
-		<>
+		<React.Fragment>
 			<section
 				style={bgImg ? { backgroundImage: `url(${bgImg})` } : {}}
 				className={`${styles.Section} ${className || ''}`}
@@ -44,23 +39,25 @@ export default function Section({
 					as="div"
 					fluid={fullWidth || false}
 				>
-					{title ? (
-						<h2
-							className={`${styles.sectionTitle} ${titleClass} text-gray`}
-						>
-							{title}
-						</h2>
-					) : (
-						''
-					)}
-					{description ? (
-						<p className="section-description">{description}</p>
-					) : (
-						''
-					)}
-					{columns ? <Row>{children}</Row> : children}
+					<React.Fragment>
+						{title ? (
+							<h2
+								className={`${styles.sectionTitle} ${titleClass} text-gray`}
+							>
+								{title}
+							</h2>
+						) : (
+							''
+						)}
+						{description ? (
+							<p className="section-description">{description}</p>
+						) : (
+							''
+						)}
+						{columns ? <Row>{children}</Row> : children}
+					</React.Fragment>
 				</Container>
 			</section>
-		</>
+		</React.Fragment>
 	);
 }

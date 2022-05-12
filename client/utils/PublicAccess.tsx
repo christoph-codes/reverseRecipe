@@ -1,25 +1,30 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { UseRealmApp } from '../providers/RealmAppProvider';
-import * as dotenv from 'dotenv';
-
-dotenv.config({ path: '../.env' });
 
 interface IChildren {
-    children?: React.ReactNode;
+    children?: JSX.Element | JSX.Element[];
 }
 
 export function PublicAccess({
-    children,
-}: IChildren): React.ReactNode {
+    children
+}: IChildren): JSX.Element {
     const context = UseRealmApp();
 
-    useEffect(() => {
-        if (!context && !context.currentUser) {
-            context.logInApiKey(process.env.API_KEY);
+    React.useEffect(() => {
+        console.log(context);
+        console.log(context.currentUser);
+        console.log(context.app);
+        if (context && !context.currentUser) {
+            context.logInApiKey('UHuShx1eyDWLqABBh1MhgkFHgzVUsPdQYTXWpziRarnx4qypYNYqY48K0mbhfbF6');
         } 
+        console.log(context.currentUser);
 
         return context.logOut;
     }, [context]);
 
-    return ( children );
+    return (
+        <>
+            {children}
+        </>
+    );
 }

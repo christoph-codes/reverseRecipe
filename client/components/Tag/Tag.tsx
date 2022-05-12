@@ -1,14 +1,10 @@
-import { string } from 'prop-types';
+import React from 'react';
 import styles from './Tag.module.scss';
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface ITag extends IChildren {
+interface ITag extends React.AllHTMLAttributes<HTMLDivElement> {
 	className?: string;
+	children?: JSX.Element | string;
 	variant?: 'primary' | 'secondary' | 'blue' | 'green' | 'red' | 'yellow';
-	rest?: React.HTMLProps<HTMLDivElement>;
 }
 
 export default function Tag({ 
@@ -16,7 +12,7 @@ export default function Tag({
 	className, 
 	variant = 'primary', 
 	...rest 
-}: ITag): React.ReactNode {
+}: ITag): JSX.Element {
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':

@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 import * as RealmWeb from 'realm-web';
 import {
     ApolloClient,
@@ -7,19 +6,11 @@ import {
     InMemoryCache,
 } from '@apollo/client';
 
-dotenv.config({ path: '../../.env' });
-
-export interface IRealmApp {
-    app?: RealmWeb.App;
-}
-
-export function ServerClientConnection ({ 
-    app
-}: IRealmApp): ApolloClient<NormalizedCacheObject> {
+export function ServerClientConnection (app: RealmWeb.App): ApolloClient<NormalizedCacheObject> {
     if(!app) throw new Error('Cannot connect to server, App is null...');
 
     const link = new HttpLink({
-        uri: process.env.SERVER_CLIENT_CONNECTION,
+        uri: 'https://us-west-2.aws.realm.mongodb.com/api/client/v2.0/app/reverserecipe-production-lkjvj/graphql',
         fetch: async (uri: string, options: any) => {
             if (!app.currentUser) {
                 throw new Error('Must be logged in to use this functionality...');

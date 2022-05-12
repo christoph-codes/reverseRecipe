@@ -1,19 +1,20 @@
-import Recipe from '../Recipe';
+import RecipeInfo from '../RecipeInfo';
 import styles from './RecipeList.module.scss';
+import { Recipe } from '../../graphql/generated/Generated';
 
 interface IRecipeList {
 	className?: string;
-	recipes?: any[]; // import recipe from generated
+	recipes?: Recipe[];
 }
 
 export default function RecipeList({ 
 	recipes, 
 	className
-}: IRecipeList): React.ReactNode {
+}: IRecipeList): JSX.Element {
 	return (
 		<div className={`${styles.RecipeList} ${className}`}>
 			{recipes.map((recipe) => (
-				<Recipe key={recipe.id} data={recipe} />
+				<RecipeInfo key={recipe._id} data={recipe} />
 			))}
 		</div>
 	);

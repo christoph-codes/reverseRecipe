@@ -1,33 +1,35 @@
 import React from 'react';
 import styles from './Checkbox.module.scss';
 
-interface ICheckbox {
+interface ICheckbox extends React.InputHTMLAttributes<HTMLInputElement> {
 	className?: string;
 	label?: string;
 	name: string;
-	value: boolean;
-	setValue: (b: boolean) => void;
-	rest?: React.HTMLProps<HTMLInputElement>
+	checked?: boolean;
 }
 
 export default function Checkbox({ 
 	className, 
 	label,
-	name = '', 
-	value = false, 
-	setValue = () => {}, 
+	name = '',
+	checked = false,
 	...rest
-}: ICheckbox): React.ReactNode {
+}: ICheckbox): JSX.Element {
+
+	function changeHandler() {
+		checked = !checked ?? true;
+	}
+
 	return (
 		<label
 			htmlFor={name}
-			onClick={() => setValue(!value)}
+			onClick={changeHandler}
 			className={styles.Checkbox}
 		>
 			<input
 				className={styles.CheckboxBox}
 				name={name}
-				defaultChecked={value}
+				defaultChecked={checked}
 				type="checkbox"
 				{...rest}
 			/>

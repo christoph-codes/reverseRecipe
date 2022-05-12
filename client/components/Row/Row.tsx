@@ -1,33 +1,28 @@
 import React from 'react';
 import styles from './Row.module.scss';
 
-type TRowAs = string | ((a: any) => any);
 type TRowSize = string | object | number | boolean;
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface IRow extends IChildren {
+interface IRow extends React.HTMLAttributes<HTMLDivElement> {
 	className?: string;
-	as?: TRowAs;
+	children?: JSX.Element;
 	xs?: TRowSize;
 	sm?: TRowSize;
 	md?: TRowSize;
 	lg?: TRowSize;
-	rest?: React.HTMLProps<HTMLElement> //Not sure if this is correct...
+	as?: any;
 }
 
 export default function Row({ 
-	className, 
-	as,  
-	xs, 
-	sm, 
-	md, 
+	className,
+	as = 'div',
+	xs,
+	sm,
+	md,
 	lg,
 	children,
 	...rest
-}: IRow): React.ReactNode {
+}: IRow): JSX.Element {
 	const As = as;
 	const getClassNames = (breakpoint, value) => {
 		let classNames = '';

@@ -1,22 +1,20 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface IButton extends IChildren {
-	variant: 'primary' | 'secondary' | 'tertiary';
+interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+	variant?: 'primary' | 'secondary' | 'tertiary';
 	className?: string;
-	rest?: React.HTMLProps<HTMLButtonElement>
+	children?: string | JSX.Element & Omit<JSX.Element, 'a'>; // idk if this will exclude a tags or not
+	href?: string;
 }
 
 export default function Button({ 
-	variant = 'primary', 
-	children, 
-	className, 
+	variant = 'primary',  
+	className,
+	children,
+	href = '#',
 	...rest
-}: IButton): React.ReactNode {
+}: IButton): JSX.Element {
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':
@@ -26,7 +24,7 @@ export default function Button({
 			case 'tertiary':
 				return styles.ButtonTertiary;
 			default:
-				throw new Error(`Invalid variant: ${variant}`);
+				return 'primary';
 		}
 	};
 	return (
@@ -34,7 +32,9 @@ export default function Button({
 			className={`${styles.Button} ${getVariant()} ${className}`}
 			{...rest}
 		>
-			{children}
+			<a href={href}>
+				{children}
+			</a>
 		</button>
 	);
 }

@@ -1,33 +1,28 @@
 import React from 'react';
 import styles from './Col.module.scss';
 
-type TColAs = string | ((a: any) => any);
 type TColSize = string | object | number | boolean;
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface ICol extends IChildren {
+interface ICol extends React.HTMLAttributes<HTMLDivElement> {
 	className?: string;
-	as?: TColAs;
+	children?: JSX.Element;
 	xs?: TColSize;
 	sm?: TColSize;
 	md?: TColSize;
 	lg?: TColSize;
-	rest?: React.HTMLProps<HTMLElement> //Not sure if this is correct...
+	as?: any;
 }
 
 export default function Col({ 
-	className, 
-	as = 'div', 
+	className,
+	as = 'div',
 	xs, 
 	sm, 
 	md, 
 	lg, 
 	children, 
 	...rest 
-}: ICol): React.ReactNode {
+}: ICol): JSX.Element {
 	const As = as;
 	const getClassNames = (breakpoint, value) => {
 		let classNames = '';

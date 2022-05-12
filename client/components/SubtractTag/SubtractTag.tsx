@@ -1,19 +1,18 @@
+import React from 'react';
 import styles from './SubtractTag.module.scss';
 
-interface IChildren {
-	children?: React.ReactNode;
+interface ISubtractTag extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+	className?: string;
+	children?: JSX.Element | string;
 }
 
-interface ISubtractTag extends IChildren {
-	className?: string;
-	rest?: React.HTMLProps<HTMLButtonElement>;
-}
+// how to define ...rest
 
 export default function SubtractTag({ 
 	children, 
 	className, 
 	...rest
-}: ISubtractTag): React.ReactNode {
+}: ISubtractTag): JSX.Element {
 	return (
 		<button className={`${styles.SubtractTag} ${className}`} {...rest}>
 			{children}

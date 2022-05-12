@@ -15,7 +15,7 @@ export default function AddInput({
 	value = '', 
 	setValue = () => {}, 
 	addCallback = () => {}
-}: IAddInput): React.ReactNode {
+}: IAddInput): JSX.Element {
 	const callback = (e) => {
 		e.preventDefault();
 		if (value.length > 0) {

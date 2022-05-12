@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from './styles/Splash.module.scss';
 
-export default function Splash() {
+export default function Splash(): JSX.Element {
 	return (
 		<div className={styles.Splash}>
 			<Head>

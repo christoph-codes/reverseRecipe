@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Row from '../../components/Row';
@@ -19,20 +19,20 @@ import AddInput from '../../components/AddInput';
 import Recipe from '../../components/Recipe';
 import RecipeList from '../../components/RecipeList/RecipeList';
 
-import recipes from '../../data/recipes';
+import recipes from '../../public/recipes';
 import RecipeCard from '../../components/RecipeCard';
 
-const Playground = () => {
-	const [checklist, setChecklist] = useState({
+export default function Playground(): JSX.Element {
+	const [checklist, setChecklist] = React.useState({
 		'4 skinless, boneless chicken breasts halves': false,
 		'1/2 cup of chicken broth': false,
 		'1/2 cup of water': false,
 		'1/2 cup of cornstarch': false,
 		'1/2 cup of flour': false,
 	});
-	const [category, setCategory] = useState('');
-	const [ingredient, setIngredient] = useState('');
-	const [ingredients, setIngredients] = useState([]);
+	const [category, setCategory] = React.useState('');
+	const [ingredient, setIngredient] = React.useState('');
+	const [ingredients, setIngredients] = React.useState([]);
 	const removeIngredient = (value) => {
 		const newIngredients = ingredients.filter(
 			(ingredient) => ingredient !== value
@@ -163,6 +163,4 @@ const Playground = () => {
 			<p className="P-2 text-red">What's good!</p>
 		</div>
 	);
-};
-
-export default Playground;
+}

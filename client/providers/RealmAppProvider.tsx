@@ -2,15 +2,13 @@ import React from 'react';
 import * as RealmWeb from 'realm-web';
 import { IRealmApp } from '../utils/ServerClientConnection';
 
-interface IChildren {
-    children?: React.ReactNode;
-}
-
-interface IRealmAppProvider extends IChildren {
+interface IRealmAppProvider {
     appId: string;
+    children?: JSX.Element;
 }
 
 interface IRealmAppContext extends IRealmApp{
+    app: RealmWeb.App | null;
     currentUser?: RealmWeb.User;
     setApp: (a: RealmWeb.App) => void;
     logIn: (c: RealmWeb.Credentials) => void;
@@ -18,21 +16,16 @@ interface IRealmAppContext extends IRealmApp{
     logOut: () => void;
 }
 
-const RealmAppContext = React.createContext<IRealmAppContext>({
+const defaultContext = {
     app: null,
     currentUser: null,
     setApp: () => {},
     logIn: () => {},
     logInApiKey: () => {},
     logOut: () => {},
-});
-
-export function UseRealmApp(): IRealmAppContext {
-    const appContext = React.useContext(RealmAppContext);
-
-    if (!appContext) throw new Error('useRealmApp() must be used inside RealmAppProvider');
-    return appContext;
 }
+
+const RealmAppContext = React.createContext<IRealmAppContext>(defaultContext);
 
 export function RealmAppProvider({
     appId,
@@ -43,8 +36,6 @@ export function RealmAppProvider({
 
     React.useEffect(() => {
         setApp(new RealmWeb.App(appId));
-
-        return app
     }, [appId]);
 
     async function logIn(credentials: RealmWeb.Credentials) {
@@ -76,8 +67,15 @@ export function RealmAppProvider({
     }
 
     return (
-    <RealmAppContext.Provider value={{ app, currentUser, setApp, logIn, logInApiKey, logOut }}>
-        {children}
-    </RealmAppContext.Provider>
+        <RealmAppContext.Provider value={{ app, currentUser, setApp, logIn, logInApiKey, logOut }}>
+            {children}
+        </RealmAppContext.Provider>
     );
 }
+
+export const UseRealmApp = () => {
+    const appContext = React.useContext<IRealmAppContext>(RealmAppContext);
+
+    if (!appContext) throw new Error('useRealmApp() must be used inside RealmAppProvider');
+    return appContext;
+};

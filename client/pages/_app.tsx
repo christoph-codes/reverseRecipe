@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/globals.scss';
 
+// TODO: IDK what this is about...
 interface IAppProps {
   Component: any;
   pageProps: any;
@@ -10,6 +11,6 @@ interface IAppProps {
 export default function MyApp({ 
     Component,
     pageProps
-}: IAppProps): React.ReactNode {
+}: IAppProps): JSX.Element {
     return <Component {...pageProps} />
 }

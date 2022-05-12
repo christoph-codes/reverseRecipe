@@ -1,24 +1,24 @@
 import Head from 'next/head';
-import { string, node } from 'prop-types';
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import styles from './PageTemplate.module.scss';
 
 interface IChildren {
-	children?: React.ReactNode;
+	children?: JSX.Element | JSX.Element[];
 }
 
 interface IPageTemplate extends IChildren {
 	className?: string;
 	title: string;
+	rest?: React.HTMLProps<HTMLDivElement>;
 }
 
 export default function PageTemplate({ 
 	className, 
-	title, 
+	title = 'Reverse Recipe', 
 	children, 
 	...rest 
-}: IPageTemplate) {
+}: IPageTemplate): JSX.Element {
 	return (
 		<>
 			<Head>

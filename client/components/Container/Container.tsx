@@ -1,35 +1,27 @@
 import React from 'react';
 import styles from './Container.module.scss';
 
-type TContainerAs = string | ((a: any) => any);
-
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface IContainer extends IChildren {
+interface IContainer extends React.AllHTMLAttributes<HTMLElement> {
 	className?: string;
+	children?: JSX.Element;
 	fluid?: boolean;
-	as?: TContainerAs;
 	ariaLabel?: string;
-	rest?: React.HTMLProps<HTMLElement>; //Not sure if this is correct...
+	as?: any;
 }
 
 export default function Container({ 
 	className, 
-	fluid = false, 
-	as = 'div', 
+	fluid = false,
 	children, 
 	ariaLabel = 'container', 
+	as = 'div',
 	...rest 
-}:IContainer): React.ReactNode {
+}:IContainer): JSX.Element {
 	const As = as;
 	return (
-		<As
-			aria-label={`${ariaLabel || 'container'} `}
+		<As aria-label={`${ariaLabel || 'container'} `}
 			className={`${styles.Container} ${className} ${fluid ? styles.fluid : ''}`}
-			{...rest}
-		>
+			{...rest}>
 			{children}
 		</As>
 	);

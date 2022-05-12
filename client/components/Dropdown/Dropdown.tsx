@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Dropdown.module.scss';
 
-interface IDropdown {
+interface IDropdown extends React.LabelHTMLAttributes<HTMLLabelElement> {
 	name: string;
 	className?: string;
 	label?: string;
@@ -9,7 +9,6 @@ interface IDropdown {
 	options: string[];
 	value: string;
 	setValue: (s: string) => void;
-	rest?: React.HTMLProps<HTMLElement>
 }
 
 export default function Dropdown({
@@ -21,7 +20,7 @@ export default function Dropdown({
 	label = '',
 	placeholder = 'Please Choose',
 	...rest
-}: IDropdown): React.ReactNode {
+}: IDropdown): JSX.Element {
 	const [openDropdown, setOpenDropdown] = React.useState(false);
 	return (
 		<label

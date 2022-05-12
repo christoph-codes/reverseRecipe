@@ -3,16 +3,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styles from './NavLink.module.scss';
 
-interface IChildren {
-	children?: React.ReactNode;
-}
-
-interface INavLink extends IChildren {
+interface INavLink extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 	className?: string;
+	children?: JSX.Element | string;
 	href: string;
 	exact?: boolean;
 	activeClass?: string;
-	rest?: React.HTMLProps<HTMLAnchorElement>;
 }
 
 export default function NavLink({
@@ -22,7 +18,7 @@ export default function NavLink({
 	children,
 	activeClass,
 	...rest
-}: INavLink): React.ReactNode {
+}: INavLink): JSX.Element {
 	const { pathname } = useRouter();
 	const isActive = exact ? pathname === href : pathname.startsWith(href);
 

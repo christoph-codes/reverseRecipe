@@ -1,0 +1,249 @@
+input RecipeInsertInput {
+  measurements: [String]
+  category: String!
+  recipeDescription: String!
+  ingredients: [ObjectId]!
+  instructions: String
+  _id: ObjectId
+  cookTime: Int
+  imgSrc: String
+  name: String!
+}
+
+type InsertManyPayload {
+  insertedIds: [ObjectId]!
+}
+
+input RecipeQueryInput {
+  name_gte: String
+  measurements_in: [String]
+  _id: ObjectId
+  category_nin: [String]
+  category_lte: String
+  measurements_exists: Boolean
+  category_gte: String
+  OR: [RecipeQueryInput!]
+  _id_lte: ObjectId
+  ingredients_exists: Boolean
+  instructions_lt: String
+  cookTime_ne: Int
+  category_lt: String
+  _id_lt: ObjectId
+  recipeDescription_ne: String
+  imgSrc_gte: String
+  name: String
+  name_nin: [String]
+  imgSrc_ne: String
+  _id_gte: ObjectId
+  cookTime: Int
+  name_lt: String
+  cookTime_lte: Int
+  instructions: String
+  recipeDescription_lte: String
+  cookTime_gt: Int
+  cookTime_gte: Int
+  instructions_in: [String]
+  recipeDescription_gte: String
+  imgSrc_nin: [String]
+  imgSrc_in: [String]
+  name_exists: Boolean
+  cookTime_in: [Int]
+  recipeDescription: String
+  ingredients_in: [ObjectId]
+  category_in: [String]
+  _id_ne: ObjectId
+  imgSrc_lte: String
+  name_lte: String
+  category_ne: String
+  instructions_exists: Boolean
+  measurements: [String]
+  recipeDescription_gt: String
+  category_gt: String
+  ingredients: [ObjectId]
+  instructions_nin: [String]
+  AND: [RecipeQueryInput!]
+  recipeDescription_nin: [String]
+  category_exists: Boolean
+  cookTime_lt: Int
+  measurements_nin: [String]
+  instructions_ne: String
+  name_in: [String]
+  instructions_lte: String
+  _id_gt: ObjectId
+  imgSrc: String
+  _id_in: [ObjectId]
+  _id_nin: [ObjectId]
+  imgSrc_gt: String
+  recipeDescription_lt: String
+  cookTime_nin: [Int]
+  recipeDescription_exists: Boolean
+  imgSrc_lt: String
+  imgSrc_exists: Boolean
+  instructions_gte: String
+  cookTime_exists: Boolean
+  name_ne: String
+  category: String
+  name_gt: String
+  _id_exists: Boolean
+  ingredients_nin: [ObjectId]
+  instructions_gt: String
+  recipeDescription_in: [String]
+}
+
+type Recipe {
+  _id: ObjectId!
+  category: String!
+  cookTime: Int
+  imgSrc: String
+  ingredients: [ObjectId]!
+  instructions: String
+  measurements: [String]
+  name: String!
+  recipeDescription: String!
+}
+
+input IngredientQueryInput {
+  imgSrc_ne: String
+  recipes_nin: [ObjectId]
+  imgSrc_in: [String]
+  imgSrc: String
+  imgSrc_lt: String
+  imgSrc_lte: String
+  imgSrc_nin: [String]
+  name_exists: Boolean
+  _id_gt: ObjectId
+  imgSrc_gt: String
+  _id_nin: [ObjectId]
+  name_nin: [String]
+  recipes: [ObjectId]
+  name_lte: String
+  _id: ObjectId
+  _id_in: [ObjectId]
+  name_gt: String
+  OR: [IngredientQueryInput!]
+  name: String
+  name_ne: String
+  AND: [IngredientQueryInput!]
+  name_in: [String]
+  _id_ne: ObjectId
+  recipes_in: [ObjectId]
+  _id_gte: ObjectId
+  _id_lt: ObjectId
+  name_lt: String
+  _id_lte: ObjectId
+  recipes_exists: Boolean
+  imgSrc_exists: Boolean
+  name_gte: String
+  imgSrc_gte: String
+  _id_exists: Boolean
+}
+
+input IngredientUpdateInput {
+  recipes: [ObjectId]
+  recipes_unset: Boolean
+  _id: ObjectId
+  _id_unset: Boolean
+  imgSrc: String
+  imgSrc_unset: Boolean
+  name: String
+  name_unset: Boolean
+}
+
+type UpdateManyPayload {
+  matchedCount: Int!
+  modifiedCount: Int!
+}
+
+scalar ObjectId
+
+type Ingredient {
+  _id: ObjectId!
+  imgSrc: String
+  name: String!
+  recipes: [ObjectId]
+}
+
+type DeleteManyPayload {
+  deletedCount: Int!
+}
+
+type Query {
+  ingredient(query: IngredientQueryInput): Ingredient
+  ingredients(sortBy: IngredientSortByInput, query: IngredientQueryInput, limit: Int = 100): [Ingredient]!
+  recipe(query: RecipeQueryInput): Recipe
+  recipes(sortBy: RecipeSortByInput, query: RecipeQueryInput, limit: Int = 100): [Recipe]!
+}
+
+enum RecipeSortByInput {
+  RECIPEDESCRIPTION_ASC
+  CATEGORY_ASC
+  COOKTIME_ASC
+  IMGSRC_ASC
+  IMGSRC_DESC
+  NAME_DESC
+  RECIPEDESCRIPTION_DESC
+  _ID_DESC
+  COOKTIME_DESC
+  CATEGORY_DESC
+  INSTRUCTIONS_ASC
+  INSTRUCTIONS_DESC
+  NAME_ASC
+  _ID_ASC
+}
+
+type Mutation {
+  deleteManyIngredients(query: IngredientQueryInput): DeleteManyPayload
+  deleteManyRecipes(query: RecipeQueryInput): DeleteManyPayload
+  deleteOneIngredient(query: IngredientQueryInput!): Ingredient
+  deleteOneRecipe(query: RecipeQueryInput!): Recipe
+  insertManyIngredients(data: [IngredientInsertInput!]!): InsertManyPayload
+  insertManyRecipes(data: [RecipeInsertInput!]!): InsertManyPayload
+  insertOneIngredient(data: IngredientInsertInput!): Ingredient
+  insertOneRecipe(data: RecipeInsertInput!): Recipe
+  replaceOneIngredient(data: IngredientInsertInput!, query: IngredientQueryInput): Ingredient
+  replaceOneRecipe(query: RecipeQueryInput, data: RecipeInsertInput!): Recipe
+  updateManyIngredients(query: IngredientQueryInput, set: IngredientUpdateInput!): UpdateManyPayload
+  updateManyRecipes(query: RecipeQueryInput, set: RecipeUpdateInput!): UpdateManyPayload
+  updateOneIngredient(set: IngredientUpdateInput!, query: IngredientQueryInput): Ingredient
+  updateOneRecipe(set: RecipeUpdateInput!, query: RecipeQueryInput): Recipe
+  upsertOneIngredient(query: IngredientQueryInput, data: IngredientInsertInput!): Ingredient
+  upsertOneRecipe(data: RecipeInsertInput!, query: RecipeQueryInput): Recipe
+}
+
+input IngredientInsertInput {
+  imgSrc: String
+  name: String!
+  recipes: [ObjectId]
+  _id: ObjectId
+}
+
+input RecipeUpdateInput {
+  cookTime_unset: Boolean
+  instructions: String
+  instructions_unset: Boolean
+  measurements: [String]
+  imgSrc_unset: Boolean
+  ingredients_unset: Boolean
+  recipeDescription: String
+  measurements_unset: Boolean
+  category_unset: Boolean
+  _id_unset: Boolean
+  ingredients: [ObjectId]
+  imgSrc: String
+  name_unset: Boolean
+  recipeDescription_unset: Boolean
+  _id: ObjectId
+  category: String
+  name: String
+  cookTime_inc: Int
+  cookTime: Int
+}
+
+enum IngredientSortByInput {
+  _ID_ASC
+  _ID_DESC
+  IMGSRC_ASC
+  IMGSRC_DESC
+  NAME_ASC
+  NAME_DESC
+}

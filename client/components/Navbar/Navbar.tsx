@@ -15,7 +15,7 @@ interface INavbar {
 export default function Navbar({ 
 	className, 
 	...rest 
-}: INavbar): React.ReactNode {
+}: INavbar): JSX.Element {
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const navLinks = [
 		{
@@ -42,44 +42,48 @@ export default function Navbar({
 	return (
 		<div className={`${styles.Navbar} bg-primary text-white`} {...rest}>
 			<Container as={Row} className={styles.NavbarContainer}>
-				<Col xs="auto" className={styles.NavbarLogo}>
-					<Link href="/">
-						<a>
-							<Image
-								src="/rr-logo-light.svg"
-								width="234"
-								height="48"
-								layout="intrinsic"
-								alt="Reverse Recipe Logo"
-							/>
-						</a>
-					</Link>
-				</Col>
-				<Col xs="auto" as="ul" className={styles.NavbarNavigation}>
-					{navLinks.map((navLink, index) => {
-						return (
-							<li
-								key={index}
-								className={styles.NavbarNavigationLink}
-							>
-								<NavLink
-									activeClass={
-										styles.NavbarNavigationLinkActive
-									}
-									exact
-									href={navLink.link}
-								>
-									{navLink.label}
-								</NavLink>
-							</li>
-						);
-					})}
-				</Col>
-				<Col className={styles.NavbarHamburger}>
-					<button onClick={toggleSidebar}>
-						<img src="/hamburger.svg" alt="Hamburger menu" />
-					</button>
-				</Col>
+				<>
+					<Col xs="auto" className={styles.NavbarLogo}>
+						<Link href="/">
+							<a>
+								<Image
+									src="/rr-logo-light.svg"
+									width="234"
+									height="48"
+									layout="intrinsic"
+									alt="Reverse Recipe Logo"
+								/>
+							</a>
+						</Link>
+					</Col>
+					<Col xs="auto" as="ul" className={styles.NavbarNavigation}>
+						<>
+							{navLinks.map((navLink, index) => {
+								return (
+									<li
+										key={index}
+										className={styles.NavbarNavigationLink}
+									>
+										<NavLink
+											activeClass={
+												styles.NavbarNavigationLinkActive
+											}
+											exact
+											href={navLink.link}
+										>
+											{navLink.label}
+										</NavLink>
+									</li>
+								);
+							})}
+						</>
+					</Col>
+					<Col className={styles.NavbarHamburger}>
+						<button onClick={toggleSidebar}>
+							<img src="/hamburger.svg" alt="Hamburger menu" />
+						</button>
+					</Col>
+				</>
 			</Container>
 			<aside
 				className={`${styles.NavbarSidebar} ${
