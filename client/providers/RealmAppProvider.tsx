@@ -1,31 +1,21 @@
 import React from 'react';
 import * as RealmWeb from 'realm-web';
-import { IRealmApp } from '../utils/ServerClientConnection';
 
 interface IRealmAppProvider {
     appId: string;
-    children?: JSX.Element;
+    children?: React.ReactNode;
 }
 
-interface IRealmAppContext extends IRealmApp{
-    app: RealmWeb.App | null;
+interface IRealmAppContext {
+    app?: RealmWeb.App;
     currentUser?: RealmWeb.User;
-    setApp: (a: RealmWeb.App) => void;
-    logIn: (c: RealmWeb.Credentials) => void;
-    logInApiKey: (k: string) => void;
-    logOut: () => void;
+    setApp?: (a: RealmWeb.App) => void;
+    logIn?: (c: RealmWeb.Credentials) => void;
+    logInApiKey?: (c: RealmWeb.Credentials) => void;
+    logOut?: () => void;
 }
 
-const defaultContext = {
-    app: null,
-    currentUser: null,
-    setApp: () => {},
-    logIn: () => {},
-    logInApiKey: () => {},
-    logOut: () => {},
-}
-
-const RealmAppContext = React.createContext<IRealmAppContext>(defaultContext);
+const RealmAppContext = React.createContext<IRealmAppContext | null>(null);
 
 export function RealmAppProvider({
     appId,
@@ -36,34 +26,50 @@ export function RealmAppProvider({
 
     React.useEffect(() => {
         setApp(new RealmWeb.App(appId));
-    }, [appId]);
+    }, []);
 
+    // TODO: create credentials with RealmWeb.Credentials.EmailPassword()
     async function logIn(credentials: RealmWeb.Credentials) {
-        // logout without changing state to avoid unnecessary reloads
+        if (credentials.providerType !== "local-userpass") {
+            throw new Error('Must have email/password credentials to log in with this method...');
+        }
         if (app.currentUser) {
-           await app.currentUser.logOut();
+            throw new Error('You must log out before you can log in...');
         }
 
-        await app.logIn(credentials);
-        setCurrentUser(app.currentUser);
+        try {
+            const user = await app.logIn(credentials);
+
+            console.assert(user.id === app.currentUser.id);
+            setCurrentUser(app.currentUser);
+        } catch (err) {
+            console.error('Failed to log in', err);
+        }
     }
 
-    async function logInApiKey(apiKey: string) {
-        const credentials = RealmWeb.Credentials.apiKey(apiKey);
+    async function logInApiKey(credentials: RealmWeb.Credentials) {
+        if (credentials.providerType !== "api-key") {
+            throw new Error('Must have apiKey credentials to log in with this method...');
+        }
+        if (app.currentUser) {
+            throw new Error('You must log out before you can log in...');
+        }
 
         try {
-            const publicUser = await app.logIn(credentials);
+            const user = await app.logIn(credentials);
+
+            console.assert(user.id === app.currentUser.id);
             setCurrentUser(app.currentUser);
-            console.assert(publicUser.id === app.currentUser?.id);
-            return publicUser;
         } catch (err) {
-            console.error('Failed login for public API Key', err);
+            console.error('Failed to log in', err);
         }
     }
 
     async function logOut() {
-        await app.currentUser?.logOut();
-        setCurrentUser(app.currentUser);
+        if (app.currentUser) {
+            await app.currentUser.logOut();
+            setCurrentUser(app.currentUser);
+        }
     }
 
     return (
@@ -74,8 +80,10 @@ export function RealmAppProvider({
 }
 
 export const UseRealmApp = () => {
-    const appContext = React.useContext<IRealmAppContext>(RealmAppContext);
+    const appContext = React.useContext(RealmAppContext);
+    if (!appContext) {
+        throw new Error('useRealmApp() must be used inside RealmAppProvider');
+    }
 
-    if (!appContext) throw new Error('useRealmApp() must be used inside RealmAppProvider');
     return appContext;
 };

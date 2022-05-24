@@ -17,8 +17,8 @@ export const RECIPE = gql`
 `;
 
 export const RECIPES = gql`
-    query getRecipes($q: RecipeQueryInput, $l: Int, $sb: RecipeSortByInput) {
-        recipes(query: $q, limit: $l, sortBy: $sb) {
+    query getRecipes($q: RecipeQueryInput, $lim: Int, $sort: RecipeSortByInput) {
+        recipes(query: $q, limit: $lim, sortBy: $sort) {
             _id
             category
             cookTime

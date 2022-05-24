@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const INGREDIENT = gql`
-    query getIngredient($a: IngredientQueryInput) {
-        ingredient(query: $a) {
+    query getIngredient($q: IngredientQueryInput) {
+        ingredient(query: $q) {
             _id
             name
             imgSrc
@@ -12,8 +12,8 @@ export const INGREDIENT = gql`
 `;
 
 export const INGREDIENTS = gql`
-    query getIngredients($q: IngredientQueryInput, $l: Int, $sb: IngredientSortByInput) {
-        ingredients(query: $q, limit: $l, sortBy: $sb) {
+    query getIngredients($q: IngredientQueryInput, $lim: Int, $sort: IngredientSortByInput) {
+        ingredients(query: $q, limit: $lim, sortBy: $sort) {
             _id
             name
             imgSrc
