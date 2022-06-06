@@ -12,10 +12,10 @@ interface INavbar {
 	rest?: React.HTMLProps<HTMLElement>;
 }
 
-export default function Navbar({ 
+const Navbar = ({ 
 	className, 
 	...rest 
-}: INavbar): JSX.Element {
+}: INavbar) => {
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const navLinks = [
 		{
@@ -117,3 +117,5 @@ export default function Navbar({
 		</div>
 	);
 }
+
+export default Navbar;

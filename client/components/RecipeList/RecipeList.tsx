@@ -2,20 +2,23 @@ import RecipeInfo from '../RecipeInfo';
 import styles from './RecipeList.module.scss';
 import { Recipe } from '../../graphql/generated/Generated';
 
+// TODO: fix generated shit...
 interface IRecipeList {
 	className?: string;
 	recipes?: Recipe[];
 }
 
-export default function RecipeList({ 
+const RecipeList = ({ 
 	recipes, 
 	className
-}: IRecipeList): JSX.Element {
+}: IRecipeList) => {
 	return (
 		<div className={`${styles.RecipeList} ${className}`}>
-			{recipes.map((recipe) => (
+			{recipes && recipes.map((recipe) => (
 				<RecipeInfo key={recipe._id} data={recipe} />
 			))}
 		</div>
 	);
 }
+
+export default RecipeList;

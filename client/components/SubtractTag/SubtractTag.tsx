@@ -8,11 +8,11 @@ interface ISubtractTag extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 // how to define ...rest
 
-export default function SubtractTag({ 
+const SubtractTag = ({ 
 	children, 
 	className, 
 	...rest
-}: ISubtractTag): JSX.Element {
+}: ISubtractTag) => {
 	return (
 		<button className={`${styles.SubtractTag} ${className}`} {...rest}>
 			{children}
@@ -20,3 +20,5 @@ export default function SubtractTag({
 		</button>
 	);
 }
+
+export default SubtractTag;

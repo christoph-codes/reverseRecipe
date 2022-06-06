@@ -5,16 +5,17 @@ import Tag from '../Tag';
 import styles from './Recipe.module.scss';
 import { Recipe } from '../../graphql/generated/Generated';
 
+// TODO: fix generated shit
 interface IRecipe extends React.AllHTMLAttributes<HTMLElement>{
 	recipe: Recipe;
 	className?: string;
 }
 
-export default function RecipeInfo({ 
+const RecipeInfo = ({ 
 	recipe, 
 	className, 
 	...rest 
-}: IRecipe): JSX.Element {
+}: IRecipe) => {
 	
 	return (
 		<Row className={`${styles.Recipe} ${className}`} {...rest}>
@@ -61,3 +62,5 @@ export default function RecipeInfo({
 		</Row>
 	);
 }
+
+export default RecipeInfo;

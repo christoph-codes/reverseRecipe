@@ -5,17 +5,18 @@ import Col from '../Col';
 import styles from './RecipeCard.module.scss';
 import { Recipe } from '../../graphql/generated/Generated';
 
+// TODO: fix generated shit...
 interface IRecipeCard {
 	recipe: Recipe;
 	className?: string;
 	featured?: boolean;
 }
 
-export default function RecipeCard({ 
+const RecipeCard = ({ 
 	recipe, 
 	className, 
 	featured
-}: IRecipeCard): JSX.Element {
+}: IRecipeCard) => {
 
 	return (
 		<Row
@@ -64,3 +65,5 @@ export default function RecipeCard({
 		</Row>
 	);
 }
+
+export default RecipeCard;

@@ -8,13 +8,13 @@ interface ICheckbox extends React.InputHTMLAttributes<HTMLInputElement> {
 	checked?: boolean;
 }
 
-export default function Checkbox({ 
+const Checkbox = ({ 
 	className, 
 	label,
 	name = '',
 	checked = false,
 	...rest
-}: ICheckbox): JSX.Element {
+}: ICheckbox) => {
 
 	function changeHandler() {
 		checked = !checked ?? true;
@@ -37,3 +37,5 @@ export default function Checkbox({
 		</label>
 	);
 }
+
+export default Checkbox;

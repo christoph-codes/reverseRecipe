@@ -1,19 +1,11 @@
 {
-  "name": "reverserecipe",
+  "name": "reverse-recipe",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DebitTwo/reverseRecipe.git"
-  },
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DebitTwo/reverseRecipe/issues"
-  },
-  "homepage": "https://github.com/DebitTwo/reverseRecipe#readme"
+  "license": "ISC"
 }

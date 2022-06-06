@@ -7,12 +7,12 @@ interface ITag extends React.AllHTMLAttributes<HTMLDivElement> {
 	variant?: 'primary' | 'secondary' | 'blue' | 'green' | 'red' | 'yellow';
 }
 
-export default function Tag({ 
+const Tag = ({ 
 	children, 
 	className, 
 	variant = 'primary', 
 	...rest 
-}: ITag): JSX.Element {
+}: ITag) => {
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':
@@ -38,3 +38,5 @@ export default function Tag({
 		</div>
 	);
 }
+
+export default Tag;

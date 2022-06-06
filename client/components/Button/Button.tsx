@@ -8,13 +8,13 @@ interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>{
 	href?: string;
 }
 
-export default function Button({ 
+const Button = ({ 
 	variant = 'primary',  
 	className,
 	children,
 	href = '#',
 	...rest
-}: IButton): JSX.Element {
+}: IButton) => {
 	const getVariant = () => {
 		switch (variant) {
 			case 'primary':
@@ -38,3 +38,5 @@ export default function Button({
 		</button>
 	);
 }
+
+export default Button;

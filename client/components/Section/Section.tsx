@@ -15,7 +15,7 @@ interface ISection extends React.AllHTMLAttributes<HTMLElement> {
 	description?: string;
 }
 
-export default function Section({
+const Section =({
 	children,
 	className,
 	bgImg,
@@ -26,7 +26,7 @@ export default function Section({
 	containerClass,
 	description,
 	...rest
-}: ISection): JSX.Element {
+}: ISection) => {
 	return (
 		<React.Fragment>
 			<section
@@ -61,3 +61,5 @@ export default function Section({
 		</React.Fragment>
 	);
 }
+
+export default Section;

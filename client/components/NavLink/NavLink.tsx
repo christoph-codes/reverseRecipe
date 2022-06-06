@@ -11,14 +11,14 @@ interface INavLink extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
 	activeClass?: string;
 }
 
-export default function NavLink({
+const NavLink = ({
 	className,
 	href,
 	exact,
 	children,
 	activeClass,
 	...rest
-}: INavLink): JSX.Element {
+}: INavLink) => {
 	const { pathname } = useRouter();
 	const isActive = exact ? pathname === href : pathname.startsWith(href);
 
@@ -35,3 +35,5 @@ export default function NavLink({
 		</Link>
 	);
 }
+
+export default NavLink;

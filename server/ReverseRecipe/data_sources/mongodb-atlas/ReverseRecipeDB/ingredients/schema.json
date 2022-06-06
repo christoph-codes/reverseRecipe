@@ -1,0 +1,14 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "imgSrc": {
+            "bsonType": "string"
+        },
+        "name": {
+            "bsonType": "string"
+        }
+    },
+    "title": "ingredient"
+}

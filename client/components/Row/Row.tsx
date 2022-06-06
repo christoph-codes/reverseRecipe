@@ -13,7 +13,7 @@ interface IRow extends React.HTMLAttributes<HTMLDivElement> {
 	as?: any;
 }
 
-export default function Row({ 
+const Row = ({ 
 	className,
 	as = 'div',
 	xs,
@@ -22,9 +22,9 @@ export default function Row({
 	lg,
 	children,
 	...rest
-}: IRow): JSX.Element {
+}: IRow) => {
 	const As = as;
-	const getClassNames = (breakpoint, value) => {
+	const getClassNames = (breakpoint: string, value: any) => {
 		let classNames = '';
 		if (value && value === true) {
 			classNames += ` ROW-COLS-${breakpoint.toUpperCase()}`;
@@ -50,3 +50,5 @@ export default function Row({
 		</As>
 	);
 }
+
+export default Row;

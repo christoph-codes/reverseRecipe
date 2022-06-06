@@ -6,9 +6,9 @@ import React from 'react';
 
 // TODO wtf is this error ...
 //also should this be footer or Footer?
-export default function Footer({ 
+const Footer = ({ 
 	...rest 
-}: React.AllHTMLAttributes<HTMLElement>): JSX.Element {
+}: React.AllHTMLAttributes<HTMLElement>) => {
 	return (
 		<footer className={styles.Footer} {...rest}>
 			<Container as={Row}>
@@ -39,3 +39,5 @@ export default function Footer({
 		</footer>
 	);
 }
+
+export default Footer;

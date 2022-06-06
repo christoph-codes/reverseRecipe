@@ -9,14 +9,14 @@ interface IAddInput {
 	addCallback: (a?: any) => void;
 }
 
-export default function AddInput({ 
+const AddInput = ({ 
 	name = '', 
 	className, 
 	value = '', 
 	setValue = () => {}, 
 	addCallback = () => {}
-}: IAddInput): JSX.Element {
-	const callback = (e) => {
+}: IAddInput) => {
+	const callback = (e: any) => {
 		e.preventDefault();
 		if (value.length > 0) {
 			addCallback();
@@ -40,3 +40,5 @@ export default function AddInput({
 		</label>
 	);
 }
+
+export default AddInput;

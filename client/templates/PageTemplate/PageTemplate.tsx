@@ -26,7 +26,9 @@ export default function PageTemplate({
 			</Head>
 			<div className={`${styles.PageTemplate} ${className}`} {...rest}>
 				<Navbar />
-				<div className={styles.PageTemplateContent}>{children}</div>
+				<div className={styles.PageTemplateContent}>
+					{children}
+				</div>
 				<Footer />
 			</div>
 		</>

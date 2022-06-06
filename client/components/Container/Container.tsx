@@ -9,14 +9,14 @@ interface IContainer extends React.AllHTMLAttributes<HTMLElement> {
 	as?: any;
 }
 
-export default function Container({ 
+const Container = ({ 
 	className, 
 	fluid = false,
 	children, 
 	ariaLabel = 'container', 
 	as = 'div',
 	...rest 
-}:IContainer): JSX.Element {
+}:IContainer) => {
 	const As = as;
 	return (
 		<As aria-label={`${ariaLabel || 'container'} `}
@@ -26,3 +26,5 @@ export default function Container({
 		</As>
 	);
 }
+
+export default Container;

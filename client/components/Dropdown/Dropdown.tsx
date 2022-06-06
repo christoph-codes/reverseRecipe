@@ -11,7 +11,7 @@ interface IDropdown extends React.LabelHTMLAttributes<HTMLLabelElement> {
 	setValue: (s: string) => void;
 }
 
-export default function Dropdown({
+const Dropdown = ({
 	options,
 	className,
 	value,
@@ -20,7 +20,7 @@ export default function Dropdown({
 	label = '',
 	placeholder = 'Please Choose',
 	...rest
-}: IDropdown): JSX.Element {
+}: IDropdown) => {
 	const [openDropdown, setOpenDropdown] = React.useState(false);
 	return (
 		<label
@@ -74,3 +74,5 @@ export default function Dropdown({
 		</label>
 	);
 }
+
+export default Dropdown;

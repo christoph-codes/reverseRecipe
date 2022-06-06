@@ -13,7 +13,7 @@ interface ICol extends React.HTMLAttributes<HTMLDivElement> {
 	as?: any;
 }
 
-export default function Col({ 
+const Col = ({ 
 	className,
 	as = 'div',
 	xs, 
@@ -22,9 +22,9 @@ export default function Col({
 	lg, 
 	children, 
 	...rest 
-}: ICol): JSX.Element {
+}: ICol) => {
 	const As = as;
-	const getClassNames = (breakpoint, value) => {
+	const getClassNames = (breakpoint: string, value: any) => {
 		let classNames = '';
 		if (value && typeof value === 'object') {
 			if (value.order) {
@@ -67,3 +67,5 @@ export default function Col({
 		</As>
 	);
 }
+
+export default Col;

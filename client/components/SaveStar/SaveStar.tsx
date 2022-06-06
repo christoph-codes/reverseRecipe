@@ -6,11 +6,11 @@ interface ISaveStar extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	onClick?: (a: any) => void;
 }
 
-export default function SaveStar({ 
+const SaveStar = ({ 
 	className, 
 	onClick, 
 	...rest 
-}: ISaveStar): JSX.Element {
+}: ISaveStar) => {
 	const [toggleActive, setToggleActive] = React.useState(false);
 
 	return (
@@ -35,3 +35,5 @@ export default function SaveStar({
 		</button>
 	);
 }
+
+export default SaveStar;
