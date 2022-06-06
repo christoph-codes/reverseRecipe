@@ -6,8 +6,8 @@ import AddInput from '../../components/AddInput';
 import Button from '../../components/Button';
 import styles from '../../styles/Home.module.scss';
 import Link from 'next/link';
-import { gql, useLazyQuery } from '@apollo/client';
 import { useRealmContext } from '../../providers/RealmProvider';
+import { IngredientSortByInput, IngredientsQuery, useIngredientsLazyQuery } from '../../graphql/generated/graphql';
 
 const Home = () => {
     const { logOut } = useRealmContext();
@@ -15,16 +15,7 @@ const Home = () => {
     const [ingredient, setIngredient] = React.useState<string>('');
     const [ingredients, setIngredients] = React.useState<string[]>([]);
 
-    const INGREDIENT = gql`
-        query getIngredients($names: [String]) {
-            ingredients(query: { name_in: $names }) {
-                _id
-                name
-            }
-        }
-    `;
-
-    const [getTestIngredients, { data, error, loading }] = useLazyQuery(INGREDIENT);
+    const [getTestIngredients, { data, error, loading }] = useIngredientsLazyQuery();
 
     const addIngredient = () => {
             setIngredients([ ...ingredients, ingredient.toLowerCase() ]);
@@ -71,7 +62,11 @@ const Home = () => {
                     // findRecipe
                         onClick={() => {
                             if (ingredients.length) {
-                                getTestIngredients({ variables: { ingredients }});
+                                getTestIngredients({ variables: {
+                                    sortBy: IngredientSortByInput.NameAsc,
+                                    query: { name_in: ingredients },
+                                    limit: 50,
+                                }});
                             } else {
                                 console.log('none');
                             }

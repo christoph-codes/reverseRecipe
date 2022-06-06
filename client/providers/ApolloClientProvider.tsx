@@ -12,7 +12,7 @@ interface IApolloProvider {
 
 const createApolloClient = (props: ICreateApolloClient) => {
     const link = new HttpLink({
-        uri: `https://us-east-1.aws.realm.mongodb.com/api/client/v2.0/app/${props.app.id}/graphql`,
+        uri: process.env.NEXT_PUBLIC_CONNECTION_URL,
         fetch: async (uri, options: any) => {
             if (!props.app!.currentUser) {
                 throw new Error('must be logged in');
