@@ -9,6 +9,10 @@ export default function Explore(): JSX.Element {
 	// TODO: set recipes is unused...
 	const [recipes, setRecipes] = React.useState([]);
 
+	React.useEffect(() => {
+		// make call to fetch recipes from ingredient names
+	}, []);
+
 	return (
 		<PageTemplate
 			title="Explore Recipes with Reverse Recipe"

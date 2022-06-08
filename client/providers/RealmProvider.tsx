@@ -32,6 +32,8 @@ export const RealmProvider = (props: React.PropsWithChildren<IRealmProvider>) =>
         setApp(new Realm.App(props.appId));
     }, [props.appId]);
 
+    // Public User will be automatically logged in via Client
+    // You must log out public user before attempting to log in to email/pwd account
     async function logIn(credentials: Realm.Credentials) {
         await app.logIn(credentials);
     }

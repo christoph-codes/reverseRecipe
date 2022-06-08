@@ -6,16 +6,13 @@ import AddInput from '../../components/AddInput';
 import Button from '../../components/Button';
 import styles from '../../styles/Home.module.scss';
 import Link from 'next/link';
-import { useRealmContext } from '../../providers/RealmProvider';
-import { IngredientSortByInput, IngredientsQuery, useIngredientsLazyQuery } from '../../graphql/generated/graphql';
+import { useIngredientsContext } from '../../providers/IngredientProvider';
 
 const Home = () => {
-    const { logOut } = useRealmContext();
-    
+    const { cacheNames } = useIngredientsContext();
+
     const [ingredient, setIngredient] = React.useState<string>('');
     const [ingredients, setIngredients] = React.useState<string[]>([]);
-
-    const [getTestIngredients, { data, error, loading }] = useIngredientsLazyQuery();
 
     const addIngredient = () => {
             setIngredients([ ...ingredients, ingredient.toLowerCase() ]);
@@ -26,9 +23,11 @@ const Home = () => {
         setIngredients(updated);
     }
 
-    if (error) console.log(error);
-    if (loading) console.log('loading');
-    if (data) console.log(data);
+    const findRecipes = () => {
+        if (ingredients.length && cacheNames) {
+            cacheNames(ingredients);
+        }
+    }
 
     return (
         <PageTemplate title="Home | Reverse Recipe" className={styles.Home}>
@@ -59,35 +58,17 @@ const Home = () => {
                         })}
                     </div>
                     <Button
-                    // findRecipe
-                        onClick={() => {
-                            if (ingredients.length) {
-                                getTestIngredients({ variables: {
-                                    sortBy: IngredientSortByInput.NameAsc,
-                                    query: { name_in: ingredients },
-                                    limit: 50,
-                                }});
-                            } else {
-                                console.log('none');
-                            }
-
-                            if (data) {
-                                console.log(data);
-                            }
-                        }}
+                        href={ingredients.length ? '/results' : '/explore'}
+                        disabled={!ingredients.length}
                         className={styles.HomeRecipeButton}
                     >
-                        Find Recipe
+                        {!ingredients.length ? 'Explore Recipes' : ingredients.length > 1 ? 'Find Recipes' : 'Find Reciep'}
                     </Button>
                     <hr />
                     <p>
                         Wanna explore our recipe list?{' '}
                         <Link href="/explore">Explore Now</Link>
                     </p>
-
-                    <Button onClick={() => {
-                        logOut();
-                    }}>Log Out</Button>
                 </>
             </Section>
         </PageTemplate>

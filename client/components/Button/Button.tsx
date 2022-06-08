@@ -1,11 +1,13 @@
+import Link from 'next/link';
 import React from 'react';
 import styles from './Button.module.scss';
 
-interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement>{
+interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement & HTMLAnchorElement> {
 	variant?: 'primary' | 'secondary' | 'tertiary';
 	className?: string;
 	children?: string | JSX.Element & Omit<JSX.Element, 'a'>; // idk if this will exclude a tags or not
 	href?: string;
+	isDisabled?: boolean;
 }
 
 const Button = ({ 
@@ -13,6 +15,7 @@ const Button = ({
 	className,
 	children,
 	href = '#',
+	isDisabled = false,
 	...rest
 }: IButton) => {
 	const getVariant = () => {
@@ -27,15 +30,17 @@ const Button = ({
 				return 'primary';
 		}
 	};
+	const Tag = href ? Link : 'button';
 	return (
-		<button
+		<Tag
+			type={!href ? 'button' : undefined}
 			className={`${styles.Button} ${getVariant()} ${className}`}
+			disabled={isDisabled}
+			href={href}
 			{...rest}
 		>
-			<a href={href}>
-				{children}
-			</a>
-		</button>
+			{children}
+		</Tag>
 	);
 }
 
