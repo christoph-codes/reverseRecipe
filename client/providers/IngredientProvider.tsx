@@ -3,47 +3,66 @@ import { Ingredient } from '../graphql/generated/graphql';
 
 interface IIngredients {
     ingredients?: Ingredient[];
-    names?: string[];
-    ids?: string[];
-    cacheIngredients?: (list: Ingredient[]) => void;
-    cacheNames?: (list: string[]) => void;
-    cacheIds?: (list: string[]) => void;
+    searchNames?: string[];
+    cachedNames?: string[];
+    cachedIds?: string[];
+    cacheIngredients: (list: Ingredient[], isCacheNames?: boolean, isCacheIds?: boolean) => void;
+    setSearchNames: (list: string[]) => void;
+    cacheNames: (list: string[]) => void;
+    cacheIds: (list: string[]) => void;
 }
 
 const IngredientsContext = React.createContext<IIngredients>({
     ingredients: [],
-    names: [],
-    ids: [],
+    searchNames: [],
+    cachedNames: [],
+    cachedIds: [],
     cacheIngredients: () => {},
+    setSearchNames: () => {},
     cacheNames: () => {},
     cacheIds: () => {}
 });
 
 export const IngredientsProvider = (props: PropsWithChildren<IIngredients>) => {
     const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
-    const [names, setNames] = React.useState<string[]>([]);
-    const [ids, setIds] = React.useState<string[]>([]);
+    const [searchNames, setSearchNames] = React.useState<string[]>([]);
+    const [cachedNames, setCachedNames] = React.useState<string[]>([]);
+    const [cachedIds, setCachedIds] = React.useState<string[]>([]);
 
-    const cacheIngredients = (list?: Ingredient[]) => {
-        if (list?.length) {
+    const cacheIngredients = (
+        list: Ingredient[], 
+        isCacheNames: boolean = true, 
+        isCacheIds: boolean = true
+    ) => {
+        if (list.length) {
             setIngredients(list);
+            isCacheNames && setCachedNames(list.map((item) => item?.name ?? ''));
+            isCacheIds && setCachedIds(list.map((item) => item?._id ?? ''));
         }
     }
 
     const cacheNames = (list?: string[]) => {
         if (list?.length) {
-            setNames(list);
+            setCachedNames(list);
         }
     }
 
     const cacheIds = (list?: string[]) => {
         if (list?.length) {
-            setIds(list);
+            setCachedIds(list);
         }
     }
 
     return (
-        <IngredientsContext.Provider value={{ ingredients, names, ids, cacheIngredients, cacheNames, cacheIds }}>
+        <IngredientsContext.Provider value={{ 
+            ingredients, 
+            searchNames, 
+            cachedNames, 
+            cachedIds, 
+            cacheIngredients, 
+            setSearchNames, 
+            cacheNames, 
+            cacheIds }}>
             {props.children}
         </IngredientsContext.Provider>
     );

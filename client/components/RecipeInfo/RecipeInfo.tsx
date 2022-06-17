@@ -1,9 +1,9 @@
+import { Recipe } from '../../graphql/generated/graphql';
 import Button from '../Button';
 import Col from '../Col';
 import Row from '../Row';
 import Tag from '../Tag';
 import styles from './Recipe.module.scss';
-import { Recipe } from '../../graphql/generated/Generated';
 
 // TODO: fix generated shit
 interface IRecipe extends React.AllHTMLAttributes<HTMLElement>{
@@ -23,23 +23,22 @@ const RecipeInfo = ({
 				<Col sm={2} xs={12}>
 					<img
 						className={styles.RecipeImage}
-						src={recipe.imgSrc}
-						alt={recipe.name}
+						src={recipe.imgSrc ?? ''}
+						alt={recipe.name ?? ''}
 					/>
 				</Col>
 				<Col>
 					<>
 						<h3>
-							{recipe.name} <Tag className="MB-0 ML-H">{recipe.category}</Tag>
+							{recipe.name} <Tag className="MB-0 ML-H">{recipe.category ?? ''}</Tag>
 						</h3>
-						<p>{recipe.recipeDescription ?? 'no description'}</p>
 						<Row>
 							<>
 								<Col xs={12} md={6}>
 									<p className={styles.RecipeIcons}>
 										<img src="/icon-carrot.svg" alt="carrot" />
 										Ingredients: &nbsp;
-										<strong>{recipe.ingredients.length}</strong>
+										<strong>{recipe.ingredients?.length}</strong>
 									</p>
 								</Col>
 								<Col xs={12} md={6}>

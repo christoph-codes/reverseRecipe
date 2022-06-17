@@ -7,9 +7,12 @@ import Button from '../../components/Button';
 import styles from '../../styles/Home.module.scss';
 import Link from 'next/link';
 import { useIngredientsContext } from '../../providers/IngredientProvider';
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 
-const Home = () => {
-    const { cacheNames } = useIngredientsContext();
+const Home: NextPage = () => {
+    const router = useRouter();
+    const { setSearchNames } = useIngredientsContext();
 
     const [ingredient, setIngredient] = React.useState<string>('');
     const [ingredients, setIngredients] = React.useState<string[]>([]);
@@ -23,10 +26,12 @@ const Home = () => {
         setIngredients(updated);
     }
 
-    const findRecipes = () => {
-        if (ingredients.length && cacheNames) {
-            cacheNames(ingredients);
+    const findRecipes = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (ingredients.length) {
+            setSearchNames(ingredients);
         }
+        router.push(ingredients.length ? '/results' : '/explore');
     }
 
     return (
@@ -58,11 +63,11 @@ const Home = () => {
                         })}
                     </div>
                     <Button
-                        href={ingredients.length ? '/results' : '/explore'}
                         disabled={!ingredients.length}
                         className={styles.HomeRecipeButton}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => findRecipes(e)}
                     >
-                        {!ingredients.length ? 'Explore Recipes' : ingredients.length > 1 ? 'Find Recipes' : 'Find Reciep'}
+                        {!ingredients.length ? 'Explore Recipe' : ingredients.length > 1 ? 'Find Recipes' : 'Find Recipe'}
                     </Button>
                     <hr />
                     <p>

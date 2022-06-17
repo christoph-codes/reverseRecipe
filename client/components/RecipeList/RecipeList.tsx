@@ -1,11 +1,11 @@
+import { Recipe } from '../../graphql/generated/graphql';
 import RecipeInfo from '../RecipeInfo';
 import styles from './RecipeList.module.scss';
-import { Recipe } from '../../graphql/generated/Generated';
 
 // TODO: fix generated shit...
 interface IRecipeList {
 	className?: string;
-	recipes?: Recipe[];
+	recipes?: (Recipe | null)[];
 }
 
 const RecipeList = ({ 
@@ -14,9 +14,11 @@ const RecipeList = ({
 }: IRecipeList) => {
 	return (
 		<div className={`${styles.RecipeList} ${className}`}>
-			{recipes && recipes.map((recipe) => (
-				<RecipeInfo key={recipe._id} data={recipe} />
-			))}
+			{recipes && recipes.map((recipe) => {
+				if (recipe) {
+					return <RecipeInfo key={recipe._id} recipe={recipe} />
+				}
+			})}
 		</div>
 	);
 }

@@ -3,7 +3,7 @@ import Button from '../Button';
 import Row from '../Row';
 import Col from '../Col';
 import styles from './RecipeCard.module.scss';
-import { Recipe } from '../../graphql/generated/Generated';
+import { Recipe } from '../../graphql/generated/graphql';
 
 // TODO: fix generated shit...
 interface IRecipeCard {
@@ -35,18 +35,17 @@ const RecipeCard = ({
 								Featured
 							</Tag>
 						)}
-						<img src={recipe.imgSrc} alt={recipe.name} />
+						<img src={recipe.imgSrc ?? ''} alt={recipe.name ?? ''} />
 					</>
 				</Col>
 				<Col>
 					<div className={styles.RecipeCardContent}>
-						<Tag>{recipe.category}</Tag>
+						<Tag>{recipe.category ?? ''}</Tag>
 						<h3>{recipe.name}</h3>
-						<p>{recipe.recipeDescription}</p>
 						<p className={styles.RecipeCardIcon}>
 							<img src="/icon-carrot.svg" alt="carrot" />
 							Ingredients:&nbsp;
-							<strong>{recipe.ingredients.length}</strong>
+							<strong>{recipe.ingredients?.length}</strong>
 						</p>
 						<p className={styles.RecipeCardIcon}>
 							<img src="/icon-clock.svg" alt="carrot" />

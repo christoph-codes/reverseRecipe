@@ -1,0 +1,12 @@
+query Recipes($sortBy: RecipeSortByInput, $query: RecipeQueryInput, $limit: Int) {
+    recipes(sortBy: $sortBy, query: $query, limit: $limit) {
+        _id
+        category
+        cookTime
+        imgSrc
+        ingredients
+        instructions
+        measurements
+        name
+    }
+}

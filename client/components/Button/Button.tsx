@@ -14,7 +14,7 @@ const Button = ({
 	variant = 'primary',  
 	className,
 	children,
-	href = '#',
+	href,
 	isDisabled = false,
 	...rest
 }: IButton) => {
@@ -36,10 +36,14 @@ const Button = ({
 			type={!href ? 'button' : undefined}
 			className={`${styles.Button} ${getVariant()} ${className}`}
 			disabled={isDisabled}
-			href={href}
+			href={href ? href : ''}
 			{...rest}
 		>
-			{children}
+			{href ?
+				<a className={`${styles.Button} ${getVariant()} ${className}`}>
+					{children}
+				</a> : children
+			}
 		</Tag>
 	);
 }

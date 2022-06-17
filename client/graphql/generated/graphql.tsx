@@ -382,6 +382,22 @@ export type IngredientsQueryVariables = Exact<{
 
 export type IngredientsQuery = { __typename?: 'Query', ingredients: Array<{ __typename?: 'Ingredient', _id?: any | null, imgSrc?: string | null, name?: string | null } | null> };
 
+export type RecipeQueryVariables = Exact<{
+  query?: InputMaybe<RecipeQueryInput>;
+}>;
+
+
+export type RecipeQuery = { __typename?: 'Query', recipe?: { __typename?: 'Recipe', _id?: any | null, category?: string | null, cookTime?: number | null, imgSrc?: string | null, ingredients?: Array<string | null> | null, instructions?: string | null, measurements?: Array<string | null> | null, name?: string | null } | null };
+
+export type RecipesQueryVariables = Exact<{
+  sortBy?: InputMaybe<RecipeSortByInput>;
+  query?: InputMaybe<RecipeQueryInput>;
+  limit?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type RecipesQuery = { __typename?: 'Query', recipes: Array<{ __typename?: 'Recipe', _id?: any | null, category?: string | null, cookTime?: number | null, imgSrc?: string | null, ingredients?: Array<string | null> | null, instructions?: string | null, measurements?: Array<string | null> | null, name?: string | null } | null> };
+
 
 export const IngredientDocument = gql`
     query ingredient($query: IngredientQueryInput) {
@@ -459,3 +475,89 @@ export function useIngredientsLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type IngredientsQueryHookResult = ReturnType<typeof useIngredientsQuery>;
 export type IngredientsLazyQueryHookResult = ReturnType<typeof useIngredientsLazyQuery>;
 export type IngredientsQueryResult = Apollo.QueryResult<IngredientsQuery, IngredientsQueryVariables>;
+export const RecipeDocument = gql`
+    query Recipe($query: RecipeQueryInput) {
+  recipe(query: $query) {
+    _id
+    category
+    cookTime
+    imgSrc
+    ingredients
+    instructions
+    measurements
+    name
+  }
+}
+    `;
+
+/**
+ * __useRecipeQuery__
+ *
+ * To run a query within a React component, call `useRecipeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecipeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecipeQuery({
+ *   variables: {
+ *      query: // value for 'query'
+ *   },
+ * });
+ */
+export function useRecipeQuery(baseOptions?: Apollo.QueryHookOptions<RecipeQuery, RecipeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecipeQuery, RecipeQueryVariables>(RecipeDocument, options);
+      }
+export function useRecipeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecipeQuery, RecipeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecipeQuery, RecipeQueryVariables>(RecipeDocument, options);
+        }
+export type RecipeQueryHookResult = ReturnType<typeof useRecipeQuery>;
+export type RecipeLazyQueryHookResult = ReturnType<typeof useRecipeLazyQuery>;
+export type RecipeQueryResult = Apollo.QueryResult<RecipeQuery, RecipeQueryVariables>;
+export const RecipesDocument = gql`
+    query Recipes($sortBy: RecipeSortByInput, $query: RecipeQueryInput, $limit: Int) {
+  recipes(sortBy: $sortBy, query: $query, limit: $limit) {
+    _id
+    category
+    cookTime
+    imgSrc
+    ingredients
+    instructions
+    measurements
+    name
+  }
+}
+    `;
+
+/**
+ * __useRecipesQuery__
+ *
+ * To run a query within a React component, call `useRecipesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecipesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecipesQuery({
+ *   variables: {
+ *      sortBy: // value for 'sortBy'
+ *      query: // value for 'query'
+ *      limit: // value for 'limit'
+ *   },
+ * });
+ */
+export function useRecipesQuery(baseOptions?: Apollo.QueryHookOptions<RecipesQuery, RecipesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecipesQuery, RecipesQueryVariables>(RecipesDocument, options);
+      }
+export function useRecipesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecipesQuery, RecipesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecipesQuery, RecipesQueryVariables>(RecipesDocument, options);
+        }
+export type RecipesQueryHookResult = ReturnType<typeof useRecipesQuery>;
+export type RecipesLazyQueryHookResult = ReturnType<typeof useRecipesLazyQuery>;
+export type RecipesQueryResult = Apollo.QueryResult<RecipesQuery, RecipesQueryVariables>;

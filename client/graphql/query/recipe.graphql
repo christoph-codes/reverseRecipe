@@ -1,0 +1,12 @@
+query Recipe($query: RecipeQueryInput) {
+    recipe(query: $query) {
+        _id
+        category
+        cookTime
+        imgSrc
+        ingredients
+        instructions
+        measurements
+        name
+    }
+}
