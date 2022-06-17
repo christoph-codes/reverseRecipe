@@ -1,9 +1,0 @@
-{
-    "field_name": "queryIngredientsFromIdList",
-    "function_name": "queryIngredientsFromIdList",
-    "input_type": "objectId",
-    "input_type_format": "scalar-list",
-    "on_type": "Query",
-    "payload_type": "Ingredient",
-    "payload_type_format": "generated-list"
-}

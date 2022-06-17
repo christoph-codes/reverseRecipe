@@ -14,15 +14,12 @@
 		background-color: $primary;
 		color: $white;
 		&:hover {
-			background-color: $darkup;
-			color: $primary-bright;
+			background-color: $primary-light;
 		}
-	}
-	&Primary {
-		background-color: $primary;
-		color: $white;
-		&:hover {
-			background-color: $darkup;
+		a {
+			color: $white;
+		}
+		&:hover a {
 			color: $primary-bright;
 		}
 	}

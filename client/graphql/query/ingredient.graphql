@@ -1,0 +1,7 @@
+query ingredient($query: IngredientQueryInput) {
+    ingredient(query: $query) {
+        _id
+        imgSrc
+        name
+    }
+}

@@ -1,0 +1,33 @@
+@import '../../styles/colors';
+.Card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+	border-radius: 1rem;
+    background: $white;
+    width: 33.33333%;
+    height: 50%;
+
+    .title {
+        display: flex;
+        margin-top: 1rem;
+        justify-content: center;
+    }
+
+    .content {
+        display: flex;
+        flex-grow: 1 !important;
+        min-height: 1rem;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: end;
+        margin-top: 1rem;
+    }
+}

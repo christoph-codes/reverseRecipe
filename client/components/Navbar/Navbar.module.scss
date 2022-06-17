@@ -81,11 +81,11 @@
 					color: $primary-bright !important;
 				}
 				a {
-					color: $primary-light;
+					color: $white;
 					line-height: 4rem;
 					transition: 0.15s;
 					&:hover {
-						color: $primary-bright;
+						color: $primary-light;
 					}
 				}
 			}
