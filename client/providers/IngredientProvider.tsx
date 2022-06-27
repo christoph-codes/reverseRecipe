@@ -1,68 +1,56 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useCallback } from 'react';
 import { Ingredient } from '../graphql/generated/graphql';
 
-interface IIngredients {
+interface IIngredientQueryInfo {
+    names?: string[];
+    ids?: string[];
+}
+interface IIngredientProviderProps {
     ingredients?: Ingredient[];
-    searchNames?: string[];
-    cachedNames?: string[];
-    cachedIds?: string[];
-    cacheIngredients: (list: Ingredient[], isCacheNames?: boolean, isCacheIds?: boolean) => void;
-    setSearchNames: (list: string[]) => void;
-    cacheNames: (list: string[]) => void;
-    cacheIds: (list: string[]) => void;
+    queryInfo?: IIngredientQueryInfo;
+    updateIngredients: (i: Ingredient[]) => void;
+    updateQueryInfo: (q: IIngredientQueryInfo) => void;
 }
 
-const IngredientsContext = React.createContext<IIngredients>({
+const IngredientsContext = React.createContext<IIngredientProviderProps>({
     ingredients: [],
-    searchNames: [],
-    cachedNames: [],
-    cachedIds: [],
-    cacheIngredients: () => {},
-    setSearchNames: () => {},
-    cacheNames: () => {},
-    cacheIds: () => {}
+    queryInfo: {
+        names: [],
+        ids: []
+    },
+    updateIngredients: ([]) => {},
+    updateQueryInfo: ({}) => {}
 });
 
-export const IngredientsProvider = (props: PropsWithChildren<IIngredients>) => {
-    const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
-    const [searchNames, setSearchNames] = React.useState<string[]>([]);
-    const [cachedNames, setCachedNames] = React.useState<string[]>([]);
-    const [cachedIds, setCachedIds] = React.useState<string[]>([]);
+export const IngredientsProvider = (props: PropsWithChildren<IIngredientProviderProps>) => {
+    const [ingredients, setIngredients] = React.useState<Ingredient[]>(() => {
+        const ingredientsItem = sessionStorage.getItem('ingredients');
+        return ingredientsItem ? JSON.parse(ingredientsItem) : [];
+    });
+    const [queryInfo, setQueryInfo] = React.useState<IIngredientQueryInfo>(() => {
+        const queryInfoItem = sessionStorage.getItem('ingredientQueryInfo');
+        return queryInfoItem ? JSON.parse(queryInfoItem) : {};
+    });
 
-    const cacheIngredients = (
-        list: Ingredient[], 
-        isCacheNames: boolean = true, 
-        isCacheIds: boolean = true
-    ) => {
-        if (list.length) {
-            setIngredients(list);
-            isCacheNames && setCachedNames(list.map((item) => item?.name ?? ''));
-            isCacheIds && setCachedIds(list.map((item) => item?._id ?? ''));
-        }
-    }
+    const updateIngredients = useCallback(() => {
+        sessionStorage.setItem('ingredients', JSON.stringify(ingredients));
+        setIngredients(ingredients);
+        return;
+    }, [sessionStorage.getItem('ingredients')]);
 
-    const cacheNames = (list?: string[]) => {
-        if (list?.length) {
-            setCachedNames(list);
-        }
-    }
-
-    const cacheIds = (list?: string[]) => {
-        if (list?.length) {
-            setCachedIds(list);
-        }
-    }
+    const updateQueryInfo = useCallback(() => {
+        sessionStorage.setItem('ingredientQueryInfo', JSON.stringify(queryInfo));
+        setQueryInfo(queryInfo);
+        return;
+    }, [sessionStorage.getItem('ingredientQueryInfo')]);
 
     return (
         <IngredientsContext.Provider value={{ 
-            ingredients, 
-            searchNames, 
-            cachedNames, 
-            cachedIds, 
-            cacheIngredients, 
-            setSearchNames, 
-            cacheNames, 
-            cacheIds }}>
+            ingredients,
+            queryInfo,
+            updateIngredients,
+            updateQueryInfo
+         }}>
             {props.children}
         </IngredientsContext.Provider>
     );

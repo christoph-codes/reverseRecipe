@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
     const router = useRouter();
-    const { setSearchNames } = useIngredientsContext();
+    const { queryInfo, updateQueryInfo } = useIngredientsContext();
 
     const [ingredient, setIngredient] = React.useState<string>('');
     const [ingredients, setIngredients] = React.useState<string[]>([]);
@@ -29,7 +29,10 @@ const Home: NextPage = () => {
     const findRecipes = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         if (ingredients.length) {
-            setSearchNames(ingredients);
+            updateQueryInfo({
+                names: ingredients,
+                ids: queryInfo ? queryInfo.ids : []
+            });
         }
         router.push(ingredients.length ? '/results' : '/explore');
     }

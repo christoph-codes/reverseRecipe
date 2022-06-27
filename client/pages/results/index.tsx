@@ -6,25 +6,53 @@ import PageTemplate from '../../templates/PageTemplate';
 import styles from './Results.module.scss';
 import { useIngredientsContext } from '../../providers/IngredientProvider';
 import { Recipe, RecipeSortByInput, useRecipesLazyQuery } from '../../graphql/generated/graphql';
+import { useRecipesContext } from '../../providers/RecipesProvider';
 
 export default function Results(): JSX.Element {
-	const { searchNames } = useIngredientsContext();
+	const { queryInfo } = useIngredientsContext();
+	const { updateRecipes } = useRecipesContext();
 
-	// for some reasone $limit is required even though a default is specified in the resolver.
-	const [getRecipes, { error, loading, data }] = useRecipesLazyQuery();
+	const [recipes, setRecipes] = React.useState<Recipe[]>(() => {
+		const recipesItem = sessionStorage.getItem('recipes');
+		return recipesItem ? JSON.parse(recipesItem) : [];
+	});
+	const [getRecipes, { loading, error, data}] = useRecipesLazyQuery();
 
 
 	useEffect(() => {
-		if (searchNames) {
+		if (!!recipes.length && queryInfo?.names) {
 			getRecipes({
 				variables: { 
 					sortBy: RecipeSortByInput.NameAsc,
-					query: { ingredients_in: searchNames as [string] },
+					query: { ingredients_in: queryInfo.names as [string] },
 					limit: 20
 				}
 			});
 		}
-	}, [searchNames]);
+	}, [queryInfo?.names]);
+
+	const showLoadingContent = () => {
+		return (<h1> Loading Recipes for you...</h1>);
+	};
+
+	const showErrorContent = () => {
+		return (<h1>Oops... There was an error getting your Recipes...</h1>);
+	};
+
+	const showRecipeContent = () => {
+		if (data?.recipes) {
+			updateRecipes(data.recipes);
+		}
+		return (
+			<React.Fragment>
+				<p className="text-center">
+					Here is what we found for your list of ingredients.
+				</p>
+				{data?.recipes[0] && <RecipeCard featured recipe={data.recipes[0]} />}
+				{data?.recipes && data?.recipes.length > 1 && <RecipeList recipes={data.recipes.slice(1)} />}
+			</React.Fragment>
+		)
+	};
 
 	return (
 		<PageTemplate
@@ -34,17 +62,9 @@ export default function Results(): JSX.Element {
 			<Section>
 				<React.Fragment>
 					<h1 className="text-center">Recipe's For Your Ingredients</h1>
-					{loading && <h1>Loading</h1>}
-					{!loading && error && <h1>There was an error getting your Recipe's</h1>}
-					{!loading && data && 
-						<React.Fragment>
-							<p className="text-center">
-								Here is what we found for your list of ingredients.
-							</p>
-							{data?.recipes[0] && <RecipeCard featured recipe={data.recipes[0]} />}
-							{data?.recipes && data?.recipes.length > 1 && <RecipeList recipes={data.recipes.slice(1)} />}
-						</React.Fragment>
-					}
+					{loading && showLoadingContent()}
+					{!loading && error && showErrorContent()}
+					{!loading && data && showRecipeContent()}
 				</React.Fragment>
 			</Section>
 		</PageTemplate>
