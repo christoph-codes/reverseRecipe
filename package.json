@@ -1,11 +1,21 @@
 {
-  "name": "reverse-recipe",
+  "name": "awsTry100",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "serverless offline start"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "apollo-server-lambda": "^3.10.0",
+    "graphql": "^16.5.0",
+    "serverless-offline": "^9.1.4",
+    "serverless-webpack": "^5.8.0",
+    "ts-loader": "^9.3.1",
+    "webpack": "^5.74.0",
+    "webpack-node-externals": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
 }
