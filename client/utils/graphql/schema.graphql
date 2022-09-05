@@ -1,0 +1,87 @@
+# Types ===========
+type User {
+  id: String!
+  first: String!
+  last: String!
+  email: String!
+}
+
+type Ingredient {
+  id: String!
+  name: String!
+}
+
+type Recipe {
+  id: String!
+  name: String!
+  imgSrc: String
+  cookTime: Int
+  ingredients: [String]
+  instructions: String
+  measurements: [String]
+  category: String
+}
+
+# Input Type Objects ===========
+input IUser {
+  id: String!
+  first: String
+  last: String
+  email: String
+}
+
+input IIngredient {
+  id: String!
+  name: String
+}
+
+input IRecipe {
+  id: String!
+  name: String
+  imgSrc: String
+  cookTime: Int
+  ingredients: [String]
+  instructions: String
+  measurements: [String]
+  category: String
+}
+
+# Mutation Response Types ===========
+type UserResponse {
+  count: Int!
+  data: [User]!
+  error: String
+}
+
+type IngredientResponse {
+  count: Int!
+  data: [Ingredient]!
+  error: String
+}
+
+type RecipeResponse {
+  count: Int!
+  data: [Recipe]!
+  error: String
+}
+
+# Queries ===========
+type Query {
+  user(id: String!): User
+  listUsers(ids: [String!]!): [User]!
+  ingredient(id: String!): Ingredient
+  listIngredients(ids: [String!]!): [Ingredient]!
+  recipe(id: String!): Recipe
+  listRecipes(ids: [String!]!): [Recipe]!
+}
+
+# Mutations ===========
+type Mutation {
+  addUser(opts: IUser): UserResponse
+  deleteUser(opts: IUser): UserResponse
+  addIngredient(opts: IIngredient): IngredientResponse
+  deleteIngredient(opts: IIngredient): IngredientResponse
+  addRecipe(opts: IRecipe): RecipeResponse
+  deleteRecipe(opts: IRecipe): RecipeResponse
+  # batch mutations
+}

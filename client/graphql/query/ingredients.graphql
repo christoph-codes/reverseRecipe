@@ -1,7 +1,0 @@
-query Ingredients($sortBy: IngredientSortByInput, $query: IngredientQueryInput, $limit: Int = 50) {
-    ingredients(sortBy: $sortBy, query: $query, limit: $limit) {
-        _id
-        imgSrc
-        name
-    }
-}

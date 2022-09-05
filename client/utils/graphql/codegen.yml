@@ -1,0 +1,24 @@
+overwrite: true
+schema: utils/graphql/schema.graphql
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+    - eslint --fix
+generates:
+    ./utils/graphql/generated/generated-types.ts:
+        documents:
+            - "utils/graphql/queries/*.graphql"
+            - "utils/graphql/mutations/*.graphql"
+        plugins:
+            - "typescript"
+            - "typescript-operations"
+            - "typescript-react-query"
+    ./utils/graphql/generated/generated-resolvers.ts:
+        config:
+            useIndexSignature: true
+        plugins:
+            - "typescript"
+            - "typescript-resolvers"
+    ./utils/graphql/generated/generated-typedefs.ts:
+        plugins:
+            - "./utils/graphql/typescript-typedefs.js"

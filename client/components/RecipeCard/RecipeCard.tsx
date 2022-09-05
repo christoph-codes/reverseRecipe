@@ -3,7 +3,7 @@ import Button from '../Button';
 import Row from '../Row';
 import Col from '../Col';
 import styles from './RecipeCard.module.scss';
-import { Recipe } from '../../graphql/generated/graphql';
+import { Recipe } from '../../pages/api/graphql/generated/graphql';
 
 // TODO: fix generated shit...
 interface IRecipeCard {

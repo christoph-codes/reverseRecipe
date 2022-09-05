@@ -1,0 +1,14 @@
+# Dependency directories
+client/node_modules
+package-lock.json
+client/package-lock.json
+client/**/*.d.ts
+.DS_Store
+
+# Testing output
+
+# Environment files
+client/.env
+
+# serviceAccount.json
+client/serviceAccount.json
