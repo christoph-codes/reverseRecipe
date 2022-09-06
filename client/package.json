@@ -10,8 +10,6 @@
     "codegen": "graphql-codegen --config utils/graphql/codegen.yml"
   },
   "dependencies": {
-    "@graphql-codegen/typescript-react-query": "^4.0.1",
-    "@graphql-codegen/typescript-resolvers": "^2.7.3",
     "@graphql-yoga/node": "^2.13.13",
     "firebase-admin": "^11.0.1",
     "graphql": "^16.5.0",
@@ -26,6 +24,8 @@
     "@graphql-codegen/cli": "^2.12.0",
     "@graphql-codegen/typescript": "^2.7.3",
     "@graphql-codegen/typescript-operations": "^2.5.3",
+    "@graphql-codegen/typescript-react-query": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^2.7.3",
     "@types/node": "17.0.36",
     "@types/react": "18.0.9",
     "@types/react-dom": "18.0.5",

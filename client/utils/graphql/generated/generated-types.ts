@@ -45,73 +45,68 @@ export type Scalars = {
 };
 
 export type IIngredient = {
-	id: Scalars['String'];
-	name?: InputMaybe<Scalars['String']>;
+	id?: InputMaybe<Scalars['String']>;
+	name: Scalars['String'];
 };
 
 export type IRecipe = {
 	category?: InputMaybe<Scalars['String']>;
 	cookTime?: InputMaybe<Scalars['Int']>;
-	id: Scalars['String'];
+	id?: InputMaybe<Scalars['String']>;
 	imgSrc?: InputMaybe<Scalars['String']>;
 	ingredients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 	instructions?: InputMaybe<Scalars['String']>;
 	measurements?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-	name?: InputMaybe<Scalars['String']>;
+	name: Scalars['String'];
 };
 
 export type IUser = {
-	email?: InputMaybe<Scalars['String']>;
-	first?: InputMaybe<Scalars['String']>;
-	id: Scalars['String'];
-	last?: InputMaybe<Scalars['String']>;
+	email: Scalars['String'];
+	first: Scalars['String'];
+	id?: InputMaybe<Scalars['String']>;
+	last: Scalars['String'];
 };
 
 export type Ingredient = {
 	__typename?: 'Ingredient';
+	created: Scalars['String'];
 	id: Scalars['String'];
 	name: Scalars['String'];
-};
-
-export type IngredientResponse = {
-	__typename?: 'IngredientResponse';
-	count: Scalars['Int'];
-	data: Array<Maybe<Ingredient>>;
-	error?: Maybe<Scalars['String']>;
+	updated: Scalars['String'];
 };
 
 export type Mutation = {
 	__typename?: 'Mutation';
-	addIngredient?: Maybe<IngredientResponse>;
-	addRecipe?: Maybe<RecipeResponse>;
-	addUser?: Maybe<UserResponse>;
-	deleteIngredient?: Maybe<IngredientResponse>;
-	deleteRecipe?: Maybe<RecipeResponse>;
-	deleteUser?: Maybe<UserResponse>;
+	addIngredient: ResponseObject;
+	addRecipe: ResponseObject;
+	addUser: ResponseObject;
+	deleteIngredient: ResponseObject;
+	deleteRecipe: ResponseObject;
+	deleteUser: ResponseObject;
 };
 
 export type MutationAddIngredientArgs = {
-	opts?: InputMaybe<IIngredient>;
+	data: IIngredient;
 };
 
 export type MutationAddRecipeArgs = {
-	opts?: InputMaybe<IRecipe>;
+	data: IRecipe;
 };
 
 export type MutationAddUserArgs = {
-	opts?: InputMaybe<IUser>;
+	data: IUser;
 };
 
 export type MutationDeleteIngredientArgs = {
-	opts?: InputMaybe<IIngredient>;
+	id: Scalars['String'];
 };
 
 export type MutationDeleteRecipeArgs = {
-	opts?: InputMaybe<IRecipe>;
+	id: Scalars['String'];
 };
 
 export type MutationDeleteUserArgs = {
-	opts?: InputMaybe<IUser>;
+	id: Scalars['String'];
 };
 
 export type Query = {
@@ -152,34 +147,38 @@ export type Recipe = {
 	__typename?: 'Recipe';
 	category?: Maybe<Scalars['String']>;
 	cookTime?: Maybe<Scalars['Int']>;
+	created: Scalars['String'];
 	id: Scalars['String'];
 	imgSrc?: Maybe<Scalars['String']>;
 	ingredients?: Maybe<Array<Maybe<Scalars['String']>>>;
 	instructions?: Maybe<Scalars['String']>;
 	measurements?: Maybe<Array<Maybe<Scalars['String']>>>;
 	name: Scalars['String'];
+	updated: Scalars['String'];
 };
 
-export type RecipeResponse = {
-	__typename?: 'RecipeResponse';
+export type ResponseObject = {
+	__typename?: 'ResponseObject';
 	count: Scalars['Int'];
-	data: Array<Maybe<Recipe>>;
+	data: Array<Maybe<UData>>;
 	error?: Maybe<Scalars['String']>;
 };
 
+export type TId = {
+	__typename?: 'TId';
+	id: Scalars['String'];
+};
+
+export type UData = Ingredient | Recipe | TId | User;
+
 export type User = {
 	__typename?: 'User';
+	created: Scalars['String'];
 	email: Scalars['String'];
 	first: Scalars['String'];
 	id: Scalars['String'];
 	last: Scalars['String'];
-};
-
-export type UserResponse = {
-	__typename?: 'UserResponse';
-	count: Scalars['Int'];
-	data: Array<Maybe<User>>;
-	error?: Maybe<Scalars['String']>;
+	updated: Scalars['String'];
 };
 
 export type UserQueryVariables = Exact<{

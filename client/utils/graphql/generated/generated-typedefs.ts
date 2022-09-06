@@ -5,41 +5,38 @@ export const typeDefs = /* GraphQL */ `
 		mutation: Mutation
 	}
 	input IIngredient {
-		id: String!
-		name: String
+		id: String
+		name: String!
 	}
 	input IRecipe {
 		category: String
 		cookTime: Int
-		id: String!
+		id: String
 		imgSrc: String
 		ingredients: [String]
 		instructions: String
 		measurements: [String]
-		name: String
-	}
-	input IUser {
-		email: String
-		first: String
-		id: String!
-		last: String
-	}
-	type Ingredient {
-		id: String!
 		name: String!
 	}
-	type IngredientResponse {
-		count: Int!
-		data: [Ingredient]!
-		error: String
+	input IUser {
+		email: String!
+		first: String!
+		id: String
+		last: String!
+	}
+	type Ingredient {
+		created: String!
+		id: String!
+		name: String!
+		updated: String!
 	}
 	type Mutation {
-		addIngredient(opts: IIngredient): IngredientResponse
-		addRecipe(opts: IRecipe): RecipeResponse
-		addUser(opts: IUser): UserResponse
-		deleteIngredient(opts: IIngredient): IngredientResponse
-		deleteRecipe(opts: IRecipe): RecipeResponse
-		deleteUser(opts: IUser): UserResponse
+		addIngredient(data: IIngredient!): ResponseObject!
+		addRecipe(data: IRecipe!): ResponseObject!
+		addUser(data: IUser!): ResponseObject!
+		deleteIngredient(id: String!): ResponseObject!
+		deleteRecipe(id: String!): ResponseObject!
+		deleteUser(id: String!): ResponseObject!
 	}
 	type Query {
 		ingredient(id: String!): Ingredient
@@ -52,27 +49,30 @@ export const typeDefs = /* GraphQL */ `
 	type Recipe {
 		category: String
 		cookTime: Int
+		created: String!
 		id: String!
 		imgSrc: String
 		ingredients: [String]
 		instructions: String
 		measurements: [String]
 		name: String!
+		updated: String!
 	}
-	type RecipeResponse {
+	type ResponseObject {
 		count: Int!
-		data: [Recipe]!
+		data: [UData]!
 		error: String
 	}
+	type TId {
+		id: String!
+	}
+	union UData = Ingredient | Recipe | TId | User
 	type User {
+		created: String!
 		email: String!
 		first: String!
 		id: String!
 		last: String!
-	}
-	type UserResponse {
-		count: Int!
-		data: [User]!
-		error: String
+		updated: String!
 	}
 `;
