@@ -1,35 +1,50 @@
-import * as admin from 'firebase-admin';
 import { Resolvers } from '../generated/generated-resolvers';
+import { getItem, listItems, ECollectionType } from './functions';
 import {
     User,
     Ingredient,
     Recipe
 } from '../generated/generated-types';
 
-const serviceAccount = require('../../../serviceAccount.json');
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
-
-async function user(args: { id: string }) {
-    const res = await admin
-    .firestore()
-    .collection('reverseRecipe')
-    .where('id', '==', args.id)
-    .get();
-    
-    // TODO: Figure out how to convert firestore return type to graphql type in resolver
-    return res.docs[0].data as unknown as User;
-};
-
-// TODO: define remaining resolvers
-
 export const resolvers: Resolvers = {
     Query: {
         user: (parent, args, context, info) => {
-            return user(args);
+            return getItem<User>(args, ECollectionType.USER);
         },
-        // TODO: define remaining resolvers
+        listUsers: (parent, args, context, info) => {
+            return listItems<User>(args, ECollectionType.USER);
+        },
+        ingredient: (parent, args, context, info) => {
+            return getItem<Ingredient>(args, ECollectionType.INGREDIENT);
+        },
+        listIngredients: (parent, args, context, info) => {
+            return listItems<Ingredient>(args, ECollectionType.USER);
+        },
+        recipe: (parent, args, context, info) => {
+            return getItem<Recipe>(args,ECollectionType.RECIPE);
+        },
+        listRecipes: (parent, args, context, info) => {
+            return listItems<Recipe>(args, ECollectionType.USER);
+        },
+    },
+    Mutation: {
+        addUser: (parent, args, context, info) => {
+
+        },
+        deleteUser: (parent, args, context, info) => {
+
+        },
+        addIngredient: (parent, args, context, info) => {
+
+        },
+        deleteIngredient: (parent, args, context, info) => {
+
+        },
+        addRecipe: (parent, args, context, info) => {
+
+        },
+        deleteRecipe: (parent, args, context, info) => {
+
+        },
     }
 };
