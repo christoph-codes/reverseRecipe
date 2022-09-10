@@ -10,6 +10,7 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
 	[SubKey in K]: Maybe<T[SubKey]>;
 };
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & {
 	[P in K]-?: NonNullable<T[P]>;
 };
@@ -23,73 +24,68 @@ export type Scalars = {
 };
 
 export type IIngredient = {
-	id: Scalars['String'];
-	name?: InputMaybe<Scalars['String']>;
+	id?: InputMaybe<Scalars['String']>;
+	name: Scalars['String'];
 };
 
 export type IRecipe = {
 	category?: InputMaybe<Scalars['String']>;
 	cookTime?: InputMaybe<Scalars['Int']>;
-	id: Scalars['String'];
+	id?: InputMaybe<Scalars['String']>;
 	imgSrc?: InputMaybe<Scalars['String']>;
 	ingredients?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 	instructions?: InputMaybe<Scalars['String']>;
 	measurements?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-	name?: InputMaybe<Scalars['String']>;
+	name: Scalars['String'];
 };
 
 export type IUser = {
-	email?: InputMaybe<Scalars['String']>;
-	first?: InputMaybe<Scalars['String']>;
-	id: Scalars['String'];
-	last?: InputMaybe<Scalars['String']>;
+	email: Scalars['String'];
+	first: Scalars['String'];
+	id?: InputMaybe<Scalars['String']>;
+	last: Scalars['String'];
 };
 
 export type Ingredient = {
 	__typename?: 'Ingredient';
+	created: Scalars['String'];
 	id: Scalars['String'];
 	name: Scalars['String'];
-};
-
-export type IngredientResponse = {
-	__typename?: 'IngredientResponse';
-	count: Scalars['Int'];
-	data: Array<Maybe<Ingredient>>;
-	error?: Maybe<Scalars['String']>;
+	updated: Scalars['String'];
 };
 
 export type Mutation = {
 	__typename?: 'Mutation';
-	addIngredient?: Maybe<IngredientResponse>;
-	addRecipe?: Maybe<RecipeResponse>;
-	addUser?: Maybe<UserResponse>;
-	deleteIngredient?: Maybe<IngredientResponse>;
-	deleteRecipe?: Maybe<RecipeResponse>;
-	deleteUser?: Maybe<UserResponse>;
+	addIngredient: ResponseObject;
+	addRecipe: ResponseObject;
+	addUser: ResponseObject;
+	deleteIngredient: ResponseObject;
+	deleteRecipe: ResponseObject;
+	deleteUser: ResponseObject;
 };
 
 export type MutationAddIngredientArgs = {
-	opts?: InputMaybe<IIngredient>;
+	data: IIngredient;
 };
 
 export type MutationAddRecipeArgs = {
-	opts?: InputMaybe<IRecipe>;
+	data: IRecipe;
 };
 
 export type MutationAddUserArgs = {
-	opts?: InputMaybe<IUser>;
+	data: IUser;
 };
 
 export type MutationDeleteIngredientArgs = {
-	opts?: InputMaybe<IIngredient>;
+	id: Scalars['String'];
 };
 
 export type MutationDeleteRecipeArgs = {
-	opts?: InputMaybe<IRecipe>;
+	id: Scalars['String'];
 };
 
 export type MutationDeleteUserArgs = {
-	opts?: InputMaybe<IUser>;
+	id: Scalars['String'];
 };
 
 export type Query = {
@@ -130,34 +126,38 @@ export type Recipe = {
 	__typename?: 'Recipe';
 	category?: Maybe<Scalars['String']>;
 	cookTime?: Maybe<Scalars['Int']>;
+	created: Scalars['String'];
 	id: Scalars['String'];
 	imgSrc?: Maybe<Scalars['String']>;
 	ingredients?: Maybe<Array<Maybe<Scalars['String']>>>;
 	instructions?: Maybe<Scalars['String']>;
 	measurements?: Maybe<Array<Maybe<Scalars['String']>>>;
 	name: Scalars['String'];
+	updated: Scalars['String'];
 };
 
-export type RecipeResponse = {
-	__typename?: 'RecipeResponse';
+export type ResponseObject = {
+	__typename?: 'ResponseObject';
 	count: Scalars['Int'];
-	data: Array<Maybe<Recipe>>;
+	data: Array<Maybe<UData>>;
 	error?: Maybe<Scalars['String']>;
 };
 
+export type TId = {
+	__typename?: 'TId';
+	id: Scalars['String'];
+};
+
+export type UData = Ingredient | Recipe | TId | User;
+
 export type User = {
 	__typename?: 'User';
+	created: Scalars['String'];
 	email: Scalars['String'];
 	first: Scalars['String'];
 	id: Scalars['String'];
 	last: Scalars['String'];
-};
-
-export type UserResponse = {
-	__typename?: 'UserResponse';
-	count: Scalars['Int'];
-	data: Array<Maybe<User>>;
-	error?: Maybe<Scalars['String']>;
+	updated: Scalars['String'];
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -275,15 +275,23 @@ export type ResolversTypes = ResolversObject<{
 	IRecipe: IRecipe;
 	IUser: IUser;
 	Ingredient: ResolverTypeWrapper<Ingredient>;
-	IngredientResponse: ResolverTypeWrapper<IngredientResponse>;
 	Int: ResolverTypeWrapper<Scalars['Int']>;
 	Mutation: ResolverTypeWrapper<{}>;
 	Query: ResolverTypeWrapper<{}>;
 	Recipe: ResolverTypeWrapper<Recipe>;
-	RecipeResponse: ResolverTypeWrapper<RecipeResponse>;
+	ResponseObject: ResolverTypeWrapper<
+		Omit<ResponseObject, 'data'> & {
+			data: Array<Maybe<ResolversTypes['UData']>>;
+		}
+	>;
 	String: ResolverTypeWrapper<Scalars['String']>;
+	TId: ResolverTypeWrapper<TId>;
+	UData:
+		| ResolversTypes['Ingredient']
+		| ResolversTypes['Recipe']
+		| ResolversTypes['TId']
+		| ResolversTypes['User'];
 	User: ResolverTypeWrapper<User>;
-	UserResponse: ResolverTypeWrapper<UserResponse>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -293,37 +301,31 @@ export type ResolversParentTypes = ResolversObject<{
 	IRecipe: IRecipe;
 	IUser: IUser;
 	Ingredient: Ingredient;
-	IngredientResponse: IngredientResponse;
 	Int: Scalars['Int'];
 	Mutation: {};
 	Query: {};
 	Recipe: Recipe;
-	RecipeResponse: RecipeResponse;
+	ResponseObject: Omit<ResponseObject, 'data'> & {
+		data: Array<Maybe<ResolversParentTypes['UData']>>;
+	};
 	String: Scalars['String'];
+	TId: TId;
+	UData:
+		| ResolversParentTypes['Ingredient']
+		| ResolversParentTypes['Recipe']
+		| ResolversParentTypes['TId']
+		| ResolversParentTypes['User'];
 	User: User;
-	UserResponse: UserResponse;
 }>;
 
 export type IngredientResolvers<
 	ContextType = any,
 	ParentType extends ResolversParentTypes['Ingredient'] = ResolversParentTypes['Ingredient']
 > = ResolversObject<{
+	created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type IngredientResponseResolvers<
-	ContextType = any,
-	ParentType extends ResolversParentTypes['IngredientResponse'] = ResolversParentTypes['IngredientResponse']
-> = ResolversObject<{
-	count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-	data?: Resolver<
-		Array<Maybe<ResolversTypes['Ingredient']>>,
-		ParentType,
-		ContextType
-	>;
-	error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+	updated?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -332,40 +334,40 @@ export type MutationResolvers<
 	ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']
 > = ResolversObject<{
 	addIngredient?: Resolver<
-		Maybe<ResolversTypes['IngredientResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationAddIngredientArgs>
+		RequireFields<MutationAddIngredientArgs, 'data'>
 	>;
 	addRecipe?: Resolver<
-		Maybe<ResolversTypes['RecipeResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationAddRecipeArgs>
+		RequireFields<MutationAddRecipeArgs, 'data'>
 	>;
 	addUser?: Resolver<
-		Maybe<ResolversTypes['UserResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationAddUserArgs>
+		RequireFields<MutationAddUserArgs, 'data'>
 	>;
 	deleteIngredient?: Resolver<
-		Maybe<ResolversTypes['IngredientResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationDeleteIngredientArgs>
+		RequireFields<MutationDeleteIngredientArgs, 'id'>
 	>;
 	deleteRecipe?: Resolver<
-		Maybe<ResolversTypes['RecipeResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationDeleteRecipeArgs>
+		RequireFields<MutationDeleteRecipeArgs, 'id'>
 	>;
 	deleteUser?: Resolver<
-		Maybe<ResolversTypes['UserResponse']>,
+		ResolversTypes['ResponseObject'],
 		ParentType,
 		ContextType,
-		Partial<MutationDeleteUserArgs>
+		RequireFields<MutationDeleteUserArgs, 'id'>
 	>;
 }>;
 
@@ -421,6 +423,7 @@ export type RecipeResolvers<
 		ContextType
 	>;
 	cookTime?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+	created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	imgSrc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 	ingredients?: Resolver<
@@ -439,55 +442,63 @@ export type RecipeResolvers<
 		ContextType
 	>;
 	name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	updated?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type RecipeResponseResolvers<
+export type ResponseObjectResolvers<
 	ContextType = any,
-	ParentType extends ResolversParentTypes['RecipeResponse'] = ResolversParentTypes['RecipeResponse']
+	ParentType extends ResolversParentTypes['ResponseObject'] = ResolversParentTypes['ResponseObject']
 > = ResolversObject<{
 	count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
 	data?: Resolver<
-		Array<Maybe<ResolversTypes['Recipe']>>,
+		Array<Maybe<ResolversTypes['UData']>>,
 		ParentType,
 		ContextType
 	>;
 	error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type TIdResolvers<
+	ContextType = any,
+	ParentType extends ResolversParentTypes['TId'] = ResolversParentTypes['TId']
+> = ResolversObject<{
+	id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type UDataResolvers<
+	ContextType = any,
+	ParentType extends ResolversParentTypes['UData'] = ResolversParentTypes['UData']
+> = ResolversObject<{
+	__resolveType: TypeResolveFn<
+		'Ingredient' | 'Recipe' | 'TId' | 'User',
+		ParentType,
+		ContextType
+	>;
 }>;
 
 export type UserResolvers<
 	ContextType = any,
 	ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']
 > = ResolversObject<{
+	created?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	first?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	last?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type UserResponseResolvers<
-	ContextType = any,
-	ParentType extends ResolversParentTypes['UserResponse'] = ResolversParentTypes['UserResponse']
-> = ResolversObject<{
-	count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-	data?: Resolver<
-		Array<Maybe<ResolversTypes['User']>>,
-		ParentType,
-		ContextType
-	>;
-	error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+	updated?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
 	__isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Resolvers<ContextType = any> = ResolversObject<{
 	Ingredient?: IngredientResolvers<ContextType>;
-	IngredientResponse?: IngredientResponseResolvers<ContextType>;
 	Mutation?: MutationResolvers<ContextType>;
 	Query?: QueryResolvers<ContextType>;
 	Recipe?: RecipeResolvers<ContextType>;
-	RecipeResponse?: RecipeResponseResolvers<ContextType>;
+	ResponseObject?: ResponseObjectResolvers<ContextType>;
+	TId?: TIdResolvers<ContextType>;
+	UData?: UDataResolvers<ContextType>;
 	User?: UserResolvers<ContextType>;
-	UserResponse?: UserResponseResolvers<ContextType>;
 }>;

@@ -51,3 +51,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 * TODO: CI/CD Pipeline
 * TODO: consider paginated queries
     * firestore .../docs/firestroe/query-data/query-cursors
+* TODO: update *.md files
