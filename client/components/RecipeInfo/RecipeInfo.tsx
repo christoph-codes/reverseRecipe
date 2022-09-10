@@ -1,4 +1,4 @@
-import { Recipe } from '../../graphql/generated/graphql';
+import { Recipe } from '../../pages/api/graphql/generated/graphql';
 import Button from '../Button';
 import Col from '../Col';
 import Row from '../Row';

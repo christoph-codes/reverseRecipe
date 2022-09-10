@@ -1,4 +1,4 @@
-import { Recipe } from '../../graphql/generated/graphql';
+import { Recipe } from '../../pages/api/graphql/generated/graphql';
 import RecipeInfo from '../RecipeInfo';
 import styles from './RecipeList.module.scss';
 

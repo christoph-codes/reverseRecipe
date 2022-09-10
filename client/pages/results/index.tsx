@@ -5,7 +5,7 @@ import RecipeCard from '../../components/RecipeCard';
 import PageTemplate from '../../templates/PageTemplate';
 import styles from './Results.module.scss';
 import { useIngredientsContext } from '../../providers/IngredientProvider';
-import { Recipe, RecipeSortByInput, useRecipesLazyQuery } from '../../graphql/generated/graphql';
+import { Recipe, RecipeSortByInput, useRecipesLazyQuery } from '../api/graphql/generated/graphql';
 
 export default function Results(): JSX.Element {
 	const { searchNames } = useIngredientsContext();

@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { Ingredient } from '../graphql/generated/graphql';
+import { Ingredient } from '../pages/api/graphql/generated/graphql';
 
 interface IIngredients {
     ingredients?: Ingredient[];
