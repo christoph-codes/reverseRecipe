@@ -13,20 +13,20 @@ interface IPageTemplate extends IChildren {
 	rest?: React.HTMLProps<HTMLDivElement>;
 }
 
-export default function PageTemplate({ 
-	className, 
-	title = 'Reverse Recipe', 
-	children, 
-	...rest 
+export default function PageTemplate({
+	className,
+	title = 'Reverse Recipe',
+	children,
+	...rest
 }: IPageTemplate): JSX.Element {
 	return (
 		<>
 			<Head>
 				<title>{title}</title>
 			</Head>
-			<div className={`${styles.PageTemplate} ${className}`} {...rest}>
+			<div className={styles.PageTemplate} {...rest}>
 				<Navbar />
-				<div className={styles.PageTemplateContent}>
+				<div className={`${styles.PageTemplateContent}  ${className}`}>
 					{children}
 				</div>
 				<Footer />
