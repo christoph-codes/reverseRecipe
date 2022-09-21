@@ -6,33 +6,28 @@ import AddInput from '../../components/AddInput';
 import Button from '../../components/Button';
 import styles from '../../styles/Home.module.scss';
 import Link from 'next/link';
-import { useIngredientsContext } from '../../providers/IngredientProvider';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 const Home: NextPage = () => {
     const router = useRouter();
-    const { setSearchNames } = useIngredientsContext();
 
     const [ingredient, setIngredient] = React.useState<string>('');
     const [ingredients, setIngredients] = React.useState<string[]>([]);
 
     const addIngredient = () => {
-            setIngredients([ ...ingredients, ingredient.toLowerCase() ]);
-        }
+        setIngredients([...ingredients, ingredient.toLowerCase()]);
+    };
 
     const removeIngredient = (value: string) => {
         const updated = ingredients.filter((ingredient) => ingredient !== value);
         setIngredients(updated);
-    }
+    };
 
     const findRecipes = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (ingredients.length) {
-            setSearchNames(ingredients);
-        }
         router.push(ingredients.length ? '/results' : '/explore');
-    }
+    };
 
     return (
         <PageTemplate title="Home | Reverse Recipe" className={styles.Home}>
@@ -51,16 +46,16 @@ const Home: NextPage = () => {
                     />
                     <div className={styles.HomeIngredientsList}>
                         {ingredients && ingredients.length > 0 &&
-                        ingredients.map((ingredient, index) => {
-                            return (
-                            <SubtractTag
-                                key={index}
-                                onClick={() => removeIngredient(ingredient.toLowerCase())}
-                            >
-                                {ingredient}
-                            </SubtractTag>
-                            );
-                        })}
+                            ingredients.map((ingredient, index) => {
+                                return (
+                                    <SubtractTag
+                                        key={index}
+                                        onClick={() => removeIngredient(ingredient.toLowerCase())}
+                                    >
+                                        {ingredient}
+                                    </SubtractTag>
+                                );
+                            })}
                     </div>
                     <Button
                         disabled={!ingredients.length}

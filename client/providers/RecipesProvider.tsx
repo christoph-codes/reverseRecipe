@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { Recipe } from '../pages/api/graphql/generated/graphql';
+import { Recipe } from '../utils/graphql/generated/generated-types';
 
 interface IRecipes {
     recipes?: Recipe[];
