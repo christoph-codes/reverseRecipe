@@ -12,10 +12,7 @@ interface INavbar {
 	rest?: React.HTMLProps<HTMLElement>;
 }
 
-const Navbar = ({ 
-	className, 
-	...rest 
-}: INavbar) => {
+const Navbar = ({ className, ...rest }: INavbar) => {
 	const [sidebarOpen, setSidebarOpen] = React.useState(false);
 	const navLinks = [
 		{
@@ -26,14 +23,14 @@ const Navbar = ({
 			label: 'Support',
 			link: '/support',
 		},
-		// {
-		// 	label: 'Login',
-		// 	link: '/login',
-		// },
-		// {
-		// 	label: 'Sign Up',
-		// 	link: '/signup',
-		// },
+		{
+			label: 'Login',
+			link: '/login',
+		},
+		{
+			label: 'Sign Up',
+			link: '/signup',
+		},
 	];
 	const toggleSidebar = () => {
 		setSidebarOpen(!sidebarOpen);
@@ -116,6 +113,6 @@ const Navbar = ({
 			</aside>
 		</div>
 	);
-}
+};
 
 export default Navbar;
