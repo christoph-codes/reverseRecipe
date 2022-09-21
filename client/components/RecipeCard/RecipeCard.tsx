@@ -3,7 +3,7 @@ import Button from '../Button';
 import Row from '../Row';
 import Col from '../Col';
 import styles from './RecipeCard.module.scss';
-import { Recipe } from '../../pages/api/graphql/generated/graphql';
+import { Recipe } from '../../utils/graphql/generated/generated-types';
 
 // TODO: fix generated shit...
 interface IRecipeCard {
@@ -18,6 +18,7 @@ const RecipeCard = ({
 	featured
 }: IRecipeCard) => {
 
+	console.log(recipe.imgSrc);
 	return (
 		<Row
 			className={`${styles.RecipeCard} ${

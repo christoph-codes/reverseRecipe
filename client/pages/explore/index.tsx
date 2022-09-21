@@ -4,13 +4,14 @@ import Section from '../../components/Section';
 import RecipeList from '../../components/RecipeList';
 import RecipeCard from '../../components/RecipeCard';
 import styles from './Explore.module.scss';
+import { testRecipes } from '../../utils/test/recipes';
+import { Recipe } from '../../utils/graphql/generated/generated-types';
 
 export default function Explore(): JSX.Element {
-	// TODO: set recipes is unused...
-	const [recipes, setRecipes] = React.useState([]);
+	const [recipes, setRecipes] = React.useState<Recipe[]>(testRecipes);
 
 	React.useEffect(() => {
-		// make call to fetch recipes from ingredient names
+		setRecipes(testRecipes);
 	}, []);
 
 	return (

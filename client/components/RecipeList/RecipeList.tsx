@@ -1,4 +1,5 @@
-import { Recipe } from '../../pages/api/graphql/generated/graphql';
+
+import { Recipe } from '../../utils/graphql/generated/generated-types';
 import RecipeInfo from '../RecipeInfo';
 import styles from './RecipeList.module.scss';
 
@@ -16,7 +17,7 @@ const RecipeList = ({
 		<div className={`${styles.RecipeList} ${className}`}>
 			{recipes && recipes.map((recipe) => {
 				if (recipe) {
-					return <RecipeInfo key={recipe._id} recipe={recipe} />
+					return <RecipeInfo key={recipe.id} recipe={recipe} />
 				}
 			})}
 		</div>
