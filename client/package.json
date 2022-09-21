@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "codegen": "graphql-codegen --config utils/graphql/codegen.yml"
+    "codegen": "graphql-codegen --config utils/graphql/codegen.yml",
+    "emu": "firebase emulators:start"
   },
   "dependencies": {
     "@graphql-yoga/node": "^2.13.13",
+    "firebase": "^9.10.0",
     "firebase-admin": "^11.0.1",
+    "firebase-tools": "^11.9.0",
     "graphql": "^16.5.0",
     "next": "12.1.6",
     "react": "18.1.0",
